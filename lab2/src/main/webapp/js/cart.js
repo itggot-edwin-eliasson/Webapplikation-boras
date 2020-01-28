@@ -1,17 +1,44 @@
-const items = document.querySelector("#items"),
-  shoppingCartContent = document.querySelector("#cart-content tbody");
+$(document).ready(function() {
+    shoppingCartContent = document.querySelector("#cart-content tbody");
+    $(".card").click(function() {
+        getItemInfo(this);
+    });
+});
 
-  loadEventListeners();
-
-function loadEventListeners(){
-    //when new item is added
-    items.addEventListener('click', buyItems);
-
-function buyItems(e){
-    if (e.target.classList.contains('card-front')){
-        //read the item value
-        console.log("click!");
-        const item = e.target.parentElement.parentElement;
-        getItemInfo(item);
+function getItemInfo(item) {
+    const itemInfo = {
+        image: item.querySelector("img").src,
+        title: item.querySelector("h5").textContent,
+        price: item.querySelector("h6").textContent
+    };
+    addToCart(itemInfo);
+}
+function addToCart(item) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <tr class="item">
+            <td>
+                <img src="${item.image}" width="100">
+            </td>
+            <td>
+                ${item.title}
+            </td>
+            <td class="price">
+                ${item.price}
+            </td>
+        </tr>
+        `
+            ;
+    shoppingCartContent.appendChild(row);
+    updatePrice();
+}
+function updatePrice(){
+    totalPrice = document.querySelector("#total-price");
+    prices = document.querySelectorAll(".price");
+    var sum = 0;
+    for(let price of prices){
+        sum += price.textContent.substring(0, price.textContent.length - 2);
     }
-}}
+    totalPrice.textContent = "Total price: " + sum + "$";
+}
+
