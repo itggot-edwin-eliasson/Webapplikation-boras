@@ -37,7 +37,7 @@ function updatePrice(){
     prices = document.querySelectorAll(".price");
     var sum = 0;
     for(let price of prices){
-        sum += price.textContent.substring(0, price.textContent.length - 2);
+        sum += parseInt(price.textContent.substring(0, price.textContent.length - 1));
     }
     totalPrice.textContent = "Total price: " + sum + "$";
 }
