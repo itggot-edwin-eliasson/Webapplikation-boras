@@ -6,7 +6,7 @@
 package com.edwine.model.dao;
 
 import com.edwine.model.entity.Account;
-import com.edwine.model.entity.Favorites;
+import com.edwine.model.entity.Film;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,19 +15,18 @@ import lombok.Getter;
 
 /**
  *
- * @author benja
+ * @author edwin
  */
 @Stateless
-public class FavoritesDAO extends AbstractDAO<Favorites> {
+public class FilmDAO extends AbstractDAO<Film>{
     @Getter @PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
     
-    public FavoritesDAO(){
-        super(Favorites.class);
+    public FilmDAO(){
+        super(Film.class);
     }
     
     public List<Account> findUsersMatchingName() {
         throw new UnsupportedOperationException("Not implemented yet!");
     }
-    
 }

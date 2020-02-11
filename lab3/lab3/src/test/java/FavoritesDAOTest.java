@@ -1,6 +1,10 @@
 
-import com.edwine.model.dao.AccountDAO;
-import com.edwine.model.entity.Account;
+import com.edwine.model.dao.FavoritesDAO;
+import com.edwine.model.dao.favoritesDAO;
+import com.edwine.model.entity.Favorites;
+import com.edwine.model.entity.FavoritesKey;
+import com.edwine.model.entity.Film;
+import com.edwine.model.entity.FilmKey;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -23,24 +27,24 @@ import org.junit.runner.RunWith;
  * @author edwin
  */
 @RunWith(Arquillian.class)
-public class AccountDAOTest {
-        @Deployment
+public class FavoritesDAOTest {
+    @Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(AccountDAO.class, Account.class)
+			.addClasses(FavoritesDAO.class, Favorites.class, FavoritesKey.class)
 			.addAsResource("META-INF/persistence.xml")
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	private	AccountDAO accountDAO;
+	private	FavoritesDAO favoritesDAO;
 
 	@Before
 	public void init() {
-                accountDAO.removeAll();
-                accountDAO.create(new Account("Pedds", "Edwin Eliasson"));
-                accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
-                accountDAO.create(new Account("Poppi", "Pontus Backman"));
+                favoritesDAO.removeAll();
+                favoritesDAO.create(new Favorites(new FavoritesKey("", "The Joker"), 70));
+                favoritesDAO.create(new Favorites());
+                favoritesDAO.create(new Favorites());
 	}
 
 	@Test

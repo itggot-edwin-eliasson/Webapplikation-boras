@@ -6,24 +6,27 @@
 package com.edwine.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import java.util.Date;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 /**
  *
- * @author benja
+ * @author edwin
  */
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
-public class FavoritesKey implements Serializable {
-    @Column(name="film_id")
-    private Film film;
-    @Column(name="account_id")
-    private Account account;
+public class Film implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long film_id;
+    
+    private String title;
+    private int releaseYear;
+    private String genre;
+    private String director;
 }

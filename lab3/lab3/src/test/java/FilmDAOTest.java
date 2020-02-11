@@ -1,6 +1,8 @@
 
-import com.edwine.model.dao.AccountDAO;
+import com.edwine.model.dao.FilmDAO;
 import com.edwine.model.entity.Account;
+import com.edwine.model.entity.Film;
+import java.util.Date;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -23,24 +25,24 @@ import org.junit.runner.RunWith;
  * @author edwin
  */
 @RunWith(Arquillian.class)
-public class AccountDAOTest {
-        @Deployment
+public class FilmDAOTest {
+    @Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(AccountDAO.class, Account.class)
+			.addClasses(FilmDAO.class, Film.class)
 			.addAsResource("META-INF/persistence.xml")
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	private	AccountDAO accountDAO;
+	private	FilmDAO filmDAO;
 
 	@Before
 	public void init() {
-                accountDAO.removeAll();
-                accountDAO.create(new Account("Pedds", "Edwin Eliasson"));
-                accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
-                accountDAO.create(new Account("Poppi", "Pontus Backman"));
+                filmDAO.removeAll();
+                filmDAO.create(new Film("The Joker", 2019,"Society","Todd Phillips"));
+                filmDAO.create(new Film());
+                filmDAO.create(new Film());
 	}
 
 	@Test
