@@ -35,17 +35,20 @@ public class FilmDAOTest {
 
 	@EJB
 	private	FilmDAO filmDAO;
+        private Film film;
 
 	@Before
 	public void init() {
                 filmDAO.removeAll();
-                filmDAO.create(new Film("The Joker",2019,"Society","Todd Phillips"));
+                film = new Film("The Joker",2019,"Society","Todd Phillips");
+                filmDAO.create(film);
                 //filmDAO.create(new Film());
                 //filmDAO.create(new Film());
 	}
 
 	@Test
 	public void checkThatFindCarsMatchingNameMatchesCorrectly() {
-		Assert.assertTrue(true); /* Some better condition */
+                Assert.assertEquals(film, filmDAO.findFilmsMatchingTitle("The Joker").get(0));
+                
 	}
 }
