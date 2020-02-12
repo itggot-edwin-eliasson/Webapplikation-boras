@@ -1,10 +1,10 @@
 
+import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.dao.FavoritesDAO;
-import com.edwine.model.dao.favoritesDAO;
+import com.edwine.model.dao.FilmDAO;
 import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.FavoritesKey;
 import com.edwine.model.entity.Film;
-import com.edwine.model.entity.FilmKey;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,13 +38,17 @@ public class FavoritesDAOTest {
 
 	@EJB
 	private	FavoritesDAO favoritesDAO;
+        @EJB
+        private AccountDAO accountDAO;
+        @EJB
+        private FilmDAO filmDAO;
 
 	@Before
 	public void init() {
                 favoritesDAO.removeAll();
-                favoritesDAO.create(new Favorites(new FavoritesKey("", "The Joker"), 70));
-                favoritesDAO.create(new Favorites());
-                favoritesDAO.create(new Favorites());
+                //favoritesDAO.create(new Favorites(new FavoritesKey("id:1234", "Pedds"), accountDAO, , 70));
+                //favoritesDAO.create(new Favorites());
+                //favoritesDAO.create(new Favorites());
 	}
 
 	@Test

@@ -7,6 +7,7 @@ package com.edwine.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +23,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Film implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long film_id;
+    private String film_id;
     
     private String title;
     private int releaseYear;
     private String genre;
     private String director;
+    
+    @OneToMany(mappedBy = "film")
+    Set<Favorites> favorites;
+   
 }

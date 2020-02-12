@@ -6,6 +6,8 @@
 package com.edwine.model.dao;
 
 import com.edwine.model.entity.Account;
+import com.edwine.model.entity.QAccount_;
+import easycriteria.JPAQuery;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,8 +27,14 @@ public class AccountDAO extends AbstractDAO<Account> {
         super(Account.class);
     }
     
-    public List<Account> findUsersMatchingName() {
-        throw new UnsupportedOperationException("Not implemented yet!");
+    public List<Account> findAccountsMatchingUsername(String name) {
+        QAccount_ account = new QAccount_();
+        
+        List<Account> result = new JPAQuery(entityManager).select(account).where(account.username.like(name)).getResultList();
+        System.out.println(result.toString());
+        
+        return result;
+        //throw new UnsupportedOperationException("Not implemented yet!");
     }
-    
+        
 }

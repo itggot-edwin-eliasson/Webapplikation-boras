@@ -1,6 +1,9 @@
 
 import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.entity.Account;
+import com.edwine.model.entity.Favorites;
+import java.util.HashSet;
+import java.util.List;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -34,17 +37,22 @@ public class AccountDAOTest {
 
 	@EJB
 	private	AccountDAO accountDAO;
+        private Account account;
 
 	@Before
 	public void init() {
                 accountDAO.removeAll();
-                accountDAO.create(new Account("Pedds", "Edwin Eliasson"));
-                accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
-                accountDAO.create(new Account("Poppi", "Pontus Backman"));
+                account = new Account("Pedds", "Edwin Eliasson", new HashSet<Favorites>());
+                accountDAO.create(account);
+                //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
+                //accountDAO.create(new Account("Poppi", "Pontus Backman"));
 	}
 
 	@Test
-	public void checkThatFindCarsMatchingNameMatchesCorrectly() {
-		Assert.assertTrue(true); /* Some better condition */
+	public void checkThatFindAccountMatchingUsernameMatchesCorrectly() {
+                Account res = accountDAO.findAccountsMatchingUsername("Pedds").get(0);
+                System.out.println(res);
+                Assert.assertEquals(account, res);
+                Assert.assertTrue(true); /* Some better condition */
 	}
 }

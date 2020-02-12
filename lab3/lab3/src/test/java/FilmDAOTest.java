@@ -40,9 +40,9 @@ public class FilmDAOTest {
 	@Before
 	public void init() {
                 filmDAO.removeAll();
-                filmDAO.create(new Film("The Joker", 2019,"Society","Todd Phillips"));
-                filmDAO.create(new Film());
-                filmDAO.create(new Film());
+                //filmDAO.create(new Film("id:1234","The Joker",2019,"Society","Todd Phillips"));
+                //filmDAO.create(new Film());
+                //filmDAO.create(new Film());
 	}
 
 	@Test
