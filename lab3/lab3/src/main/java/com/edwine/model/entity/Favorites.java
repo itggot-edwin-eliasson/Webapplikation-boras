@@ -37,6 +37,7 @@ public class Favorites implements Serializable {
     @ManyToOne
     //@MapsId("account_id")
     private Account account;
+   
     
     @Id
     @ManyToOne
