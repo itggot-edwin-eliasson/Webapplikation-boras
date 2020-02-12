@@ -7,6 +7,7 @@ package com.edwine.model.dao;
 
 import com.edwine.model.entity.Account;
 import com.edwine.model.entity.Favorites;
+import com.edwine.model.entity.Film;
 import com.edwine.model.entity.QFavorites_;
 import easycriteria.JPAQuery;
 import java.util.List;
@@ -42,4 +43,14 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         super.update(favorite);
     }
     
+    public Favorites findFavoritesMatchingFilmAndAccount(Film film, Account account) {
+        QFavorites_ favorites = new QFavorites_();
+        
+        List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(account.getUsername()).and(favorites.film.id.eq(film.getId()))).getResultList();
+        System.out.println(result.toString());
+        
+        return result.get(0);
+        
+        //hrow new UnsupportedOperationException("Not implemented yet!");
+    }
 }

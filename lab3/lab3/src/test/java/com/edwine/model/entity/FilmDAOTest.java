@@ -47,7 +47,7 @@ public class FilmDAOTest {
 	}
 
 	@Test
-	public void checkThatFindCarsMatchingNameMatchesCorrectly() {
+	public void checkThatFindFilmMatchesTitle() {
                 Assert.assertEquals(film, filmDAO.findFilmsMatchingTitle("The Joker").get(0));
                 
 	}
