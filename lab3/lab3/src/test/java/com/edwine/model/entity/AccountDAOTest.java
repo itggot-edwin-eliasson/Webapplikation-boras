@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
  * @author edwin
  */
 @RunWith(Arquillian.class)
-public class AccountTest {
+public class AccountDAOTest {
         @Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)

@@ -34,7 +34,6 @@ public class AccountDAO extends AbstractDAO<Account> {
         System.out.println(result.toString());
         
         return result;
-        //throw new UnsupportedOperationException("Not implemented yet!");
     }
         
 }

@@ -28,18 +28,18 @@ public class FilmDAOTest {
     @Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(FilmDAO.class, Film.class, Account.class)
+			.addClasses(FilmDAO.class, Film.class, Account.class, Favorites.class)
 			.addAsResource("META-INF/persistence.xml")
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	//private	FilmDAO filmDAO;
+	private	FilmDAO filmDAO;
 
 	@Before
 	public void init() {
-                //filmDAO.removeAll();
-                //filmDAO.create(new Film("id:1234","The Joker",2019,"Society","Todd Phillips"));
+                filmDAO.removeAll();
+                filmDAO.create(new Film("The Joker",2019,"Society","Todd Phillips"));
                 //filmDAO.create(new Film());
                 //filmDAO.create(new Film());
 	}
