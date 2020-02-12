@@ -12,6 +12,8 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  *
@@ -20,17 +22,17 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Film implements Serializable{
-    @Id
-    private String film_id;
+    @Id @GeneratedValue
+    private int id;
     
-    private String title;
-    private int releaseYear;
-    private String genre;
-    private String director;
+    @NonNull private String title;
+    @NonNull private Integer releaseYear;
+    @NonNull private String genre;
+    @NonNull private String director;
     
     @OneToMany(mappedBy = "film")
-    Set<Favorites> favorites;
+    private Set<Favorites> favorites;
    
 }

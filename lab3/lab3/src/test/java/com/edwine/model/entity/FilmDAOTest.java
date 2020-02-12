@@ -1,8 +1,7 @@
+package com.edwine.model.entity;
+
 
 import com.edwine.model.dao.FilmDAO;
-import com.edwine.model.entity.Account;
-import com.edwine.model.entity.Film;
-import java.util.Date;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -29,17 +28,17 @@ public class FilmDAOTest {
     @Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(FilmDAO.class, Film.class)
+			.addClasses(FilmDAO.class, Film.class, Account.class)
 			.addAsResource("META-INF/persistence.xml")
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	private	FilmDAO filmDAO;
+	//private	FilmDAO filmDAO;
 
 	@Before
 	public void init() {
-                filmDAO.removeAll();
+                //filmDAO.removeAll();
                 //filmDAO.create(new Film("id:1234","The Joker",2019,"Society","Todd Phillips"));
                 //filmDAO.create(new Film());
                 //filmDAO.create(new Film());

@@ -20,10 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
 public class FavoritesKey implements Serializable {
-    @Column(name="film_id")
-    private String film;
-    @Column(name="account_id")
+    private int film;
     private String account;
 }

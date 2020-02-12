@@ -1,10 +1,7 @@
+package com.edwine.model.entity;
+
 
 import com.edwine.model.dao.AccountDAO;
-import com.edwine.model.dao.FavoritesDAO;
-import com.edwine.model.dao.FilmDAO;
-import com.edwine.model.entity.Favorites;
-import com.edwine.model.entity.FavoritesKey;
-import com.edwine.model.entity.Film;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,32 +24,33 @@ import org.junit.runner.RunWith;
  * @author edwin
  */
 @RunWith(Arquillian.class)
-public class FavoritesDAOTest {
-    @Deployment
+public class AccountTest {
+        @Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(FavoritesDAO.class, Favorites.class, FavoritesKey.class)
+			.addClasses(AccountDAO.class, Account.class, Film.class, Favorites.class)
 			.addAsResource("META-INF/persistence.xml")
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	private	FavoritesDAO favoritesDAO;
-        @EJB
-        private AccountDAO accountDAO;
-        @EJB
-        private FilmDAO filmDAO;
+	private	AccountDAO accountDAO;
+        private Account account;
 
 	@Before
 	public void init() {
-                favoritesDAO.removeAll();
-                //favoritesDAO.create(new Favorites(new FavoritesKey("id:1234", "Pedds"), accountDAO, , 70));
-                //favoritesDAO.create(new Favorites());
-                //favoritesDAO.create(new Favorites());
+                accountDAO.removeAll();
+                account = new Account("Pedds", "Edwin Eliasson");
+                accountDAO.create(account);
+                //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
+                //accountDAO.create(new Account("Poppi", "Pontus Backman"));
 	}
 
 	@Test
-	public void checkThatFindCarsMatchingNameMatchesCorrectly() {
-		Assert.assertTrue(true); /* Some better condition */
+	public void checkThatFindAccountMatchingUsernameMatchesCorrectly() {
+                Account res = accountDAO.findAccountsMatchingUsername("Pedds").get(0);
+                System.out.println(res);
+                Assert.assertEquals(account, res);
+                Assert.assertTrue(true); /* Some better condition */
 	}
 }
