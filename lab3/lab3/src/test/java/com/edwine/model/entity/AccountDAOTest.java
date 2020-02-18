@@ -39,7 +39,7 @@ public class AccountDAOTest {
 
 	@Before
 	public void init() {
-                accountDAO.removeAll();
+                // accountDAO.removeAll();
                 account = new Account("Pedds", "Edwin Eliasson");
                 accountDAO.create(account);
                 //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
