@@ -39,7 +39,7 @@ public class AccountDAOTest {
 
 	@Before
 	public void init() {
-                accountDAO.removeAll();
+                //accountDAO.removeAll();
                 account = new Account("Pedds", "Edwin Eliasson");
                 accountDAO.create(account);
                 //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
@@ -51,6 +51,6 @@ public class AccountDAOTest {
                 Account res = accountDAO.findAccountsMatchingUsername("Pedds").get(0);
                 System.out.println(res);
                 Assert.assertEquals(account, res);
-                Assert.assertTrue(true); /* Some better condition */
+                //Assert.assertTrue(true); /* Some better condition */
 	}
 }

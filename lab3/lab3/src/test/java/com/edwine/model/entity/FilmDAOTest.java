@@ -39,7 +39,7 @@ public class FilmDAOTest {
 
 	@Before
 	public void init() {
-                filmDAO.removeAll();
+                //filmDAO.removeAll();
                 film = new Film("The Joker",2019,"Society","Todd Phillips");
                 filmDAO.create(film);
                 //filmDAO.create(new Film());

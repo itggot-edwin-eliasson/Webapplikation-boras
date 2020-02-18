@@ -50,7 +50,7 @@ public class FavoritesDAOTest {
 
 	@Before
 	public void init() {
-                favoritesDAO.removeAll();
+                //favoritesDAO.removeAll();
                 
                 account1 = new Account("abc123", "Pontus");
                 film1 = new Film("ABC", 1998, "Action", "Edwin");
