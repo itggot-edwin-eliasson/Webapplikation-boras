@@ -2,6 +2,7 @@ package com.edwine.model.entity;
 
 
 import com.edwine.model.dao.FilmDAO;
+import com.github.javafaker.Faker;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,13 +33,15 @@ public class FilmDAOTest {
 			.addAsResource("META-INF/persistence.xml")
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
-
+        
 	@EJB
 	private	FilmDAO filmDAO;
         private Film film;
 
 	@Before
 	public void init() {
+            
+                Faker faker = new Faker();
                 //filmDAO.removeAll();
                 film = new Film("The Joker",2019,"Society","Todd Phillips");
                 filmDAO.create(film);
