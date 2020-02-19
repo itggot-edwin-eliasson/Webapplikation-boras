@@ -1,0 +1,15 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19 Feb 2020, 08:48:21
+    Author     : ogge
+*/
+div.book {
+	padding: 20px;
+	margin: 10px;
+	background-color: gray;
+	border-radius: 5px;
+}

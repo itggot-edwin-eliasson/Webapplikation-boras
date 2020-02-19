@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<ui:composition template="WEB-INF/template/common.xhtml">
+		<ui:define name="title">Imdb social media</ui:define>
+		<ui:define name="dependencies">
+			<link rel="stylesheet" type="text/css" href="components/Film.css" />
+			<script data-plugins="transform-es2015-modules-umd" type="text/babel" src="./components/Account.jsx"></script>
+			<script data-plugins="transform-es2015-modules-umd" type="text/babel" src="./components/Favorites.jsx"></script>
+                        <script data-plugins="transform-es2015-modules-umd" type="text/babel" src="./components/Film.jsx"></script>
+		</ui:define>
+		<ui:define name="content">
+			import Film from "./components/Film";
+
+			const App = () => {
+				return (
+					<Film />
+				);
+			};
+			ReactDOM.render(<App />, document.querySelector("#root"));
+		</ui:define>
+	</ui:composition>
+</html>
