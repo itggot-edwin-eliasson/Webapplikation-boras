@@ -21,7 +21,8 @@ import lombok.Getter;
  */
 @Stateless
 public class FilmDAO extends AbstractDAO<Film>{
-    @Getter @PersistenceContext(unitName = "flicktier")
+    @Getter
+    //@PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
     
     public FilmDAO(){

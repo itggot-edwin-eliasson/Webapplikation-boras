@@ -20,7 +20,8 @@ import lombok.Getter;
  */
 @Stateless
 public class AccountDAO extends AbstractDAO<Account> {
-    @Getter @PersistenceContext(unitName = "flicktier")
+    @Getter 
+    //@PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
     
     public AccountDAO(){
