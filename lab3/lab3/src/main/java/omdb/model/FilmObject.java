@@ -1,5 +1,5 @@
 
-package Omdb.model;
+package omdb.model;
 
 import java.util.HashMap;
 import java.util.List;

@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Omdb;
+package omdb;
 
-import Omdb.model.FilmObject;
+import omdb.model.FilmObject;
 import com.google.gson.Gson;
+import java.util.List;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+import omdb.model.SearchObject;
+import omdb.model.SearchResult;
 
 /**
  *
@@ -18,15 +21,28 @@ import kong.unirest.Unirest;
 public class OmdbService {
 
     private static final String KEY = "b410e072"; // TODO: need to hide this key
-    
+
     public static FilmObject getFilmObjectFromId(String filmId) {
-         HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
+        HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
                 .header("accept", "application/json")
                 .queryString("apikey", KEY)
                 .queryString("i", filmId)
                 .asJson();
-        
+
         Gson gson = new Gson();
         return gson.fromJson(response.getBody().toString(), FilmObject.class);
+    }
+
+    public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue) {
+        HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
+                .header("accept", "application/json")
+                .queryString("apikey", KEY)
+                .queryString("s", searchValue)
+                .asJson();
+
+        Gson gson = new Gson();
+        SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
+        
+        return searchObject.getSearch();
     }
 }

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Omdb;
+package omdb;
 
-import omdb.OmdbService;
+import java.util.List;
 import omdb.model.FilmObject;
+import omdb.model.SearchObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,11 +44,23 @@ public class OmdbServiceTest {
      * Test of getFilmObjectFromId method, of class OmdbService.
      */
     @Test
-    public void testGetTitleFromId() {
+    public void testGetFilmObjectFromId() {
         System.out.println("getFilmObjectFromId");
         String filmId = "tt7286456";
         String expResult = "Joker";
         String result = OmdbService.getFilmObjectFromId(filmId).getTitle();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getSearchObjectsFromSearchString method, of class OmdbService.
+     */
+    @Test
+    public void testGetSearchObjectsFromSearchString() {
+        System.out.println("getSearchObjectsFromSearchString");
+        String searchValue = "Batman";
+        int expResult = 10;
+        int result = OmdbService.getSearchObjectsFromSearchString(searchValue).size();
         assertEquals(expResult, result);
     }
     
