@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+      
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:dataGrid value="rov" columns="3" layout="grid"
+        rows="12" id="browse"
+        rowsPerPageTemplate="6,12,16">
+         
+            <f:facet name="header">
+                Top 10 movies
+            </f:facet>
+ 
+            <p:panel header="Mårten Morning The Movie" style="text-align:center">
+                <h:panelGrid columns="1" style="width:200px">
+                    <p:graphicImage value="morten.jpg" width=''/> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel header="Don't mess with the Zoran" style="text-align:center">
+                <h:panelGrid columns="1" style="width:100%">
+                    <p:graphicImage value="zoran.png" width='200px'/>
+                </h:panelGrid>
+            </p:panel>
+ 
+        </p:dataGrid>
+    </h:body>
+</html>
