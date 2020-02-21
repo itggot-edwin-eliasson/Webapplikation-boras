@@ -32,12 +32,28 @@ public class OmdbService {
         Gson gson = new Gson();
         return gson.fromJson(response.getBody().toString(), FilmObject.class);
     }
-
+    
+    // Returns the first page with maximum 10 results
     public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue) {
         HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
                 .header("accept", "application/json")
                 .queryString("apikey", KEY)
                 .queryString("s", searchValue)
+                .asJson();
+
+        Gson gson = new Gson();
+        SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
+        
+        return searchObject.getSearch();
+    }
+    
+    // Returns the chosen page
+    public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue, int pageNumber) {
+        HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
+                .header("accept", "application/json")
+                .queryString("apikey", KEY)
+                .queryString("s", searchValue)
+                .queryString("page", pageNumber)
                 .asJson();
 
         Gson gson = new Gson();
