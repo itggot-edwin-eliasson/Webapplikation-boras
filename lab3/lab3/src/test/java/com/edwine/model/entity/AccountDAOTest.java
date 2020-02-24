@@ -35,6 +35,7 @@ public class AccountDAOTest {
 
 	@EJB
 	private	AccountDAO accountDAO;
+        @EJB
         private Account account;
 
 	@Before
