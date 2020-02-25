@@ -27,11 +27,12 @@ import omdb.model.SearchObject;
  */
 
 @Data
-@ViewScoped
 @Named
+@ViewScoped
 public class FilmBean implements Serializable {
     
     private List<Film> films;
+    
     private String searchString;
     
     @EJB
@@ -53,11 +54,14 @@ public class FilmBean implements Serializable {
     }
     
     public List<SearchObject> searchFilms() {
-        List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(searchString);
+        System.out.println(this.getSearchString());
+        List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(getSearchString());
         
         for (SearchObject s : searchResults) {
             filmDAO.create(new Film(s.getImdbID(), new HashSet<Favorites>()));
         }
+        
+        filmDAO.findAll();
         
         return searchResults;
     }
