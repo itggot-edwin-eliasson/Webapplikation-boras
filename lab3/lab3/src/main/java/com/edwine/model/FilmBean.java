@@ -95,10 +95,12 @@ public class FilmBean implements Serializable {
     public String getPosterFromId(String filmId) {
         FilmObject f = OmdbService.getFilmObjectFromId(filmId);
         
-        return f.getPoster();
-    }
-    
-    public void handleEvent(AjaxBehaviorEvent event) {
-       searchActive = true;
+        String imageURL = f.getPoster();
+        
+        if (imageURL.equals("N/A")) {
+            return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
+        } else {
+            return f.getPoster();
+        }
     }
 }
