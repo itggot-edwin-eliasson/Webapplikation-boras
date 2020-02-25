@@ -34,11 +34,19 @@ and open the template in the editor.
                         </p:column>
 
                         <p:column headerText="Title">
-                            <h:outputText value="#{filmBean.getTitleFromId(film.id)}" />
+                            <h:outputText value="#{film.title}" />
+                        </p:column>
+                        
+                        <p:column headerText="Year">
+                            <h:outputText value="#{film.releaseYear}" />
+                        </p:column>
+                        
+                        <p:column headerText="Type">
+                            <h:outputText value="#{film.type}" />
                         </p:column>
                         
                         <p:column headerText="Poster">
-                            <h:graphicImage url="#{filmBean.getPosterFromId(film.id)}" height="150" width="100"/>
+                            <h:graphicImage url="#{filmBean.getPosterWithPlaceholderFromFilm(film)}" height="150" width="100"/>
                         </p:column>
                     </p:dataTable>
                 </div>

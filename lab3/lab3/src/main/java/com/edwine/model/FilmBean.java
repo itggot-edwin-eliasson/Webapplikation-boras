@@ -68,7 +68,7 @@ public class FilmBean implements Serializable {
             List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(getSearchString());
 
             for (SearchObject s : searchResults) {
-                filmDAO.create(new Film(s.getImdbID(), new HashSet<Favorites>()));
+                filmDAO.create(new Film(s.getImdbID(), s.getTitle(), s.getYear() ,s.getType(), s.getPoster(), new HashSet<Favorites>()));
             }
             
             mostRecentSearchResults = searchResults;
@@ -80,24 +80,14 @@ public class FilmBean implements Serializable {
         return new ArrayList<SearchObject>();
     }
     
-    public FilmObject getFilmFromId(String filmId) {
+    public FilmObject getFilmObjectFromId(String filmId) {
         FilmObject f = OmdbService.getFilmObjectFromId(filmId);
         
         return f;
     }
     
-    public String getTitleFromId(String filmId) {
-        FilmObject f = OmdbService.getFilmObjectFromId(filmId);
-        
-        return f.getTitle();
-    }
-    
-    public String getPosterFromId(String filmId) {
-        FilmObject f = OmdbService.getFilmObjectFromId(filmId);
-        
-        String imageURL = f.getPoster();
-        
-        if (imageURL.equals("N/A")) {
+    public String getPosterWithPlaceholderFromFilm(Film f) {
+        if (f.getPoster().equals("N/A")) {
             return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
         } else {
             return f.getPoster();
