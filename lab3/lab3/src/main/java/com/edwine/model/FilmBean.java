@@ -14,11 +14,14 @@ import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import lombok.Data;
 import omdb.OmdbService;
+import omdb.model.FilmObject;
 import omdb.model.SearchObject;
 
 /**
@@ -50,19 +53,38 @@ public class FilmBean implements Serializable {
     }
     
     public List<Film> getAllFilms(){
-        return films;
+        return filmDAO.findAll();
     }
     
     public List<SearchObject> searchFilms() {
         System.out.println(this.getSearchString());
-        List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(getSearchString());
         
-        for (SearchObject s : searchResults) {
-            filmDAO.create(new Film(s.getImdbID(), new HashSet<Favorites>()));
+        try {
+            List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(getSearchString());
+
+            for (SearchObject s : searchResults) {
+                filmDAO.create(new Film(s.getImdbID(), new HashSet<Favorites>()));
+            }
+
+            filmDAO.findAll();
+
+            return searchResults;
+        } catch (Exception e) {
+            System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
         }
         
-        filmDAO.findAll();
+        return new ArrayList<SearchObject>();
+    }
+    
+    public FilmObject getFilmFromId(String filmId) {
+        FilmObject f = OmdbService.getFilmObjectFromId(filmId);
         
-        return searchResults;
+        return f;
+    }
+    
+    public String getTitleFromId(String filmId) {
+        FilmObject f = OmdbService.getFilmObjectFromId(filmId);
+        
+        return f.getTitle();
     }
 }

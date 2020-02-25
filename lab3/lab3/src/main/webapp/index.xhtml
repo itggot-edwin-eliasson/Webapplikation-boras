@@ -39,7 +39,7 @@ and open the template in the editor.
 
                                 <h:outputText value="Password: " />
                                 <p:password id="password" />
-                                
+
                                 <br/>
                                 <p:button value="Log in" />
                             </h:panelGrid>
@@ -48,10 +48,18 @@ and open the template in the editor.
                 </div>
             </div>
             <div class="p-col">
-                <div class="box"></div>
+                <div class="box">
+                    <p:dataTable var="film" value="#{filmBean.allFilms}">
+                        <p:column headerText="IMDB-ID">
+                            <h:outputText value="#{film.id}" />
+                        </p:column>
+
+                        <p:column headerText="Title">
+                            <h:outputText value="#{filmBean.getTitleFromId(film.id)}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
             </div>
         </div>
-        
-
     </h:body>
 </html>
