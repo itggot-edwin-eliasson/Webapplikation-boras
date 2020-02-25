@@ -37,13 +37,13 @@ public class FilmDAOTest {
         
 	@EJB
 	private	FilmDAO filmDAO;
-        @EJB
+        
         private Film film;
 
 	@Before
 	public void init() {
             
-                Faker faker = new Faker();
+                //Faker faker = new Faker();
                 //filmDAO.removeAll();
                 film = new Film("The Joker",2019,"Society","Todd Phillips");
                 filmDAO.create(film);

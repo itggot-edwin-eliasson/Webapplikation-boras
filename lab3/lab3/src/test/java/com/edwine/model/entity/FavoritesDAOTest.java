@@ -12,6 +12,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +65,13 @@ public class FavoritesDAOTest {
                 //favoritesDAO.create(new Favorites());
                 //favoritesDAO.create(new Favorites());
 	}
+        
+        @After
+        public void cleanUp() {
+            favoritesDAO.removeAll();
+            accountDAO.removeAll();
+            filmDAO.removeAll();
+        }
 
 	@Test
 	public void checkThatScoreUpdatesCorrectly() {

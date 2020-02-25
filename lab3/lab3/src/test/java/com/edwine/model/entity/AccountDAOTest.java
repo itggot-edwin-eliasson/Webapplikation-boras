@@ -8,6 +8,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class AccountDAOTest {
 
 	@EJB
 	private	AccountDAO accountDAO;
-        @EJB
+        
         private Account account;
 
 	@Before
@@ -46,6 +47,11 @@ public class AccountDAOTest {
                 //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
                 //accountDAO.create(new Account("Poppi", "Pontus Backman"));
 	}
+        
+        @After
+        public void cleanUp() {
+            accountDAO.removeAll();
+        }
 
 	@Test
 	public void checkThatFindAccountsMatchingUsernameMatchesCorrectly() {
