@@ -16,6 +16,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
+import omdb.OmdbService;
+import omdb.model.SearchObject;
 
 /**
  *
@@ -28,14 +30,13 @@ import lombok.Data;
 public class FilmBean implements Serializable {
     
     private List<Film> films;
+    private String searchString;
     
     @EJB
     private FilmDAO filmDAO;
     
     @PostConstruct
     public void init(){
-        filmDAO.create(new Film("a",1,"b","c"));
-        films = filmDAO.findAll();
         /*
         films = new ArrayList<Film>();
         films.add(new Film("test1",2020,"test1","test1"));
@@ -47,5 +48,15 @@ public class FilmBean implements Serializable {
     
     public List<Film> getAllFilms(){
         return films;
+    }
+    
+    public List<SearchObject> searchFilms() {
+        List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(searchString);
+        
+        for (SearchObject s : searchResults) {
+            filmDAO.create(new Film(s.getImdbID()));
+        }
+        
+        return searchResults;
     }
 }

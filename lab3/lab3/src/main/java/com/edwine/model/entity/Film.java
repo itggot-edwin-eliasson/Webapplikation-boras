@@ -24,13 +24,8 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Film implements Serializable{
-    @Id @GeneratedValue
-    private int id;
-    
-    @NonNull private String title;
-    @NonNull private Integer releaseYear;
-    @NonNull private String genre;
-    @NonNull private String director;
+    @Id
+    private String id;
     
     @OneToMany(mappedBy = "film")
     private Set<Favorites> favorites;

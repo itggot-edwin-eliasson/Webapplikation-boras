@@ -54,7 +54,7 @@ public class FavoritesDAOTest {
                 //favoritesDAO.removeAll();
                 
                 account1 = new Account("abc123", "Pontus");
-                film1 = new Film("ABC", 1998, "Action", "Edwin");
+                //film1 = new Film("ABC", 1998, "Action", "Edwin");
                 favorite1 = new Favorites(account1, film1, 7);
                 
                 accountDAO.create(account1);
