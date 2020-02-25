@@ -21,6 +21,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoritesKey implements Serializable {
-    private int film;
+    private String film;
     private String account;
 }

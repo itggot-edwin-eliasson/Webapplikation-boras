@@ -44,7 +44,7 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         super.update(favorite);
     }
     
-    public Favorites findFavoritesMatchingFilmAndAccount(Film film, Account account) {
+    /*public Favorites findFavoritesMatchingFilmAndAccount(Film film, Account account) {
         QFavorites_ favorites = new QFavorites_();
         
         List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(account.getUsername()).and(favorites.film.id.eq(film.getId()))).getResultList();
@@ -52,6 +52,10 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         
         return result.get(0);
         
+        
+        
         //hrow new UnsupportedOperationException("Not implemented yet!");
-    }
+        
+        return null;
+    }*/
 }

@@ -6,9 +6,11 @@
 package com.edwine.model;
 
 import com.edwine.model.dao.FilmDAO;
+import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Film;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -54,7 +56,7 @@ public class FilmBean implements Serializable {
         List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(searchString);
         
         for (SearchObject s : searchResults) {
-            filmDAO.create(new Film(s.getImdbID()));
+            filmDAO.create(new Film(s.getImdbID(), new HashSet<Favorites>()));
         }
         
         return searchResults;
