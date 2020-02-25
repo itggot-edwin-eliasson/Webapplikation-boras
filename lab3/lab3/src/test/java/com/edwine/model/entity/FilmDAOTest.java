@@ -37,6 +37,7 @@ public class FilmDAOTest {
         
 	@EJB
 	private	FilmDAO filmDAO;
+        @EJB
         private Film film;
 
 	@Before

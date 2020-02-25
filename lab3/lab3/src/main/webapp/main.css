@@ -8,3 +8,14 @@ and open the template in the editor.
     Author     : edwin
 */
 
+.thick-border {
+    border: 5px solid #3399ff;
+}
+
+.round-border {
+    border-radius: 5px;
+}
+
+.box {
+    background-color: black;
+}

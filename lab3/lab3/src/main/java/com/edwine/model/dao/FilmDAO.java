@@ -11,6 +11,7 @@ import com.edwine.model.entity.QFilm_;
 import easycriteria.JPAQuery;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
