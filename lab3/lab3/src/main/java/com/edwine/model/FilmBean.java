@@ -13,6 +13,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
 
@@ -22,7 +23,7 @@ import lombok.Data;
  */
 
 @Data
-@SessionScoped
+@ViewScoped
 @Named
 public class FilmBean implements Serializable {
     
@@ -33,6 +34,7 @@ public class FilmBean implements Serializable {
     
     @PostConstruct
     public void init(){
+        filmDAO.create(new Film("a",1,"b","c"));
         films = filmDAO.findAll();
         /*
         films = new ArrayList<Film>();

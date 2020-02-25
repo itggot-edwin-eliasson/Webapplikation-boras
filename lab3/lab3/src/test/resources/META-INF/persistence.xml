@@ -3,9 +3,6 @@
   <persistence-unit name="flicktier" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/flicktier</jta-data-source>
-    <class>com.edwine.model.entity.Account</class>
-    <class>com.edwine.model.entity.Favorites</class>
-    <class>com.edwine.model.entity.Film</class>
     <properties>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

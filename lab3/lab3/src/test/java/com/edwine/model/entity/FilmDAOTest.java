@@ -37,8 +37,7 @@ public class FilmDAOTest {
         
 	@EJB
 	private	FilmDAO filmDAO;
-        
-        private Film film;
+    private Film film;
 
 	@Before
 	public void init() {
