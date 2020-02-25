@@ -23,7 +23,7 @@ import lombok.Getter;
 @Stateless
 public class FavoritesDAO extends AbstractDAO<Favorites> {
     @Getter 
-    //@PersistenceContext(unitName = "flicktier")
+    @PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
     
     public FavoritesDAO(){

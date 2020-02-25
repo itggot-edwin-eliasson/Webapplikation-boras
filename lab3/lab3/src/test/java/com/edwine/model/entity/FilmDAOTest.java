@@ -9,6 +9,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,10 +49,17 @@ public class FilmDAOTest {
                 //filmDAO.create(new Film());
                 //filmDAO.create(new Film());
 	}
+        
+        @After
+        public void cleanUp() {
+            filmDAO.removeAll();
+        }
 
 	@Test
 	public void checkThatFindFilmMatchesTitle() {
-                Assert.assertEquals(film, filmDAO.findFilmsMatchingTitle("The Joker").get(0));
+                Film f = filmDAO.findFilmsMatchingTitle("The Joker").get(0);
+            
+                Assert.assertEquals(film.getId(), filmDAO.findFilmsMatchingTitle("The Joker").get(0).getId());
                 
 	}
 }

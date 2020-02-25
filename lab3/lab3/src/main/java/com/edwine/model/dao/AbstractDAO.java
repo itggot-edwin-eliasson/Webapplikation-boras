@@ -7,6 +7,8 @@ package com.edwine.model.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,6 +23,9 @@ import lombok.RequiredArgsConstructor;
 public abstract class AbstractDAO<T> {
 	private final Class<T> entityType;
 	protected abstract EntityManager getEntityManager();
+        
+        //EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("flicktier");//
+        //EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
 	public long count() {
                 final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
@@ -34,6 +39,7 @@ public abstract class AbstractDAO<T> {
         }
 
 	public void create(T entity) {
+                //em.persist(entity);
                 getEntityManager().persist(entity);
         }
 
