@@ -57,6 +57,10 @@ and open the template in the editor.
                         <p:column headerText="Title">
                             <h:outputText value="#{filmBean.getTitleFromId(film.id)}" />
                         </p:column>
+                        
+                        <p:column>
+                            <h:graphicImage url="#{filmBean.getPosterFromId(film.id)}" height="150" width="100"/>
+                        </p:column>
                     </p:dataTable>
                 </div>
             </div>

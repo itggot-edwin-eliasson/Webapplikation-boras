@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.PersistenceException;
@@ -37,6 +38,10 @@ public class FilmBean implements Serializable {
     private List<Film> films;
     
     private String searchString;
+    
+    private List<SearchObject> mostRecentSearchResults;
+    
+    private boolean searchActive = false;
     
     @EJB
     private FilmDAO filmDAO;
@@ -65,9 +70,8 @@ public class FilmBean implements Serializable {
             for (SearchObject s : searchResults) {
                 filmDAO.create(new Film(s.getImdbID(), new HashSet<Favorites>()));
             }
-
-            filmDAO.findAll();
-
+            
+            mostRecentSearchResults = searchResults;
             return searchResults;
         } catch (Exception e) {
             System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
@@ -86,5 +90,15 @@ public class FilmBean implements Serializable {
         FilmObject f = OmdbService.getFilmObjectFromId(filmId);
         
         return f.getTitle();
+    }
+    
+    public String getPosterFromId(String filmId) {
+        FilmObject f = OmdbService.getFilmObjectFromId(filmId);
+        
+        return f.getPoster();
+    }
+    
+    public void handleEvent(AjaxBehaviorEvent event) {
+       searchActive = true;
     }
 }
