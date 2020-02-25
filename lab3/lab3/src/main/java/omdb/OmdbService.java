@@ -18,7 +18,7 @@ import omdb.model.SearchResult;
  *
  * @author pontus53
  */
-public class OmdbService {
+public abstract class OmdbService {
 
     private static final String KEY = "b410e072"; // TODO: need to hide this key
 
