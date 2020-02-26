@@ -9,6 +9,7 @@ import omdb.model.FilmObject;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -40,7 +41,7 @@ public abstract class OmdbService {
         return null;
     }
 
-    // Returns the first page with maximum 10 results
+    // Returns the first page with maximum 10 results and ignores films without posters
     public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue) {
         try {
             HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
@@ -52,7 +53,7 @@ public abstract class OmdbService {
             Gson gson = new Gson();
             SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
 
-            return searchObject.getSearch();
+            return searchObject.getSearch().stream().filter(object -> !object.getPoster().equals("N/A")).collect(Collectors.toList());
         } catch (Exception e) {
             System.out.println("ERROR: Could not query the API! " + e.getMessage());
         }
@@ -60,7 +61,7 @@ public abstract class OmdbService {
         return new ArrayList<SearchObject>();
     }
 
-    // Returns the chosen page
+    // Returns the chosen page and ignores films without posters
     public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue, int pageNumber) {
         try {
             HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
@@ -73,7 +74,7 @@ public abstract class OmdbService {
             Gson gson = new Gson();
             SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
 
-            return searchObject.getSearch();
+            return searchObject.getSearch().stream().filter(object -> !object.getPoster().equals("N/A")).collect(Collectors.toList());
         } catch (Exception e) {
             System.out.println("ERROR: Could not query the API! " + e.getMessage());
         }
