@@ -22,8 +22,8 @@ and open the template in the editor.
 
 .card {
   background-color: transparent;
-  width: 200px;
-  height: 300px;
+  width: 170px;
+  height: 250px;
   border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   margin-bottom: 70px;
@@ -54,8 +54,8 @@ and open the template in the editor.
 
 /* Style the front side (fallback if image is missing) */
 .card-front {
-  background-color: #bbb;
-  color: black;
+    background-color: aqua;
+    color: black;
 }
 
 /* Style the back side */

@@ -8,18 +8,25 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-      
-    
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
     <h:head>
         <link rel="stylesheet" href="main.css"/>
     </h:head>
-    
+
     <h:body>
+
+
         <div class="card">
             <div class="card-inner">
-                <div class="card-front">front</div>
-                <div class="card-back">back</div>
+                <div class="card-front">
+                    <p:graphicImage url="#{filmBean.getPosterWithPlaceholderFromFilm(film)}" height="100%" width="100%"/>
+                </div>
+                <div class="card-back">
+                    <h:outputText value="#{filmCard.title}"/>
+                </div>
             </div>
         </div>
     </h:body>
