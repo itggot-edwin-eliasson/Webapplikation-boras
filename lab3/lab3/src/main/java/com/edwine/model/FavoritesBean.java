@@ -10,6 +10,9 @@ import com.edwine.model.dao.FavoritesDAO;
 import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.dao.FilmDAO;
 import com.edwine.model.entity.Film;
+import com.edwine.model.entity.Favorites;
+import com.edwine.model.entity.Account;
+import java.util.HashSet;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -31,8 +34,14 @@ public class FavoritesBean implements Serializable {
     private FilmDAO filmDAO;
     
     public void addFavorite(SearchObject film){
+        //favDAO.removeAll();
+        //accDAO.removeAll();
+        //accDAO.create(new Account("Pontus", "Pontus Backman", new HashSet<Favorites>()));
+        
         Film f = filmDAO.findFilmsMatchingTitle(film.getTitle()).get(0);
         favDAO.add(accDAO.findAll().get(0), f, 0);
+        
+        System.out.println("Favorites: " + favDAO.getAccountsWhoFavoritedFilm(f).get(0).getAccount());
     }
     
 }

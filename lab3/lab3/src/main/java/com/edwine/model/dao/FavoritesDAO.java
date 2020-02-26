@@ -59,10 +59,28 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         return null;
     }*/
     
+    public List<Favorites> getAccountsWhoFavoritedFilm(Film film) {
+        QFavorites_ favorites = new QFavorites_();
+        
+        List<Favorites> result;
+        result = new JPAQuery(entityManager).select(favorites).where(favorites.film.id.like(film.getId())).getResultList();
+        
+        return result;
+    }
+    
+    public List<Favorites> getFilmsThatAccountFavorited(Account acc) {
+        QFavorites_ favorites = new QFavorites_();
+        
+        List<Favorites> result;
+        result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername())).getResultList();
+        
+        return result;
+    }
+    
     public void add(Account acc, Film film, int score){
         Favorites fav = new Favorites(acc, film, score);
         create(fav);
-        acc.getFavorites().add(fav);
-        film.getFavorites().add(fav);
+        //acc.getFavorites().add(fav);
+        //film.getFavorites().add(fav);
     }
 }

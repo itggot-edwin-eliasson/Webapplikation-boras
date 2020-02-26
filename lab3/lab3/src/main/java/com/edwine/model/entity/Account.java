@@ -21,7 +21,7 @@ import lombok.*;
 @Data
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Account implements Serializable {
     @Id @NonNull private String username;
     @NonNull private String name;
