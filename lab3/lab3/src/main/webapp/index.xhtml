@@ -49,6 +49,9 @@ and open the template in the editor.
                         <p:column headerText="Poster">
                             <h:graphicImage url="#{filmBean.getPosterWithPlaceholderFromSearchObject(film)}" height="150" width="100"/>
                         </p:column>
+                        <p:column>
+                            <p:commandButton value="Favorite" action="#{favoritesBean.addFavorite(film)}"/>
+                        </p:column>
                     </p:dataTable>
                 </div>
             </div>

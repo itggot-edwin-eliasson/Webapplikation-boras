@@ -6,21 +6,16 @@
 package com.edwine.model;
 
 import com.edwine.model.dao.FilmDAO;
-import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Film;
+import com.edwine.model.entity.Favorites;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PersistenceException;
 import lombok.Data;
 import omdb.OmdbService;
 import omdb.model.FilmObject;
