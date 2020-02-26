@@ -20,13 +20,13 @@ and open the template in the editor.
         <h:form>
             <h:panelGrid columns='2'>
                 <h:outputText value='Username'/>
-                <p:inputText placeholder='Username'/>
+                <p:inputText value='#{accountBean.username}' placeholder='Username'/>
 
                 <h:outputText value='Password'/>
-                <p:password placeholder='Password'/>
+                <p:password value='#{accountBean.password}' placeholder='Password'/>
                 
                 <br/>
-                <p:button value='Create Account'/>
+                <p:commandButton value='Create Account' action='#{accountBean.register()}'/>
             </h:panelGrid>
         </h:form>
     </h:body>
