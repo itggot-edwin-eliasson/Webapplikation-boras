@@ -36,7 +36,7 @@ public class AccountDAOTest {
 
 	@EJB
 	private	AccountDAO accountDAO;
-    private Account account;
+        private Account account;
 
 	@Before
 	public void init() {
