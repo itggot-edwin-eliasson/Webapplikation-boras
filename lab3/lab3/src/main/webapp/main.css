@@ -60,7 +60,7 @@ and open the template in the editor.
 
 /* Style the back side */
 .card-back {
-  background-color: dodgerblue;
+  background-image: url("cardbg.jpg");
   color: white;
   transform: rotateY(180deg);
 }
