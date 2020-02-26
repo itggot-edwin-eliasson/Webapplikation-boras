@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    </h:head>
+    <h:body>
+        <h:form>  
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <p:menuitem value="" url="http://www.primefaces.org" icon="pi pi-home"/>
+                <p:menuitem value="WatchList" url="http://www.primefaces.org"/>
+                <p:menuitem value="Profile" url="http://www.primefaces.org"/>
+                <f:facet name="options">
+                    <i class="pi pi-search"></i>
+                    <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+    </h:body>
+</html>
