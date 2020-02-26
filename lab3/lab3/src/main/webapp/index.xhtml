@@ -16,37 +16,41 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="main.css"/>
     </h:head>
 
-    <h:body style="color: #141414">
-        <div class="p-grid p-align-center">
-            <div class="p-col">
-                <div class="box"></div>
-            </div>
-            <div class="p-col thick-border round-border">
-                <div class="box" style="border: 2px solid #3399ff; border-radius: 5px; position: absolute; top: 35%;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <h:body>
+        <div class="ui-g">
+            <div class="ui-g-12" id="searchbar">
+                <div class="box">
                     <h:form>
-                        <p:panel>
-                            <h3 style="text-align: center">
-                                Login
-                            </h3>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Username: " />
-                                <p:inputText id="username"/>
-
-                                <h:outputText value="Password: " />
-                                <p:password id="password" />
-                                
-                                <br/>
-                                <p:button value="Log in" />
-                            </h:panelGrid>
-                        </p:panel>
+                        <p:inputText value="#{filmBean.searchString}" placeholder="Search"/>
+                        <p:commandButton value="Search" action="#{filmBean.searchFilms()}"/>
                     </h:form>
+                </div> 
+            </div>
+            <div class="ui-g-12">
+                <div class="box">
+                    <p:dataTable var="film" value="#{filmBean.allFilms}">
+                        <p:column headerText="IMDB-ID">
+                            <h:outputText value="#{film.id}" />
+                        </p:column>
+
+                        <p:column headerText="Title">
+                            <h:outputText value="#{film.title}" />
+                        </p:column>
+                        
+                        <p:column headerText="Year">
+                            <h:outputText value="#{film.releaseYear}" />
+                        </p:column>
+                        
+                        <p:column headerText="Type">
+                            <h:outputText value="#{film.type}" />
+                        </p:column>
+                        
+                        <p:column headerText="Poster">
+                            <h:graphicImage url="#{filmBean.getPosterWithPlaceholderFromFilm(film)}" height="150" width="100"/>
+                        </p:column>
+                    </p:dataTable>
                 </div>
             </div>
-            <div class="p-col">
-                <div class="box"></div>
-            </div>
         </div>
-        
-        
     </h:body>
 </html>

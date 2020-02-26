@@ -6,16 +6,24 @@
 package com.edwine.model;
 
 import com.edwine.model.dao.FilmDAO;
+import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Film;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import lombok.Data;
+import omdb.OmdbService;
+import omdb.model.FilmObject;
+import omdb.model.SearchObject;
 
 /**
  *
@@ -23,19 +31,23 @@ import lombok.Data;
  */
 
 @Data
-@ViewScoped
 @Named
+@ViewScoped
 public class FilmBean implements Serializable {
     
     private List<Film> films;
+    
+    private String searchString;
+    
+    private List<SearchObject> mostRecentSearchResults;
+    
+    private boolean searchActive = false;
     
     @EJB
     private FilmDAO filmDAO;
     
     @PostConstruct
     public void init(){
-        filmDAO.create(new Film("a",1,"b","c"));
-        films = filmDAO.findAll();
         /*
         films = new ArrayList<Film>();
         films.add(new Film("test1",2020,"test1","test1"));
@@ -46,6 +58,39 @@ public class FilmBean implements Serializable {
     }
     
     public List<Film> getAllFilms(){
-        return films;
+        return filmDAO.findAll();
+    }
+    
+    public List<SearchObject> searchFilms() {
+        System.out.println(this.getSearchString());
+        
+        try {
+            List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(getSearchString());
+
+            for (SearchObject s : searchResults) {
+                filmDAO.create(new Film(s.getImdbID(), s.getTitle(), s.getYear() ,s.getType(), s.getPoster(), new HashSet<Favorites>()));
+            }
+            
+            mostRecentSearchResults = searchResults;
+            return searchResults;
+        } catch (Exception e) {
+            System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
+        }
+        
+        return new ArrayList<SearchObject>();
+    }
+    
+    public FilmObject getFilmObjectFromId(String filmId) {
+        FilmObject f = OmdbService.getFilmObjectFromId(filmId);
+        
+        return f;
+    }
+    
+    public String getPosterWithPlaceholderFromFilm(Film f) {
+        if (f.getPoster().equals("N/A")) {
+            return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
+        } else {
+            return f.getPoster();
+        }
     }
 }

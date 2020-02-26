@@ -64,3 +64,7 @@ and open the template in the editor.
   color: white;
   transform: rotateY(180deg);
 }
+#searchbar {
+    display: block;
+    text-align: center;
+}
