@@ -8,8 +8,11 @@ package com.edwine.model.dao;
 import com.edwine.model.entity.Account;
 import com.edwine.model.entity.Film;
 import com.edwine.model.entity.QFilm_;
+import com.github.javafaker.Faker;
 import easycriteria.JPAQuery;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,22 +23,26 @@ import lombok.Getter;
  * @author edwin
  */
 @Stateless
-public class FilmDAO extends AbstractDAO<Film>{
-    @Getter @PersistenceContext(unitName = "flicktier")
+public class FilmDAO extends AbstractDAO<Film, Integer> {
+
+    @Getter
+    @PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
-    
-    public FilmDAO(){
+
+    public FilmDAO() {
         super(Film.class);
     }
-    
+
     public List<Film> findFilmsMatchingTitle(String title) {
         QFilm_ film = new QFilm_();
-        
+
         List<Film> result = new JPAQuery(entityManager).select(film).where(film.title.like(title)).getResultList();
         System.out.println(result.toString());
-        
+
         return result;
-        
+
         //hrow new UnsupportedOperationException("Not implemented yet!");
     }
+    
+
 }

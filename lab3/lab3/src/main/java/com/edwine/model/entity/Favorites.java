@@ -19,12 +19,14 @@ import javax.persistence.MapsId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.EqualsAndHashCode;
 
 /**
  *
  * @author benja
  */
-@Data
+@Data()
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,7 +44,13 @@ public class Favorites implements Serializable {
     @Id
     @ManyToOne
     //@MapsId("film_id")
-    private Film film;
+    private Film film;    
     
     private int score;
+    
+    
+    
+    
+    
+    
 }

@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
+@EqualsAndHashCode
 public class Film implements Serializable{
     @Id @GeneratedValue
     private int id;
@@ -33,6 +35,10 @@ public class Film implements Serializable{
     @NonNull private String director;
     
     @OneToMany(mappedBy = "film")
-    private Set<Favorites> favorites;
+    @EqualsAndHashCode.Exclude private Set<Favorites> favorites;
+    
+    public int getId() {
+        return this.id;
+    }
    
 }

@@ -19,7 +19,7 @@ import lombok.Getter;
  * @author edwin
  */
 @Stateless
-public class AccountDAO extends AbstractDAO<Account> {
+public class AccountDAO extends AbstractDAO<Account, String> {
     @Getter @PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
     
@@ -35,5 +35,7 @@ public class AccountDAO extends AbstractDAO<Account> {
         
         return result;
     }
+    
+    
         
 }

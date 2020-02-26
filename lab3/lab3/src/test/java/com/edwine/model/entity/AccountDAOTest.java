@@ -1,6 +1,5 @@
 package com.edwine.model.entity;
 
-
 import com.edwine.model.dao.AccountDAO;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,39 +17,40 @@ import org.junit.runner.RunWith;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author edwin
  */
 @RunWith(Arquillian.class)
 public class AccountDAOTest {
-        @Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(AccountDAO.class, Account.class, Film.class, Favorites.class)
-			.addAsResource("META-INF/persistence.xml")
-			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
 
-	@EJB
-	private	AccountDAO accountDAO;
-        private Account account;
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class)
+                .addClasses(AccountDAO.class, Account.class, Film.class, Favorites.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@Before
-	public void init() {
-                // accountDAO.removeAll();
-                account = new Account("Pedds", "Edwin Eliasson");
-                accountDAO.create(account);
-                //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
-                //accountDAO.create(new Account("Poppi", "Pontus Backman"));
-	}
+    @EJB
+    private AccountDAO accountDAO;
+    private Account account;
 
-	@Test
-	public void checkThatFindAccountsMatchingUsernameMatchesCorrectly() {
-                Account res = accountDAO.findAccountsMatchingUsername("Pedds").get(0);
-                System.out.println(res);
-                Assert.assertEquals(account, res);
-                Assert.assertTrue(true); /* Some better condition */
-	}
+    @Before
+    public void init() {
+        accountDAO.removeAll();
+        account = new Account("Pedds", "Edwin Eliasson");
+        accountDAO.create(account);
+        accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
+        accountDAO.create(new Account("Poppi", "Pontus Backman"));
+    }
+
+    @Test
+    public void checkThatFindAccountsMatchingUsernameMatchesCorrectly() {
+        Account res = accountDAO.findAccountsMatchingUsername("Pedds").get(0);
+        System.out.println(res);
+        Assert.assertEquals(account, res);
+        Assert.assertTrue(true);
+        /* Some better condition */
+    }
 }

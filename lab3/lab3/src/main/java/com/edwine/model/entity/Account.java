@@ -22,10 +22,13 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
+@EqualsAndHashCode
 public class Account implements Serializable {
     @Id @NonNull private String username;
     @NonNull private String name;
     
     @OneToMany(mappedBy="account")
-    private Set<Favorites> favorites;
+    @EqualsAndHashCode.Exclude private Set<Favorites> favorites;
+    
+    
 }

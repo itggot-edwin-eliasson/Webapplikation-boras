@@ -21,7 +21,7 @@ import lombok.Getter;
  * @author benja
  */
 @Stateless
-public class FavoritesDAO extends AbstractDAO<Favorites> {
+public class FavoritesDAO extends AbstractDAO<Favorites, Account> {
     @Getter @PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
     

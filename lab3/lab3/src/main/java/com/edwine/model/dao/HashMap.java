@@ -1,14 +1,17 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-const Film = () => {
-    return (
-            <div>
-                <h1>Hello React</h1>
-            </div>
-            );
-};
+package com.edwine.model.dao;
 
-export default Film;
+/**
+ *
+ * @author ogge
+ */
+public class HashMap {
+
+    public HashMap() {
+    }
+    
+}
