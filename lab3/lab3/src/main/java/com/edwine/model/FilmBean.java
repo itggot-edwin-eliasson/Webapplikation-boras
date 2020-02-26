@@ -104,6 +104,14 @@ public class FilmBean implements Serializable {
         }
     }
     
+    public String getPosterWithPlaceholderFromSearchObject(SearchObject s){
+        if (s.getPoster().equals("N/A")) {
+            return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
+        } else {
+            return s.getPoster();
+        }
+    }
+    
     public List<SearchObject> getSearchResult(){
         return mostRecentSearchResults;
     }

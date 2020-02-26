@@ -47,7 +47,7 @@ and open the template in the editor.
                         </p:column>
                         
                         <p:column headerText="Poster">
-                            <h:graphicImage url="#{film.getPoster()}" height="150" width="100"/>
+                            <h:graphicImage url="#{filmBean.getPosterWithPlaceholderFromSearchObject(film)}" height="150" width="100"/>
                         </p:column>
                     </p:dataTable>
                 </div>
