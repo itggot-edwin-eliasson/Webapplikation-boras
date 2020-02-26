@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.EJB;
+import javax.faces.FacesException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
@@ -28,31 +29,39 @@ import lombok.Data;
 @Named
 @ViewScoped
 public class AccountBean implements Serializable {
-   
+
     @EJB
     private AccountDAO accDAO;
-    
+
     private String username;
     private String password;
-    
-    public void login(){
-        Account foundAccount = null;
 
+    public boolean login() throws NoSuchAlgorithmException {
+        String hashedPassword = null;
+        
+        Account foundAccount = accDAO.getAccountMatchingUsername(username);
+
+        if (foundAccount == null) {
+            System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
+            return false;
+        }
+        
         try {
-            foundAccount = accDAO.getAccountMatchingUsername(username);
-        } catch (NullPointerException e) {
-            System.out.println("ERROR: There was no account matching the given username!");
+            hashedPassword = createHash(password, foundAccount.getSalt().getBytes());
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
-        if (foundAccount != null && password.equals(foundAccount.getPassword())) {
+        if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
             System.out.println("LOGIN SUCCESS!");
+            return true;
         } else {
             System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
+            return false;
         }
     }
-    
-    public void register() throws NoSuchAlgorithmException{
+
+    public boolean register() throws NoSuchAlgorithmException {
 
         byte[] salt = createSalt();
         String hashedPassword = null;
@@ -62,17 +71,19 @@ public class AccountBean implements Serializable {
             Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if(hashedPassword == null){
+        if (hashedPassword == null) {
             System.out.println("PASSWORD COULD NOT BE HASHED, TRY AGAIN!");
-            return;
+            return false;
         }
 
         String stringSalt = Arrays.toString(salt);
 
         accDAO.create(new Account(username, hashedPassword, stringSalt, new HashSet<Favorites>()));
+        System.out.println("SUCCESS: Account '" + username + "' should have been created!");
+        return true;
     }
 
-    private String createHash(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException{
+    private String createHash(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
@@ -82,7 +93,7 @@ public class AccountBean implements Serializable {
         return Arrays.toString(hash);
     }
 
-    private byte[] createSalt(){
+    private byte[] createSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
