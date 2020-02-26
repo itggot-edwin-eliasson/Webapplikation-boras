@@ -19,17 +19,12 @@ and open the template in the editor.
     <h:body>
         <h:form>
             <h:panelGrid columns='2'>
-                <h:outputText value='Username'/>
-                <p:inputText placeholder='Username'/>
 
-                <h:outputText value='Password'/>
-                <p:password placeholder='Password'/>
-                
-                <br/>
-                <p:button value='Log in'/>
-                
-                <br/>
-                <p:button value='Create Account'/>
+                <p:inputText value="#{accountBean.username}" placeholder="Username"/>
+                <p:password value="#{accountBean.password}" placeholder="Password"/>
+                <p:commandButton value="Login" action="#{accountBean.login()}"/>
+                <p:commandButton value="Register" action="#{accountBean.register()}"/>
+
             </h:panelGrid>
         </h:form>
     </h:body>

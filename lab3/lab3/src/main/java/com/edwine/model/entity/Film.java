@@ -21,6 +21,6 @@ public class Film implements Serializable{
     private String type;
     private String poster;
     
-    @OneToMany(mappedBy = "film")
-    private Set<Favorites> favorites;
+    //@OneToMany(mappedBy = "film")
+    //private Set<Favorites> favorites;
 }

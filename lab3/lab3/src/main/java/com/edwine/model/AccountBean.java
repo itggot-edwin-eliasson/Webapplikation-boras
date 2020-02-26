@@ -26,15 +26,25 @@ public class AccountBean implements Serializable {
     private String username;
     private String password;
     
-    public void login(String username, String password){
-        if (password.equals(accDAO.getAccountMatchingUsername(username).getPassword())) {
+    public void login(){
+        Account foundAccount = null;
+        
+        try {
+            foundAccount = accDAO.getAccountMatchingUsername(username);
+        } catch (NullPointerException e) {
+            System.out.println("ERROR: There was no account matching the given username!");
+        }
+        
+        
+        if (foundAccount != null && password.equals(foundAccount.getPassword())) {
             System.out.println("LOGIN SUCCESS!");
         } else {
             System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
         }
     }
     
-    public void register(String username, String password){
+    public void register(){
         accDAO.create(new Account(username, password, new HashSet<Favorites>()));
+        System.out.println("SUCCESS: '" + username + "' account created!");
     }
 }

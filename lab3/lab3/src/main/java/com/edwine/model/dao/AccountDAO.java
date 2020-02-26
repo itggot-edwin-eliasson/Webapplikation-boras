@@ -31,10 +31,15 @@ public class AccountDAO extends AbstractDAO<Account> {
     public Account getAccountMatchingUsername(String name) {
         QAccount_ account = new QAccount_();
         
+        try {
         Account result = new JPAQuery(entityManager).select(account).where(account.username.eq(name)).getResultList().get(0);
-        //System.out.println(result.toString());
-        
         return result;
+        //System.out.println(result.toString());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ERROR: Could not find any account matching the username!");
+        }
+        
+        return null;
     }
         
 }
