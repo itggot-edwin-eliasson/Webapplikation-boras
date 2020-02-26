@@ -28,11 +28,11 @@ public class AccountDAO extends AbstractDAO<Account> {
         super(Account.class);
     }
     
-    public List<Account> findAccountsMatchingUsername(String name) {
+    public Account getAccountMatchingUsername(String name) {
         QAccount_ account = new QAccount_();
         
-        List<Account> result = new JPAQuery(entityManager).select(account).where(account.username.like(name)).getResultList();
-        System.out.println(result.toString());
+        Account result = new JPAQuery(entityManager).select(account).where(account.username.eq(name)).getResultList().get(0);
+        //System.out.println(result.toString());
         
         return result;
     }

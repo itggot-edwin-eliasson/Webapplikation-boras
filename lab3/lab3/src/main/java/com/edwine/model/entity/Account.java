@@ -24,7 +24,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Account implements Serializable {
     @Id @NonNull private String username;
-    @NonNull private String name;
+    @NonNull private String password;
     
     @OneToMany(mappedBy="account")
     private Set<Favorites> favorites;
