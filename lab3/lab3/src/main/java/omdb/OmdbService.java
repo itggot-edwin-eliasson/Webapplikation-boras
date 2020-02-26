@@ -7,6 +7,7 @@ package omdb;
 
 import omdb.model.FilmObject;
 import com.google.gson.Gson;
+import java.util.ArrayList;
 import java.util.List;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
@@ -23,42 +24,60 @@ public abstract class OmdbService {
     private static final String KEY = "b410e072"; // TODO: need to hide this key
 
     public static FilmObject getFilmObjectFromId(String filmId) {
-        HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
-                .header("accept", "application/json")
-                .queryString("apikey", KEY)
-                .queryString("i", filmId)
-                .asJson();
+        try {
+            HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
+                    .header("accept", "application/json")
+                    .queryString("apikey", KEY)
+                    .queryString("i", filmId)
+                    .asJson();
 
-        Gson gson = new Gson();
-        return gson.fromJson(response.getBody().toString(), FilmObject.class);
+            Gson gson = new Gson();
+            return gson.fromJson(response.getBody().toString(), FilmObject.class);
+        } catch (Exception e) {
+            System.out.println("ERROR: Could not query the API! " + e.getMessage());
+        }
+
+        return null;
     }
-    
+
     // Returns the first page with maximum 10 results
     public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue) {
-        HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
-                .header("accept", "application/json")
-                .queryString("apikey", KEY)
-                .queryString("s", searchValue)
-                .asJson();
+        try {
+            HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
+                    .header("accept", "application/json")
+                    .queryString("apikey", KEY)
+                    .queryString("s", searchValue)
+                    .asJson();
 
-        Gson gson = new Gson();
-        SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
-        
-        return searchObject.getSearch();
+            Gson gson = new Gson();
+            SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
+
+            return searchObject.getSearch();
+        } catch (Exception e) {
+            System.out.println("ERROR: Could not query the API! " + e.getMessage());
+        }
+
+        return new ArrayList<SearchObject>();
     }
-    
+
     // Returns the chosen page
     public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue, int pageNumber) {
-        HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
-                .header("accept", "application/json")
-                .queryString("apikey", KEY)
-                .queryString("s", searchValue)
-                .queryString("page", pageNumber)
-                .asJson();
+        try {
+            HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
+                    .header("accept", "application/json")
+                    .queryString("apikey", KEY)
+                    .queryString("s", searchValue)
+                    .queryString("page", pageNumber)
+                    .asJson();
 
-        Gson gson = new Gson();
-        SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
-        
-        return searchObject.getSearch();
+            Gson gson = new Gson();
+            SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
+
+            return searchObject.getSearch();
+        } catch (Exception e) {
+            System.out.println("ERROR: Could not query the API! " + e.getMessage());
+        }
+
+        return new ArrayList<SearchObject>();
     }
 }
