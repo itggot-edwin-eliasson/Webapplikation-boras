@@ -48,7 +48,7 @@ public class AccountBean implements Serializable {
         }
         
         try {
-            hashedPassword = createHash(password, foundAccount.getSalt().getBytes());
+            hashedPassword = createHash(password, Base64.getDecoder().decode(foundAccount.getSalt()));
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
         }
