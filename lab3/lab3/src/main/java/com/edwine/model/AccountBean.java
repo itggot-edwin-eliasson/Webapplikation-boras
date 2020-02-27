@@ -14,6 +14,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,8 +77,11 @@ public class AccountBean implements Serializable {
             return false;
         }
 
-        String stringSalt = Arrays.toString(salt);
-
+        String stringSalt = Base64.getEncoder().encodeToString(salt);
+        
+        //Do this to decode the string in password and salt to a byte array
+        //byte[] salt2 = Base64.getDecoder().decode(stringSalt);
+                
         accDAO.create(new Account(username, hashedPassword, stringSalt, new HashSet<Favorites>()));
         System.out.println("SUCCESS: Account '" + username + "' should have been created!");
         return true;
@@ -90,7 +94,10 @@ public class AccountBean implements Serializable {
 
         byte[] hash = factory.generateSecret(spec).getEncoded();
 
-        return Arrays.toString(hash);
+        
+        String stringHash = Base64.getEncoder().encodeToString(hash);
+        //Arrays.toString(hash)
+        return stringHash;
     }
 
     private byte[] createSalt() {
