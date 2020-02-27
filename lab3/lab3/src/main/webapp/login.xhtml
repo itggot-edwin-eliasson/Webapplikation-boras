@@ -20,12 +20,25 @@ and open the template in the editor.
         <h:form>
             <h:panelGrid columns='2'>
 
-                <p:inputText value="#{accountBean.username}" placeholder="Username"/>
-                <p:password value="#{accountBean.password}" placeholder="Password"/>
-                <p:commandButton value="Login" action="#{accountBean.login()}"/>
-                <p:commandButton value="Register" action="#{accountBean.register()}"/>
+                <p:inputText value="#{accountControllerBean.username}" placeholder="Username"/>
+                <p:password value="#{accountControllerBean.password}" placeholder="Password"/>
+                <p:commandButton value="Login" action="#{accountControllerBean.login()}"/>
+                <p:commandButton value="Register" action="#{accountControllerBean.register()}"/>
 
             </h:panelGrid>
         </h:form>
+        <h:form id="status">
+            <ui:fragment rendered="#{accountViewBean.loggedIn}">
+                <p>Successful login as #{accountViewBean.loggedInUser}!</p>
+            </ui:fragment>
+            <ui:fragment rendered="#{!accountViewBean.loggedIn}">
+                <p>Not logged in!</p>
+            </ui:fragment>
+            <h:button value="To search!" outcome="/index.xhtml"/>
+        </h:form>
+        
+        <o:socket scope="application" channel="main">
+            <f:ajax event="login" render=":status"/>
+        </o:socket>
     </h:body>
 </html>

@@ -23,16 +23,25 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.EJB;
 import javax.faces.FacesException;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 @Data
 @Named
 @ViewScoped
-public class AccountBean implements Serializable {
+public class AccountControllerBean implements Serializable {
 
     @EJB
     private AccountDAO accDAO;
+    
+    @Inject
+    private AccountViewBean accViewBean;
+    
+    @Inject @Push(channel = "main")
+    private PushContext push;
 
     private String username;
     private String password;
@@ -44,20 +53,24 @@ public class AccountBean implements Serializable {
 
         if (foundAccount == null) {
             System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
+            push.send("login");
             return false;
         }
         
         try {
             hashedPassword = createHash(password, Base64.getDecoder().decode(foundAccount.getSalt()));
         } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountControllerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
             System.out.println("LOGIN SUCCESS!");
+            accViewBean.setLoggedInUser(username);
+            push.send("login");
             return true;
         } else {
             System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
+            push.send("login");
             return false;
         }
     }
@@ -69,7 +82,7 @@ public class AccountBean implements Serializable {
         try {
             hashedPassword = createHash(password, salt);
         } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountControllerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (hashedPassword == null) {
@@ -85,6 +98,18 @@ public class AccountBean implements Serializable {
         accDAO.create(new Account(username, hashedPassword, stringSalt, new HashSet<Favorites>()));
         System.out.println("SUCCESS: Account '" + username + "' should have been created!");
         return true;
+    }
+    
+    public boolean logout() {
+        if (accViewBean.isLoggedIn()) {
+            accViewBean.setLoggedInUser(null);
+            System.out.println("SUCCESS: User logged out!");
+            push.send("logout");
+            return true;
+        } else {
+            System.out.println("ERROR: No user logged in, can not logout!");
+            return false;
+        }
     }
 
     private String createHash(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
