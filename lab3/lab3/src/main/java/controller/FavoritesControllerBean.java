@@ -3,27 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.edwine.model;
+package controller;
 
-import java.io.Serializable;
-import com.edwine.model.dao.FavoritesDAO;
 import com.edwine.model.dao.AccountDAO;
+import com.edwine.model.dao.FavoritesDAO;
 import com.edwine.model.dao.FilmDAO;
-import com.edwine.model.entity.Film;
-import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Account;
-import java.util.HashSet;
+import com.edwine.model.AccountViewBean;
+import com.edwine.model.entity.Film;
+import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 import omdb.model.SearchObject;
+import view.FavoritesBackingBean;
 
-@Data
+/**
+ *
+ * @author edwin
+ */
 @Named
-@ViewScoped
-public class FavoritesBean implements Serializable {
-
+@RequestScoped
+public class FavoritesControllerBean implements Serializable{
     @EJB
     private FavoritesDAO favDAO;
 
@@ -32,15 +35,21 @@ public class FavoritesBean implements Serializable {
 
     @EJB
     private FilmDAO filmDAO;
+    
+    @EJB
+    private AccountViewBean account;
+   
+    @Inject
+    private FavoritesBackingBean favoritesBackingBean;
 
-    public void addFavorite(SearchObject film, String username) {
-        if (username != null) {
-            Account acc = accDAO.getAccountMatchingUsername(username);
+    public void addFavorite() {
+        if (account.getLoggedInUser() != null) {
+            Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
 
             if (acc == null) {
                 System.out.println("ERROR: Could not find logged in account!");
             } else {
-                Film f = filmDAO.findFilmsMatchingTitle(film.getTitle()).get(0);
+                Film f = filmDAO.findFilmsMatchingTitle(favoritesBackingBean.getFilm().getTitle()).get(0);
                 System.out.println("SUCCESS: " + f.getTitle() + " added as favorite for user " + acc.getUsername());
                 favDAO.add(acc, f, 0);
             }
