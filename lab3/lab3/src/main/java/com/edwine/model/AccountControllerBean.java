@@ -100,15 +100,15 @@ public class AccountControllerBean implements Serializable {
         return true;
     }
     
-    public boolean logout() {
+    public void logout() {
         if (accViewBean.isLoggedIn()) {
             accViewBean.setLoggedInUser(null);
             System.out.println("SUCCESS: User logged out!");
-            push.send("logout");
-            return true;
+            //push.send("logout");
+            //return true;
         } else {
             System.out.println("ERROR: No user logged in, can not logout!");
-            return false;
+            //return false;
         }
     }
 
