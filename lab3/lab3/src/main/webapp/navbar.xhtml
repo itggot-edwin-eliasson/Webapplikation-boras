@@ -22,6 +22,20 @@ and open the template in the editor.
                 <p:menuitem value="" url="http://www.primefaces.org" icon="pi pi-home"/>
                 <p:menuitem value="WatchList" url="http://www.primefaces.org"/>
                 <p:menuitem value="Profile" url="http://www.primefaces.org"/>
+                <f:facet name="options">
+                <p:menuitem id="login-status">
+                    <ui:fragment id="logout" rendered="#{accountViewBean.loggedIn}">
+                        <div>
+                            <p:commandButton update="@form" value="LOG OUT" action="#{accountControllerBean.logout}"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment id="login" rendered="#{!accountViewBean.loggedIn}">
+                        <div>
+                            <h:button value="LOG IN" outcome="/login.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                </p:menuitem>
+                </f:facet>
             </p:menubar>
         </h:form>
     </h:body>
