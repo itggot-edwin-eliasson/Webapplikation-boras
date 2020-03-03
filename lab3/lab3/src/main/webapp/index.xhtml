@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
 
     <h:head>
         <link rel="stylesheet" type="text/css" href="flexbox.css"/>
@@ -19,38 +20,59 @@ and open the template in the editor.
     <h:body>
         <div class="ui-g">
             <div class="ui-g-12" id="searchbar">
+                <h:form id="login-status">
+                    <ui:fragment id="logout" rendered="#{accountViewBean.loggedIn}">
+                        <div>
+                            <p:commandButton value="LOG OUT" action="#{accountControllerBean.logout()}"/>
+                            <h1>LOGGED IN AS <i>#{accountViewBean.loggedInUser}</i></h1>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment id="login" rendered="#{!accountViewBean.loggedIn}">
+                        <div>
+                            <h:button value="LOG IN" outcome="/login.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                </h:form>
+
                 <div class="box">
                     <h:form>
                         <p:inputText value="#{filmBean.searchString}" placeholder="Search"/>
                         <p:commandButton value="Search" action="#{filmBean.searchFilms()}"/>
                     </h:form>
-                </div> 
+                </div>
             </div>
             <div class="ui-g-12">
-                <div class="box">   
-                    <p:dataTable var="film" value="#{filmBean.allFilms}">
+                <div class="box">
+                    <p:dataTable id="data" var="film" value="#{filmBean.getSearchResult()}">
                         <p:column headerText="IMDB-ID">
-                            <h:outputText value="#{film.id}" />
+                            <h:outputText value="#{film.getImdbID()}" />
                         </p:column>
 
                         <p:column headerText="Title">
-                            <h:outputText value="#{film.title}" />
+                            <h:outputText value="#{film.getTitle()}" />
                         </p:column>
-                        
+
                         <p:column headerText="Year">
-                            <h:outputText value="#{film.releaseYear}" />
+                            <h:outputText value="#{film.getYear()}" />
                         </p:column>
-                        
+
                         <p:column headerText="Type">
-                            <h:outputText value="#{film.type}" />
+                            <h:outputText value="#{film.getType()}" />
                         </p:column>
-                        
+
                         <p:column headerText="Poster">
-                            <h:graphicImage url="#{filmBean.getPosterWithPlaceholderFromFilm(film)}" height="150" width="100"/>
+                            <h:graphicImage url="#{filmBean.getPosterWithPlaceholderFromSearchObject(film)}" height="150" width="100"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Favorite" action="#{favoritesBean.addFavorite(film, accountViewBean.loggedInUser)}"/>
                         </p:column>
                     </p:dataTable>
                 </div>
             </div>
         </div>
+        <o:socket scope="application" channel="main">
+            <f:ajax event="newdata" render=":data"/>
+            <f:ajax event="logout" render=":login-status"/>
+        </o:socket>
     </h:body>
 </html>

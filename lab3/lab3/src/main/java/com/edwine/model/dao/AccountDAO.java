@@ -28,13 +28,18 @@ public class AccountDAO extends AbstractDAO<Account> {
         super(Account.class);
     }
     
-    public List<Account> findAccountsMatchingUsername(String name) {
+    public Account getAccountMatchingUsername(String name) {
         QAccount_ account = new QAccount_();
         
-        List<Account> result = new JPAQuery(entityManager).select(account).where(account.username.like(name)).getResultList();
-        System.out.println(result.toString());
-        
+        try {
+        Account result = new JPAQuery(entityManager).select(account).where(account.username.eq(name)).getResultList().get(0);
         return result;
+        //System.out.println(result.toString());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ERROR: Could not find any account matching the username!");
+        }
+        
+        return null;
     }
         
 }

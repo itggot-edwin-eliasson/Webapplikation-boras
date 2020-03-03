@@ -21,10 +21,11 @@ import lombok.*;
 @Data
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Account implements Serializable {
     @Id @NonNull private String username;
-    @NonNull private String name;
+    @NonNull private String password;
+    private String salt;
     
     @OneToMany(mappedBy="account")
     private Set<Favorites> favorites;

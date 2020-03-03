@@ -36,12 +36,12 @@ public class AccountDAOTest {
 
 	@EJB
 	private	AccountDAO accountDAO;
-    private Account account;
+        //private Account account;
 
 	@Before
 	public void init() {
                 //accountDAO.removeAll();
-                account = new Account("Pedds", "Edwin Eliasson");
+                //account = new Account("Pedds", "Edwin Eliasson");
                 //accountDAO.create(account);
                 //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
                 //accountDAO.create(new Account("Poppi", "Pontus Backman"));

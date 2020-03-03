@@ -45,19 +45,19 @@ public class FavoritesDAOTest {
         @EJB
         private FilmDAO filmDAO;
         
-        Account account1;
+        /*Account account1;
         Film film1;
-        Favorites favorite1;
+        Favorites favorite1;*/
 
 	@Before
 	public void init() {
                 //favoritesDAO.removeAll();
                 
-                account1 = new Account("abc123", "Pontus");
+                //account1 = new Account("abc123", "Pontus");
                 //film1 = new Film("ABC", 1998, "Action", "Edwin");
                 //favorite1 = new Favorites(account1, film1, 7);
                 
-                accountDAO.create(account1);
+                //accountDAO.create(account1);
                 //filmDAO.create(film1);
                 //favoritesDAO.create(favorite1);
                
