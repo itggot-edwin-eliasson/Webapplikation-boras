@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head>
+        <title>Profile page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <link rel="stylesheet" type="text/css" href="flexbox.css"/>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+    
+    </h:head>
+    <body>
+        <ui:include src="navbar.xhtml"></ui:include>
+        <div>
+
+            <style type="text/css">
+                .label {
+                    width:20%;
+                    padding:4px;
+                }
+
+                .value {
+                    width:80%;
+                    padding:4px;
+                }
+
+                .grid {
+                    width:100%;
+                }
+
+                .error {
+                    color: red;
+                }
+
+                .outputLabel {
+                    font-weight: bold;
+                }
+
+                .grid {
+                    width:33%;
+                    padding:4px;
+                }
+            </style>
+
+            <h1>Profile Page</h1>
+            <h:form>
+                <p:tab id="profile" title="Profile">
+                    <p:panel header="Personal Details">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value">
+                            
+                            <h:outputText value="Email:" />
+                            <p:inputText value="#{accountControllerBean.getUsername()}" required="true" label="Email"/>
+                            
+                            <h:outputText value="Firstname:" />
+                            <p:inputText value="" required="true" label="Firstname"/>
+
+                            <h:outputText value="Lastname:" />
+                            <p:inputText value="" required="true" label="Lastname"/>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </h:form>
+        </div>
+    </body>
+</html>
