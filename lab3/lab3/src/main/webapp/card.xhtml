@@ -22,14 +22,14 @@ and open the template in the editor.
         <div class="card">
             <div class="card-inner">
                 <div class="card-front">
-                    <p:graphicImage url="#{filmBean.getPosterWithPlaceholderFromFilm(film)}" height="100%" width="100%"/>
+                    <p:graphicImage url="#{filmBean.getPosterWithPlaceholderFromSearchObject(film)}" height="100%" width="100%"/>
                 </div>
                 <div class="card-back">
-                    <h:outputText value="#{filmCard.title}"/>
+                    <h:outputText value="#{filmCard.getTitle()}"/>
                     <br />
-                    <h:outputText value="#{filmCard.releaseYear}"/>
+                    <h:outputText value="#{filmCard.getYear()}"/>
                     <br />
-                    <h:outputText value="#{filmCard.type}"/>
+                    <h:outputText value="#{filmCard.getType()}"/>
                     <br />
                 </div>
             </div>

@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
 
     <h:head>
         <link rel="stylesheet" type="text/css" href="flexbox.css"/>
@@ -18,13 +19,20 @@ and open the template in the editor.
 
     <h:body>
         <ui:include src="navbar.xhtml"></ui:include>
+        <h:form>
+            <p:inputText value="#{filmBean.searchString}" placeholder="Search"/>
+            <p:commandButton value="Search" action="#{filmBean.searchFilms()}"/>
+        </h:form>
         <p:outputLabel value="#{filmDAO.test()}"/>
 
-        <p:dataGrid var="film" value="#{filmBean.allFilms}" columns="6" layout="grid" rows="12" paginator="true">
+        <p:dataGrid id="data" var="film" value="#{filmBean.getSearchResult()}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
                 <ui:param name ="filmCard" value="#{film}"/>
             </ui:include>
         </p:dataGrid>
-
+        <o:socket scope="application" channel="main">
+            <f:ajax event="newdata" render=":data"/>
+        </o:socket>
     </h:body>
+
 </html>
