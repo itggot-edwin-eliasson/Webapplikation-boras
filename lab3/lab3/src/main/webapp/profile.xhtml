@@ -39,10 +39,10 @@ and open the template in the editor.
                                     <h:outputText value="#{accountViewBean.loggedInUser}" />
 
                                     <h:outputText value="Firstname:" />
-                                    <h:outputText value="Undefined" />
+                                    <h:outputText value="#{accountBackingBean.firstName}" />
 
                                     <h:outputText value="Lastname:" />
-                                    <h:outputText value="Undefined" />
+                                    <h:outputText value="#{accountBackingBean.lastName}" />
                                 </p:panelGrid>
 
                                 <p:graphicImage value="https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png" width="100px" height="100px" />
@@ -61,7 +61,7 @@ and open the template in the editor.
                                 <p:panelGrid columns="2" columnClasses="label, value" style="width:50%;margin:20px 20px" layout="grid" styleClass="ui-panelgrid-blank">
 
                                     <h:outputText value="Email:" />
-                                    <p:inputText value="#{accountControllerBean.getUsername()}" required="true" label="Email"/>
+                                    <p:inputText value="" required="true" label="Email"/>
 
                                     <h:outputText value="Firstname:" />
                                     <p:inputText value="" required="true" label="Firstname"/>
@@ -70,7 +70,7 @@ and open the template in the editor.
                                     <p:inputText value="" required="true" label="Lastname"/>
 
                                 </p:panelGrid>
-                                <p:graphicImage value="https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png" width="100px" height="100px" onclick="#"/>
+                                <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="100px" height="100px" onclick="#"/>
                             </p:panelGrid>
                             <p:commandButton value="Cancel"></p:commandButton>
                             <p:commandButton value="Save"></p:commandButton>
