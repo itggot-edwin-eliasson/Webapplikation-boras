@@ -22,28 +22,28 @@ import lombok.Getter;
  */
 @Stateless
 public class FavoritesDAO extends AbstractDAO<Favorites> {
-    @Getter 
+
+    @Getter
     @PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
-    
-    public FavoritesDAO(){
+
+    public FavoritesDAO() {
         super(Favorites.class);
     }
-    
+
     public List<Account> findUsersMatchingName() {
         throw new UnsupportedOperationException("Not implemented yet!");
     }
-    
-    public void setScore(Favorites favorite,int score) {
+
+    public void setScore(Favorites favorite, int score) {
         //QFavorites_ favorites = new QFavorites_();
-        
+
         //List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(favorite.getAccount().getUsername())).getResultList();
         //List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(favorite.getAccount().getUsername()).and(favorites.film.));
-        
         favorite.setScore(score);
         super.update(favorite);
     }
-    
+
     /*public Favorites findFavoritesMatchingFilmAndAccount(Film film, Account account) {
         QFavorites_ favorites = new QFavorites_();
         
@@ -58,29 +58,30 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         
         return null;
     }*/
-    
     public List<Favorites> getAccountsWhoFavoritedFilm(Film film) {
         QFavorites_ favorites = new QFavorites_();
-        
+
         List<Favorites> result;
         result = new JPAQuery(entityManager).select(favorites).where(favorites.film.id.like(film.getId())).getResultList();
-        
+
         return result;
     }
-    
+
     public List<Favorites> getFilmsThatAccountFavorited(Account acc) {
         QFavorites_ favorites = new QFavorites_();
-        
+
         List<Favorites> result;
         result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername())).getResultList();
-        
+
         return result;
     }
-    
-    public void add(Account acc, Film film, int score){
-        Favorites fav = new Favorites(acc, film, score);
-        create(fav);
-        //acc.getFavorites().add(fav);
-        //film.getFavorites().add(fav);
+
+    public Favorites getFavourite(Account acc, Film film) {
+        QFavorites_ favorites = new QFavorites_();
+
+        Favorites result;
+        result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername()).and(favorites.film.id.eq(film.getId()))).getResultList().get(0);
+
+        return result;
     }
 }

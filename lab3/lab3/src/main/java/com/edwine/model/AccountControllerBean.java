@@ -39,9 +39,6 @@ public class AccountControllerBean implements Serializable {
     
     @Inject
     private AccountViewBean accViewBean;
-    
-    @Inject @Push(channel = "main")
-    private PushContext push;
 
     private String username;
     private String password;
@@ -53,7 +50,6 @@ public class AccountControllerBean implements Serializable {
 
         if (foundAccount == null) {
             System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
-            push.send("login");
             return false;
         }
         
@@ -66,11 +62,9 @@ public class AccountControllerBean implements Serializable {
         if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
             System.out.println("LOGIN SUCCESS!");
             accViewBean.setLoggedInUser(username);
-            push.send("login");
             return true;
         } else {
             System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
-            push.send("login");
             return false;
         }
     }
@@ -104,7 +98,6 @@ public class AccountControllerBean implements Serializable {
         if (accViewBean.isLoggedIn()) {
             accViewBean.setLoggedInUser(null);
             System.out.println("SUCCESS: User logged out!");
-            //push.send("logout");
             //return true;
         } else {
             System.out.println("ERROR: No user logged in, can not logout!");

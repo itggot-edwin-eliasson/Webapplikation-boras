@@ -41,9 +41,6 @@ public class FilmBean implements Serializable {
     
     private boolean searchActive = false;
     
-    @Inject @Push(channel = "main")
-    private PushContext push;
-    
     @EJB
     private FilmDAO filmDAO;
     
@@ -81,7 +78,6 @@ public class FilmBean implements Serializable {
             
        
         mostRecentSearchResults = searchResults;
-        push.send("newdata");
         return searchResults;
     }
     
