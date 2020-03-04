@@ -84,11 +84,4 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
 
         return result;
     }
-
-    public void add(Account acc, Film film, int score) {
-        Favorites fav = new Favorites(acc, film, score);
-        create(fav);
-        //acc.getFavorites().add(fav);
-        //film.getFavorites().add(fav);
-    }
 }

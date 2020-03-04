@@ -37,22 +37,19 @@ public class FavoritesControllerBean implements Serializable{
     @EJB
     private FilmDAO filmDAO;
     
-    @EJB
-    private AccountViewBean account;
-   
     @Inject
-    private FavoritesBackingBean favoritesBackingBean;
+    private AccountViewBean account;
 
-    public void addFavorite() {
+    public void addFavorite(SearchObject film) {
         if (account.getLoggedInUser() != null) {
             Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
 
             if (acc == null) {
                 System.out.println("ERROR: Could not find logged in account!");
             } else {
-                Film f = filmDAO.findFilmsMatchingTitle(favoritesBackingBean.getFilm().getTitle()).get(0);
+                Film f = filmDAO.findFilmsMatchingTitle(film.getTitle()).get(0);
                 System.out.println("SUCCESS: " + f.getTitle() + " added as favorite for user " + acc.getUsername());
-                favDAO.add(acc, f, 0);
+                favDAO.create(new Favorites(acc, f, 0));
             }
         } else {
             System.out.println("ERROR: No logged in user, can not add favorite!");
@@ -61,14 +58,14 @@ public class FavoritesControllerBean implements Serializable{
         //System.out.println("Favorites: " + favDAO.getAccountsWhoFavoritedFilm(f).get(0).getAccount());
     }
     
-    public void removeFavorite() {
+    public void removeFavorite(SearchObject film) {
         if (account.getLoggedInUser() != null) {
             Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
 
             if (acc == null) {
                 System.out.println("ERROR: Could not find logged in account!");
             } else {
-                Film f = filmDAO.findFilmsMatchingTitle(favoritesBackingBean.getFilm().getTitle()).get(0);
+                Film f = filmDAO.findFilmsMatchingTitle(film.getTitle()).get(0);
                 Favorites favorite = favDAO.getFavourite(acc, f);
                 favDAO.remove(favorite);
                 System.out.println("SUCCESS: " + f.getTitle() + " removed as favorite for user " + acc.getUsername());
