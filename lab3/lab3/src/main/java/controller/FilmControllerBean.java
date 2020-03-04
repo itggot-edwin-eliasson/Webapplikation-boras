@@ -43,8 +43,8 @@ public class FilmControllerBean implements Serializable {
             for (SearchObject s : searchResults) {
                 try {
                     Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear() ,s.getType(), s.getPoster());
-                    filmDAO.create(film);
                     mostRecentSearchResults.add(film);
+                    filmDAO.create(film);
                 }catch (Exception e) {
                     System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
                 }
