@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.edwine.model;
+package controller;
 
+import com.edwine.model.AccountViewBean;
 import java.io.Serializable;
 import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.entity.Account;
@@ -28,6 +29,7 @@ import javax.inject.Named;
 import lombok.Data;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
+import view.AccountBackingBean;
 
 @Data
 @Named
@@ -39,14 +41,14 @@ public class AccountControllerBean implements Serializable {
     
     @Inject
     private AccountViewBean accViewBean;
-
-    private String username;
-    private String password;
+    
+    @Inject
+    private AccountBackingBean accBackingBean;
 
     public boolean login() throws NoSuchAlgorithmException {
         String hashedPassword = null;
         
-        Account foundAccount = accDAO.getAccountMatchingUsername(username);
+        Account foundAccount = accDAO.getAccountMatchingUsername(accBackingBean.getUsername());
 
         if (foundAccount == null) {
             System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
@@ -54,14 +56,14 @@ public class AccountControllerBean implements Serializable {
         }
         
         try {
-            hashedPassword = createHash(password, Base64.getDecoder().decode(foundAccount.getSalt()));
+            hashedPassword = createHash(accBackingBean.getPassword(), Base64.getDecoder().decode(foundAccount.getSalt()));
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(AccountControllerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
             System.out.println("LOGIN SUCCESS!");
-            accViewBean.setLoggedInUser(username);
+            accViewBean.setLoggedInUser(accBackingBean.getUsername());
             return true;
         } else {
             System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
@@ -74,7 +76,7 @@ public class AccountControllerBean implements Serializable {
         byte[] salt = createSalt();
         String hashedPassword = null;
         try {
-            hashedPassword = createHash(password, salt);
+            hashedPassword = createHash(accBackingBean.getPassword(), salt);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(AccountControllerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,8 +91,8 @@ public class AccountControllerBean implements Serializable {
         //Do this to decode the string in password and salt to a byte array
         //byte[] salt2 = Base64.getDecoder().decode(stringSalt);
                 
-        accDAO.create(new Account(username, hashedPassword, stringSalt, new HashSet<Favorites>()));
-        System.out.println("SUCCESS: Account '" + username + "' should have been created!");
+        accDAO.create(new Account(accBackingBean.getUsername(), hashedPassword, stringSalt, new HashSet<Favorites>()));
+        System.out.println("SUCCESS: Account '" + accBackingBean.getUsername() + "' should have been created!");
         return true;
     }
     

@@ -19,8 +19,8 @@ and open the template in the editor.
         <h:form>
             <h:panelGrid columns='2'>
 
-                <p:inputText value="#{accountControllerBean.username}" placeholder="Username"/>
-                <p:password value="#{accountControllerBean.password}" placeholder="Password"/>
+                <p:inputText value="#{accountBackingBean.username}" placeholder="Username"/>
+                <p:password value="#{accountBackingBean.password}" placeholder="Password"/>
                 <p:commandButton value="Login" update="status" action="#{accountControllerBean.login()}"/>
                 <p:commandButton value="Register" action="#{accountControllerBean.register()}"/>
 
