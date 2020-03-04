@@ -31,6 +31,16 @@ and open the template in the editor.
                     <br />
                     <h:outputText value="#{filmCard.getType()}"/>
                     <br />
+                    <ui:fragment id="add" rendered="#{accountViewBean.loggedIn}">
+                        <div>
+                            <p:commandButton update="@form" value="Add film" action="#{accountControllerBean.logout}"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment id="remove" rendered="#{!accountViewBean.loggedIn}">
+                        <div>
+                            <h:button value="Remove film" outcome="/login.xhtml"/>
+                        </div>
+                    </ui:fragment>
                 </div>
             </div>
         </div>
