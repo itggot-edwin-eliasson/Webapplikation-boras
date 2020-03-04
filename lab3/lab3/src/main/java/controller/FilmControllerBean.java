@@ -11,11 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import omdb.OmdbService;
 import omdb.model.SearchObject;
+import org.omnifaces.cdi.ViewScoped;
 import view.FilmBackingBean;
 
 /**
@@ -23,7 +23,7 @@ import view.FilmBackingBean;
  * @author edwin
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class FilmControllerBean implements Serializable {
     
     private List<Film> mostRecentSearchResults;

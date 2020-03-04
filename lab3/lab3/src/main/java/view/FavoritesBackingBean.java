@@ -16,6 +16,7 @@ import com.edwine.model.entity.Account;
 import com.edwine.model.dao.FavoritesDAO;
 import com.edwine.model.dao.AccountDAO;
 import java.util.List;
+import javax.inject.Inject;
 import org.omnifaces.cdi.ViewScoped;
 
 @Data
@@ -25,7 +26,7 @@ public class FavoritesBackingBean implements Serializable {
     
     private SearchObject film;
     
-    @EJB
+    @Inject
     private AccountViewBean account;
     
     @EJB
