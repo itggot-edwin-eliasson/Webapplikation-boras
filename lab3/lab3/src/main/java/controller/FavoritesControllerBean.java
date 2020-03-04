@@ -40,16 +40,15 @@ public class FavoritesControllerBean implements Serializable{
     @Inject
     private AccountViewBean account;
 
-    public void addFavorite(SearchObject film) {
+    public void addFavorite(Film film) {
         if (account.getLoggedInUser() != null) {
             Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
 
             if (acc == null) {
                 System.out.println("ERROR: Could not find logged in account!");
             } else {
-                Film f = filmDAO.findFilmsMatchingTitle(film.getTitle()).get(0);
-                System.out.println("SUCCESS: " + f.getTitle() + " added as favorite for user " + acc.getUsername());
-                favDAO.create(new Favorites(acc, f, 0));
+                System.out.println("SUCCESS: " + film.getTitle() + " added as favorite for user " + acc.getUsername());
+                favDAO.create(new Favorites(acc, film, 0));
             }
         } else {
             System.out.println("ERROR: No logged in user, can not add favorite!");
@@ -58,17 +57,16 @@ public class FavoritesControllerBean implements Serializable{
         //System.out.println("Favorites: " + favDAO.getAccountsWhoFavoritedFilm(f).get(0).getAccount());
     }
     
-    public void removeFavorite(SearchObject film) {
+    public void removeFavorite(Film film) {
         if (account.getLoggedInUser() != null) {
             Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
 
             if (acc == null) {
                 System.out.println("ERROR: Could not find logged in account!");
             } else {
-                Film f = filmDAO.findFilmsMatchingTitle(film.getTitle()).get(0);
-                Favorites favorite = favDAO.getFavourite(acc, f);
+                Favorites favorite = favDAO.getFavourite(acc, film);
                 favDAO.remove(favorite);
-                System.out.println("SUCCESS: " + f.getTitle() + " removed as favorite for user " + acc.getUsername());
+                System.out.println("SUCCESS: " + film.getTitle() + " removed as favorite for user " + acc.getUsername());
             }
         } else {
             System.out.println("ERROR: No logged in user, can not remove favorite!");
