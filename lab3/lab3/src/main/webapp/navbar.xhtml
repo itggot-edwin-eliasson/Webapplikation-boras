@@ -13,15 +13,17 @@ and open the template in the editor.
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet" type="text/css" href="navbar.css"/>
     </h:head>
     <h:body>
         <h:form>  
+                            
             <p:growl id="messages"/>
 
             <p:menubar>
-                <p:menuitem value="" url="/lab3/browse.xhtml" icon="pi pi-home"/>
-                <p:menuitem value="WatchList" url="http://www.primefaces.org"/>
-                <p:menuitem value="Profile" url="/lab3/profile.xhtml"/>
+                <p:menuitem value="" class="#{view.viewId == '/browse.xhtml' ? 'active' : null}" url="/lab3/browse.xhtml" icon="pi pi-home"/>
+                <p:menuitem value="WatchList" class="#{view.viewId == '/watchlist.xhtml' ? 'active' : null}" url="/lab3/watchlist.xhtml"/>
+                <p:menuitem value="Profile" class="#{view.viewId == '/profile.xhtml' ? 'active' : null}" url="/lab3/profile.xhtml"/>
                 <f:facet name="options">
                 <p:menuitem id="login-status">
                     <ui:fragment id="logout" rendered="#{accountViewBean.loggedIn}">
