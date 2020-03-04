@@ -8,6 +8,7 @@ package controller;
 import com.edwine.model.dao.FilmDAO;
 import com.edwine.model.entity.Film;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -25,7 +26,7 @@ import view.FilmBackingBean;
 @RequestScoped
 public class FilmControllerBean implements Serializable {
     
-    private List<SearchObject> mostRecentSearchResults;
+    private List<Film> mostRecentSearchResults;
     
     @Inject
     private FilmBackingBean filmBackingBean;
@@ -33,26 +34,28 @@ public class FilmControllerBean implements Serializable {
     @EJB
     private FilmDAO filmDAO;
     
-    public List<SearchObject> searchFilms() {
+    public List<Film> searchFilms() {
         System.out.println(filmBackingBean.getSearchString());
         List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
 
+        mostRecentSearchResults = new ArrayList();
 
             for (SearchObject s : searchResults) {
                 try {
-                    filmDAO.create(new Film(s.getImdbID(), s.getTitle(), s.getYear() ,s.getType(), s.getPoster()));
+                    Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear() ,s.getType(), s.getPoster());
+                    filmDAO.create(film);
+                    mostRecentSearchResults.add(film);
                 }catch (Exception e) {
                     System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
                 }
             }
             
        
-        mostRecentSearchResults = searchResults;
         //push.send("newdata");
-        return searchResults;
+        return mostRecentSearchResults;
     }
     
-    public List<SearchObject> getSearchResult(){
+    public List<Film> getSearchResult(){
         return mostRecentSearchResults;
     }
 }
