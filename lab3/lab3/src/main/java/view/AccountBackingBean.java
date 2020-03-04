@@ -24,6 +24,11 @@ public class AccountBackingBean implements Serializable {
     private String username;
     private String password;
     
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String avatarUrl;
+    
     @Inject
     private AccountViewBean accViewBean;
     
@@ -37,5 +42,4 @@ public class AccountBackingBean implements Serializable {
             //return false;
         }
     }
-    
 }
