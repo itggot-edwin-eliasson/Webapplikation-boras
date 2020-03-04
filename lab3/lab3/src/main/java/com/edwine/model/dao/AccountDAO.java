@@ -41,5 +41,24 @@ public class AccountDAO extends AbstractDAO<Account> {
         
         return null;
     }
-        
+    
+    public void updateFirstname(Account acc, String newName) {
+        acc.setFirstName(newName);
+        update(acc);
+    }
+    
+    public void updateLastname(Account acc, String newName) {
+        acc.setLastName(newName);
+        update(acc);
+    }
+    
+    public void updateEmail(Account acc, String newEmail) {
+        acc.setEmail(newEmail);
+        update(acc);
+    }
+    
+    public void updateAvatarUrl(Account acc, String newUrl) {
+        acc.setAvatarUrl(newUrl);
+        update(acc);
+    }
 }

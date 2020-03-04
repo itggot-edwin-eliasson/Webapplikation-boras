@@ -127,4 +127,27 @@ public class AccountControllerBean implements Serializable {
 
         return salt;
     }
+    
+    private void updateFirstname() {
+        accDAO.updateFirstname(accDAO.getAccountMatchingUsername(accViewBean.getLoggedInUser()), accBackingBean.getFirstName());
+    }
+    
+    private void updateLastname() {
+        accDAO.updateLastname(accDAO.getAccountMatchingUsername(accViewBean.getLoggedInUser()), accBackingBean.getLastName());
+    }
+    
+    private void updateEmail() {
+        accDAO.updateEmail(accDAO.getAccountMatchingUsername(accViewBean.getLoggedInUser()), accBackingBean.getEmail());
+    }
+    
+    private void updateAvatarUrl() {
+        accDAO.updateAvatarUrl(accDAO.getAccountMatchingUsername(accViewBean.getLoggedInUser()), accBackingBean.getAvatarUrl());
+    }
+    
+    public void updateProfile() {
+        updateFirstname();
+        updateLastname();
+        updateEmail();
+        updateAvatarUrl();
+    }
 }
