@@ -32,19 +32,24 @@ and open the template in the editor.
                 <h:form>
                     <p:tab rendered="true" titleStyleClass="center">
                         <p:panel header="Personal Details">
-                        <p:panelGrid columns="2" style="width:50%;margin:20px 20px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-                     
-                            <h:outputText value="Email:" />
-                            <h:outputText value="#{accountViewBean.loggedInUser}" />
+                            <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:panelGrid columns="2" style="width:50%;margin:20px 20px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
 
-                            <h:outputText value="Firstname:" />
-                            <h:outputText value="Undefined" />
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{accountViewBean.loggedInUser}" />
 
-                            <h:outputText value="Lastname:" />
-                            <h:outputText value="Undefined" />
-                            
-                        </p:panelGrid>
-                        <p:commandButton value="Update"></p:commandButton>
+                                    <h:outputText value="Firstname:" />
+                                    <h:outputText value="Undefined" />
+
+                                    <h:outputText value="Lastname:" />
+                                    <h:outputText value="Undefined" />
+                                </p:panelGrid>
+
+                                <p:graphicImage value="https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png" width="100px" height="100px" />
+
+                            </p:panelGrid>
+                            <p:commandButton value="Update"></p:commandButton>
+
                         </p:panel>
                     </p:tab>
 
@@ -52,21 +57,25 @@ and open the template in the editor.
                     <p:tab id="profile" title="Profile" rendered="true">
                         <p:panel header="Update user">
                             <p:messages />
-                            <p:panelGrid columns="2" columnClasses="label, value" style="width:50%;margin:20px 20px" layout="grid" styleClass="ui-panelgrid-blank">
+                            <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:panelGrid columns="2" columnClasses="label, value" style="width:50%;margin:20px 20px" layout="grid" styleClass="ui-panelgrid-blank">
 
-                                <h:outputText value="Email:" />
-                                <p:inputText value="#{accountControllerBean.getUsername()}" required="true" label="Email"/>
+                                    <h:outputText value="Email:" />
+                                    <p:inputText value="#{accountControllerBean.getUsername()}" required="true" label="Email"/>
 
-                                <h:outputText value="Firstname:" />
-                                <p:inputText value="" required="true" label="Firstname"/>
+                                    <h:outputText value="Firstname:" />
+                                    <p:inputText value="" required="true" label="Firstname"/>
 
-                                <h:outputText value="Lastname:" />
-                                <p:inputText value="" required="true" label="Lastname"/>
+                                    <h:outputText value="Lastname:" />
+                                    <p:inputText value="" required="true" label="Lastname"/>
 
+                                </p:panelGrid>
+                                <p:graphicImage value="https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png" width="100px" height="100px" onclick="#"/>
                             </p:panelGrid>
+                            <p:commandButton value="Cancel"></p:commandButton>
+                            <p:commandButton value="Save"></p:commandButton>
                         </p:panel>
-                        <p:commandButton value="Cancel"></p:commandButton>
-                        <p:commandButton value="Save"></p:commandButton>
+
                     </p:tab>
                 </h:form>
             </div>
