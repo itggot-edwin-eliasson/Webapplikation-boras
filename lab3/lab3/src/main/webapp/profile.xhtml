@@ -15,64 +15,61 @@ and open the template in the editor.
     <h:head>
         <title>Profile page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
+
         <link rel="stylesheet" type="text/css" href="flexbox.css"/>
         <link rel="stylesheet" type="text/css" href="main.css"/>
-    
+
     </h:head>
     <body>
         <ui:include src="navbar.xhtml"></ui:include>
         <div>
 
-            <style type="text/css">
-                .label {
-                    width:20%;
-                    padding:4px;
-                }
-
-                .value {
-                    width:80%;
-                    padding:4px;
-                }
-
-                .grid {
-                    width:100%;
-                }
-
-                .error {
-                    color: red;
-                }
-
-                .outputLabel {
-                    font-weight: bold;
-                }
-
-                .grid {
-                    width:33%;
-                    padding:4px;
-                }
-            </style>
+            <style type="text/css" src="profile.css"/>
 
             <h1>Profile Page</h1>
-            <h:form>
-                <p:tab id="profile" title="Profile">
-                    <p:panel header="Personal Details">
-                        <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            
+            <hr/>
+            <div>
+                <h:form>
+                    <p:tab rendered="true" titleStyleClass="center">
+                        <p:panel header="Personal Details">
+                        <p:panelGrid columns="2" style="width:50%;margin:20px 20px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                     
                             <h:outputText value="Email:" />
-                            <p:inputText value="#{accountControllerBean.getUsername()}" required="true" label="Email"/>
-                            
+                            <h:outputText value="#{accountViewBean.loggedInUser}" />
+
                             <h:outputText value="Firstname:" />
-                            <p:inputText value="" required="true" label="Firstname"/>
+                            <h:outputText value="Undefined" />
 
                             <h:outputText value="Lastname:" />
-                            <p:inputText value="" required="true" label="Lastname"/>
+                            <h:outputText value="Undefined" />
+                            
+                        </p:panelGrid>
+                        <p:commandButton value="Update"></p:commandButton>
+                        </p:panel>
+                    </p:tab>
 
-                        </h:panelGrid>
-                    </p:panel>
-                </p:tab>
-            </h:form>
+                    <!--                Update tab                  -->
+                    <p:tab id="profile" title="Profile" rendered="true">
+                        <p:panel header="Update user">
+                            <p:messages />
+                            <p:panelGrid columns="2" columnClasses="label, value" style="width:50%;margin:20px 20px" layout="grid" styleClass="ui-panelgrid-blank">
+
+                                <h:outputText value="Email:" />
+                                <p:inputText value="#{accountControllerBean.getUsername()}" required="true" label="Email"/>
+
+                                <h:outputText value="Firstname:" />
+                                <p:inputText value="" required="true" label="Firstname"/>
+
+                                <h:outputText value="Lastname:" />
+                                <p:inputText value="" required="true" label="Lastname"/>
+
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:commandButton value="Cancel"></p:commandButton>
+                        <p:commandButton value="Save"></p:commandButton>
+                    </p:tab>
+                </h:form>
+            </div>
         </div>
     </body>
 </html>
