@@ -43,31 +43,33 @@ and open the template in the editor.
             </div>
             <div class="ui-g-12">
                 <div class="box">
-                    <p:dataTable id="data" var="film" value="#{filmControllerBean.searchResult}">
-                        <p:column headerText="IMDB-ID">
-                            <h:outputText value="#{film.id}" />
-                        </p:column>
+                    <h:form id="data">
+                        <p:dataTable var="film" value="#{filmControllerBean.searchResult}">
+                            <p:column headerText="IMDB-ID">
+                                <h:outputText value="#{film.id}" />
+                            </p:column>
 
-                        <p:column headerText="Title">
-                            <h:outputText value="#{film.title}" />
-                        </p:column>
+                            <p:column headerText="Title">
+                                <h:outputText value="#{film.title}" />
+                            </p:column>
 
-                        <p:column headerText="Year">
-                            <h:outputText value="#{film.releaseYear}" />
-                        </p:column>
+                            <p:column headerText="Year">
+                                <h:outputText value="#{film.releaseYear}" />
+                            </p:column>
 
-                        <p:column headerText="Type">
-                            <h:outputText value="#{film.type}" />
-                        </p:column>
+                            <p:column headerText="Type">
+                                <h:outputText value="#{film.type}" />
+                            </p:column>
 
-                        <p:column headerText="Poster">
-                            <h:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(film)}" height="150" width="100"/>
-                        </p:column>
-                        <p:column>
-                            <p:commandButton value="Favorite" action="#{favoritesControllerBean.addFavorite(film)}"/>
-                            <p:commandButton value="Remove favorite" action="#{favoritesControllerBean.removeFavorite(film)}"/>
-                        </p:column>
-                    </p:dataTable>
+                            <p:column headerText="Poster">
+                                <h:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(film)}" height="150" width="100"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Favorite" action="#{favoritesControllerBean.addFavorite(film)}"/>
+                                <p:commandButton value="Remove favorite" action="#{favoritesControllerBean.removeFavorite(film)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
                 </div>
             </div>
         </div>
