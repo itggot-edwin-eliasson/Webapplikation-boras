@@ -44,4 +44,11 @@ public class AccountBackingBean implements Serializable {
             //return false;
         }
     }
+    
+    public String getAvatarWithPlaceholder() {
+        if (this.avatarUrl == null)
+            return "https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png";
+        else
+            return this.avatarUrl;
+    }
 }
