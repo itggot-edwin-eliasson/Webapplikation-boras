@@ -11,11 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import omdb.OmdbService;
 import omdb.model.SearchObject;
+import org.omnifaces.cdi.ViewScoped;
 import view.FilmBackingBean;
 
 /**
@@ -23,7 +23,7 @@ import view.FilmBackingBean;
  * @author edwin
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class FilmControllerBean implements Serializable {
     
     private List<Film> mostRecentSearchResults;
@@ -43,8 +43,8 @@ public class FilmControllerBean implements Serializable {
             for (SearchObject s : searchResults) {
                 try {
                     Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear() ,s.getType(), s.getPoster());
-                    filmDAO.create(film);
                     mostRecentSearchResults.add(film);
+                    filmDAO.create(film);
                 }catch (Exception e) {
                     System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
                 }
