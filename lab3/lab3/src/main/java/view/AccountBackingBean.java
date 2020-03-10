@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 
 /**
@@ -24,10 +26,11 @@ public class AccountBackingBean implements Serializable {
     private String username;
     private String password;
     
-    private String email;
+    @Email private String email;
     private String firstName;
     private String lastName;
     private String avatarUrl;
+    private Boolean inUpdate = false;
     
     @Inject
     private AccountViewBean accViewBean;
