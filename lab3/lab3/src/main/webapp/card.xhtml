@@ -22,25 +22,25 @@ and open the template in the editor.
         <div class="card">
             <div class="card-inner">
                 <div class="card-front">
-                    <p:graphicImage url="#{filmBean.getPosterWithPlaceholderFromSearchObject(film)}" height="100%" width="100%"/>
+                    <p:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(film)}" height="100%" width="100%"/>
                 </div>
-                <div class="card-back">
-                    <h:outputText value="#{filmCard.getTitle()}"/>
+                <div class="card-back" style="height: 100%;">
+                    <h:outputText value="#{filmCard.title}"/>
                     <br />
-                    <h:outputText value="#{filmCard.getYear()}"/>
+                    <h:outputText value="#{filmCard.releaseYear}"/>
                     <br />
-                    <h:outputText value="#{filmCard.getType()}"/>
+                    <h:outputText value="#{filmCard.type}"/>
                     <br />
+                    <h:form>
                     <ui:fragment id="add" rendered="#{accountViewBean.loggedIn}">
-                        <div>
-                            <p:commandButton update="@form" value="Add film" action="#{accountControllerBean.logout}"/>
-                        </div>
+                          <p:commandButton class="addButton" value="Add film" action="#{favoritesControllerBean.addFavorite(film)}"/>
                     </ui:fragment>
                     <ui:fragment id="remove" rendered="#{!accountViewBean.loggedIn}">
                         <div>
                             <h:button value="Remove film" outcome="/login.xhtml"/>
                         </div>
                     </ui:fragment>
+                    </h:form>
                 </div>
             </div>
         </div>
