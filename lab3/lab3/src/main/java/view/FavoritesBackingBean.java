@@ -13,8 +13,10 @@ import omdb.model.SearchObject;
 import com.edwine.model.AccountViewBean;
 import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Account;
+import com.edwine.model.entity.Film;
 import com.edwine.model.dao.FavoritesDAO;
 import com.edwine.model.dao.AccountDAO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.omnifaces.cdi.ViewScoped;
@@ -41,6 +43,18 @@ public class FavoritesBackingBean implements Serializable {
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
         
         return favDAO.getFilmsThatAccountFavorited(acc);
+    }
+    
+    public List<Film> getFavoriteFilms(){
+        List<Favorites> fav = getFavorites();
+        List<Film> films = new ArrayList();
+        
+        for(Favorites f : fav){
+            films.add(f.getFilm());
+        }
+        
+        return films;
+        
     }
     
 }
