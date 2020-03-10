@@ -24,7 +24,6 @@ and open the template in the editor.
   background-color: transparent;
   width: 170px;
   height: 250px;
-  border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   margin-bottom: 70px;
 }
@@ -64,6 +63,15 @@ and open the template in the editor.
   color: white;
   transform: rotateY(180deg);
 }
+
+.addButton {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+}
+
 #searchbar {
     display: block;
     text-align: center;
