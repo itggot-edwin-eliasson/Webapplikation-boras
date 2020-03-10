@@ -26,10 +26,11 @@ public class AccountBackingBean implements Serializable {
     private String username;
     private String password;
     
-    private String email;
+    @Email private String email;
     private String firstName;
     private String lastName;
     private String avatarUrl;
+    private Boolean inUpdate = false;
     
     @Inject
     private AccountViewBean accViewBean;

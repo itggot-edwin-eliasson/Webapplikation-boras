@@ -29,14 +29,17 @@ and open the template in the editor.
             <h1>Profile Page</h1>
             <hr/>
             <div>
-                <h:form>
-                    <p:tab rendered="true" titleStyleClass="center">
-                        <p:panel header="Personal Details">
+                <h:form id="form" >
+                    <p:tab  rendered="#{!accountBackingBean.inUpdate}" titleStyleClass="center">
+                        <p:panel id="data" header="Personal Details">
                             <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
                                 <p:panelGrid columns="2" style="width:50%;margin:20px 20px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
 
-                                    <h:outputText value="Email:" />
+                                    <h:outputText value="Username:" />
                                     <h:outputText value="#{accountViewBean.loggedInUser}" />
+                                    
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{accountBackingBean.email}" />
 
                                     <h:outputText value="Firstname:" />
                                     <h:outputText value="#{accountBackingBean.firstName}" />
@@ -48,32 +51,32 @@ and open the template in the editor.
                                 <p:graphicImage value="https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png" width="100px" height="100px" />
 
                             </p:panelGrid>
-                            <p:commandButton value="Update"></p:commandButton>
+                            <p:commandButton value="Update" update="form" action="#{accountBackingBean.setInUpdate(true)}"></p:commandButton>
 
                         </p:panel>
                     </p:tab>
 
                     <!--                Update tab                  -->
-                    <p:tab id="profile" title="Profile" rendered="true">
+                    <p:tab id="profile" title="Profile" rendered="#{accountBackingBean.inUpdate}">
                         <p:panel header="Update user">
                             <p:messages />
                             <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
                                 <p:panelGrid columns="2" columnClasses="label, value" style="width:50%;margin:20px 20px" layout="grid" styleClass="ui-panelgrid-blank">
-
+                                    
                                     <h:outputText value="Email:" />
-                                    <p:inputText value="" required="true" label="Email"/>
+                                    <p:inputText value="#{accountBackingBean.email}" required="false" label="Email"/>
 
                                     <h:outputText value="Firstname:" />
-                                    <p:inputText value="" required="true" label="Firstname"/>
+                                    <p:inputText value="#{accountBackingBean.firstName}" required="false" label="Firstname"/>
 
                                     <h:outputText value="Lastname:" />
-                                    <p:inputText value="" required="true" label="Lastname"/>
+                                    <p:inputText value="#{accountBackingBean.lastName}" required="false" label="Lastname"/>
 
                                 </p:panelGrid>
                                 <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="100px" height="100px" onclick="#"/>
                             </p:panelGrid>
-                            <p:commandButton value="Cancel"></p:commandButton>
-                            <p:commandButton value="Save"></p:commandButton>
+                            <p:commandButton value="Cancel" update="form" action="#{accountBackingBean.setInUpdate(false)}"></p:commandButton>
+                            <p:commandButton value="Save" update="form" action="#{accountControllerBean.updateProfile()}"></p:commandButton>
                         </p:panel>
 
                     </p:tab>
