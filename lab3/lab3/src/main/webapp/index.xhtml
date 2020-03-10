@@ -23,7 +23,7 @@ and open the template in the editor.
                 <h:form id="login-status">
                     <ui:fragment id="logout" rendered="#{accountViewBean.loggedIn}">
                         <div>
-                            <p:commandButton value="LOG OUT" action="#{accountControllerBean.logout()}"/>
+                            <p:commandButton value="LOG OUT" action="#{accountControllerBean.logout}"/>
                             <h1>LOGGED IN AS <i>#{accountViewBean.loggedInUser}</i></h1>
                         </div>
                     </ui:fragment>
@@ -36,36 +36,38 @@ and open the template in the editor.
 
                 <div class="box">
                     <h:form>
-                        <p:inputText value="#{filmBean.searchString}" placeholder="Search"/>
-                        <p:commandButton value="Search" action="#{filmBean.searchFilms()}" update="data"/>
+                        <p:inputText value="#{filmBackingBean.searchString}" placeholder="Search"/>
+                        <p:commandButton value="Search" action="#{filmControllerBean.searchFilms}" update="data"/>
                     </h:form>
                 </div>
             </div>
             <div class="ui-g-12">
                 <div class="box">
-                    <p:dataTable id="data" var="film" value="#{filmBean.getSearchResult()}">
+                    <p:dataTable id="data" var="film" value="#{filmControllerBean.searchResult}">
                         <p:column headerText="IMDB-ID">
-                            <h:outputText value="#{film.getImdbID()}" />
+                            <h:outputText value="#{film.id}" />
                         </p:column>
 
                         <p:column headerText="Title">
-                            <h:outputText value="#{film.getTitle()}" />
+                            <h:outputText value="#{film.title}" />
                         </p:column>
 
                         <p:column headerText="Year">
-                            <h:outputText value="#{film.getYear()}" />
+                            <h:outputText value="#{film.releaseYear}" />
                         </p:column>
 
                         <p:column headerText="Type">
-                            <h:outputText value="#{film.getType()}" />
+                            <h:outputText value="#{film.type}" />
                         </p:column>
 
                         <p:column headerText="Poster">
-                            <h:graphicImage url="#{filmBean.getPosterWithPlaceholderFromSearchObject(film)}" height="150" width="100"/>
-                        </p:column>
+                            <h:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(film)}" height="150" width="100"/>
+                        </p:column> 
                         <p:column>
+                            <h:form>
                             <p:commandButton value="Favorite" action="#{favoritesControllerBean.addFavorite(film)}"/>
                             <p:commandButton value="Remove favorite" action="#{favoritesControllerBean.removeFavorite(film)}"/>
+                            </h:form>
                         </p:column>
                     </p:dataTable>
                 </div>
