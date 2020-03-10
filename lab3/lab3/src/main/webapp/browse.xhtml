@@ -19,12 +19,12 @@ and open the template in the editor.
     <h:body>
         <ui:include src="navbar.xhtml"></ui:include>
         <h:form>
-            <p:inputText value="#{filmBean.searchString}" placeholder="Search"/>
-            <p:commandButton value="Search" update="data" action="#{filmBean.searchFilms()}"/>
+            <p:inputText value="#{filmBackingBean.searchString}" placeholder="Search"/>
+            <p:commandButton value="Search" update="data" action="#{filmControllerBean.searchFilms()}"/>
         </h:form>
         <p:outputLabel value="#{filmDAO.test()}"/>
 
-        <p:dataGrid id="data" var="film" value="#{filmBean.getSearchResult()}" columns="6" layout="grid" rows="12" paginator="true">
+        <p:dataGrid id="data" var="film" value="#{filmControllerBean.getSearchResult()}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
                 <ui:param name ="filmCard" value="#{film}"/>
             </ui:include>
