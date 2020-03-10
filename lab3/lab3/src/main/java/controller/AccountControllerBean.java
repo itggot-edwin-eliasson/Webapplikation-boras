@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.FacesException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ import view.AccountBackingBean;
 
 @Data
 @Named
-@ViewScoped
+@RequestScoped
 public class AccountControllerBean implements Serializable {
 
     @EJB
