@@ -23,7 +23,7 @@ and open the template in the editor.
             <p:commandButton value="Search" update="data" action="#{filmControllerBean.searchFilms()}"/>
         </h:form>
         <p:outputLabel value="#{filmDAO.test()}"/>
-
+        <p:outputLabel id="watchdata"/>
         <p:dataGrid id="data" var="film" value="#{filmControllerBean.getSearchResult()}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
                 <ui:param name ="filmCard" value="#{film}"/>
