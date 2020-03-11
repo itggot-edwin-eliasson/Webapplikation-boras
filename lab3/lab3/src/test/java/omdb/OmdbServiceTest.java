@@ -64,4 +64,13 @@ public class OmdbServiceTest {
         assertEquals(expResult, result);
     }
     
+    @Test
+    public void testGetSearchObjectsFromSearchString_allArgs() {
+        System.out.println("getSearchObjectsFromSearchString_allArgs");
+        String searchValue = "Harry";
+        int expResult = 10;
+        int result = OmdbService.getSearchObjectsFromSearchString(searchValue, 1).size();
+        assertEquals(expResult, result);
+    }
+    
 }
