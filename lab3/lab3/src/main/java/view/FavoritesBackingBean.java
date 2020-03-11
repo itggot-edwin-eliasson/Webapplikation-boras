@@ -39,22 +39,9 @@ public class FavoritesBackingBean implements Serializable {
     
     
     
-    public List<Favorites> getFavorites(){
+    public List<Film> getFavorites(){
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
         
         return favDAO.getFilmsThatAccountFavorited(acc);
     }
-    
-    public List<Film> getFavoriteFilms(){
-        List<Favorites> fav = getFavorites();
-        List<Film> films = new ArrayList();
-        
-        for(Favorites f : fav){
-            films.add(f.getFilm());
-        }
-        
-        return films;
-        
-    }
-    
 }
