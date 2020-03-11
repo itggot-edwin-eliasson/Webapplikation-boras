@@ -27,6 +27,12 @@ import org.omnifaces.cdi.ViewScoped;
 public class FavoritesBackingBean implements Serializable {
     
     private SearchObject film;
+    private String searchedUser;
+    
+    private String searchString;
+    
+    private List<Film> filmsFromSearchedUsersFavorites;
+    private List<Favorites> favoritesFromSearchedUsersFavorites;
     
     @Inject
     private AccountViewBean account;
@@ -37,7 +43,12 @@ public class FavoritesBackingBean implements Serializable {
     @EJB
     private AccountDAO accDAO;
     
-    
+    public void favoritesSearchedUser(){
+        Account acc = accDAO.getAccountMatchingUsername(searchedUser);
+        
+        favoritesFromSearchedUsersFavorites = favDAO.getFilmsThatAccountFavorited(acc);
+        
+    }
     
     public List<Film> getFavoriteFilms(){
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
@@ -54,11 +65,23 @@ public class FavoritesBackingBean implements Serializable {
         return fav == null;
     }
     
-        public boolean userLoggedInAndHasFavorited(Film film){
+    public boolean userLoggedInAndHasFavorited(Film film){
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
         if (acc == null) return false;
         if (film == null) return false;
         Favorites fav = favDAO.getFavourite(acc, film);
         return fav != null;
     }
+    public void favoriteFilmsForSearchedUser() {
+        favoritesSearchedUser();
+        List<Film> films = new ArrayList();
+        
+        for(Favorites f : favoritesFromSearchedUsersFavorites){
+            films.add(f.getFilm());
+        }
+        
+        filmsFromSearchedUsersFavorites = films;
+        
+    }
+    
 }

@@ -70,7 +70,7 @@ public class FilmControllerBean implements Serializable {
         return mostRecentSearchResults;
     }
 
-    public List<Film> searchFilms() {
+    public void onSearchFilms() {
         System.out.println(filmBackingBean.getSearchString());
         List<SearchObject> searchResults = OmdbService
                 .getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
@@ -90,7 +90,6 @@ public class FilmControllerBean implements Serializable {
         }
 
         System.out.println("Found " + searchResults.size() + " search results!");
-        return mostRecentSearchResults;
     }
 
     public List<Film> getSearchResult() {

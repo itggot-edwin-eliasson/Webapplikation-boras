@@ -20,7 +20,7 @@ and open the template in the editor.
         <ui:include src="navbar.xhtml"></ui:include>
         <h:form>
             <p:inputText value="#{filmBackingBean.searchString}" placeholder="Search"/>
-            <p:commandButton value="Search" update="data" action="#{filmControllerBean.searchFilms()}"/>
+            <p:commandButton value="Search" update="data" action="#{filmControllerBean.onSearchFilms}"/>
         </h:form>
         <p:outputLabel value="#{filmDAO.test()}"/>
         <p:outputLabel id="watchdata"/> <!-- This consumes the update-call from card.xhtml which is used 
