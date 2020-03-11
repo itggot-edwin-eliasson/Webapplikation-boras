@@ -150,5 +150,7 @@ public class AccountControllerBean implements Serializable {
         updateLastname();
         updateEmail();
         updateAvatarUrl();
+        
+        accBackingBean.setInUpdate(false);
     }
 }

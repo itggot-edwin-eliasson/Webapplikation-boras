@@ -10,6 +10,7 @@ import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Film;
 import com.edwine.model.entity.QFavorites_;
 import easycriteria.JPAQuery;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -58,21 +59,33 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         
         return null;
     }*/
-    public List<Favorites> getAccountsWhoFavoritedFilm(Film film) {
+    public List<Account> getAccountsWhoFavoritedFilm(Film film) {
         QFavorites_ favorites = new QFavorites_();
 
-        List<Favorites> result;
-        result = new JPAQuery(entityManager).select(favorites).where(favorites.film.id.like(film.getId())).getResultList();
+        List<Favorites> resultFavorites;
+        resultFavorites = new JPAQuery(entityManager).select(favorites).where(favorites.film.id.like(film.getId())).getResultList();
+        
+        List<Account> result = new ArrayList<>();
+        
+        for (Favorites f : resultFavorites) {
+            result.add(f.getAccount());
+        }
 
         return result;
     }
 
-    public List<Favorites> getFilmsThatAccountFavorited(Account acc) {
+    public List<Film> getFilmsThatAccountFavorited(Account acc) {
         QFavorites_ favorites = new QFavorites_();
 
-        List<Favorites> result;
-        result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername())).getResultList();
+        List<Favorites> resultFavorites;
+        resultFavorites = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername())).getResultList();
 
+        List<Film> result = new ArrayList<>();
+        
+        for (Favorites f : resultFavorites) {
+            result.add(f.getFilm());
+        }
+        
         return result;
     }
 

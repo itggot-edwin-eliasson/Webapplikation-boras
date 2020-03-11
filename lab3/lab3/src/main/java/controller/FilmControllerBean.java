@@ -36,7 +36,8 @@ public class FilmControllerBean implements Serializable {
 
     public List<Film> searchFilms(int maxNumberOfResults) {
         System.out.println(filmBackingBean.getSearchString());
-        //List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
+        // List<SearchObject> searchResults =
+        // OmdbService.getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
 
         List<SearchObject> searchResults = new ArrayList();
 
@@ -47,10 +48,10 @@ public class FilmControllerBean implements Serializable {
             if (tmpList.size() == 0) {
                 maxNumberOfResults = 0;
             }
-            
+
             searchResults.addAll(tmpList);
         }
-        
+
         mostRecentSearchResults = new ArrayList();
 
         for (SearchObject s : searchResults) {
@@ -59,18 +60,21 @@ public class FilmControllerBean implements Serializable {
                 mostRecentSearchResults.add(film);
                 filmDAO.create(film);
             } catch (Exception e) {
-                System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
+                System.out.println(
+                        "Error when adding ID to database, probably because the movie already exists in the database! "
+                                + e.getMessage());
             }
         }
 
         System.out.println("Found " + searchResults.size() + " search results!");
         return mostRecentSearchResults;
     }
-    
+
     public List<Film> searchFilms() {
         System.out.println(filmBackingBean.getSearchString());
-        List<SearchObject> searchResults = OmdbService.getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
-        
+        List<SearchObject> searchResults = OmdbService
+                .getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
+
         mostRecentSearchResults = new ArrayList();
 
         for (SearchObject s : searchResults) {
@@ -79,7 +83,9 @@ public class FilmControllerBean implements Serializable {
                 mostRecentSearchResults.add(film);
                 filmDAO.create(film);
             } catch (Exception e) {
-                System.out.println("Error when adding ID to database, probably because the movie already exists in the database! " + e.getMessage());
+                System.out.println(
+                        "Error when adding ID to database, probably because the movie already exists in the database! "
+                                + e.getMessage());
             }
         }
 
