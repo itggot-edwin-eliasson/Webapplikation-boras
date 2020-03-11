@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4 Mar 2020, 08:27:49
+    Author     : ogge
+*/
+
+.label {
+    width:20%;
+    padding:4px;
+}
+
+.value {
+    width:80%;
+    padding:4px;
+}
+
+.grid {
+    width:100%;
+}
+
+.error {
+    color: red;
+}
+
+.outputLabel {
+    font-weight: bold;
+}
+
+.grid {
+    width:33%;
+    padding:4px;
+}
+
+.showTab {
+    hide: false;
+}
+
+.hideTab {
+    hide: true;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}

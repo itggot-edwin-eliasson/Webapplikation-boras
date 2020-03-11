@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet" type="text/css" href="navbar.css"/>
+    </h:head>
+    <h:body>
+        <h:form>  
+                            
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <p:menuitem value="" class="#{view.viewId == '/browse.xhtml' ? 'active' : null}" url="/lab3/browse.xhtml" icon="pi pi-home"/>
+                <p:menuitem value="WatchList" class="#{view.viewId == '/watchlist.xhtml' ? 'active' : null}" url="/lab3/watchlist.xhtml"/>
+                <p:menuitem value="Explore" class="#{view.viewId == '/explore.xhtml' ? 'active' : null}" url="/lab3/explore.xhtml"/>
+                <p:menuitem value="Profile" class="#{view.viewId == '/profile.xhtml' ? 'active' : null}" url="/lab3/profile.xhtml"/>
+                <f:facet name="options">
+                <p:menuitem id="login-status">
+                    <ui:fragment id="logout" rendered="#{accountViewBean.loggedIn}">
+                        <div>
+                            <p:commandButton update="@form" value="LOG OUT" action="#{accountControllerBean.logout}"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment id="login" rendered="#{!accountViewBean.loggedIn}">
+                        <div>
+                            <p:button value="LOG IN" outcome="/login.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                </p:menuitem>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+    </h:body>
+</html>

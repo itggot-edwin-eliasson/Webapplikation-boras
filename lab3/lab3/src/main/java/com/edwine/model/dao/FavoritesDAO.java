@@ -10,6 +10,7 @@ import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Film;
 import com.edwine.model.entity.QFavorites_;
 import easycriteria.JPAQuery;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,28 +23,25 @@ import lombok.Getter;
  */
 @Stateless
 public class FavoritesDAO extends AbstractDAO<Favorites> {
-    @Getter @PersistenceContext(unitName = "flicktier")
+
+    @Getter
+    @PersistenceContext(unitName = "flicktier")
     private EntityManager entityManager;
-    
-    public FavoritesDAO(){
+
+    public FavoritesDAO() {
         super(Favorites.class);
     }
-    
-    public List<Account> findUsersMatchingName() {
-        throw new UnsupportedOperationException("Not implemented yet!");
-    }
-    
-    public void setScore(Favorites favorite,int score) {
+
+    public void setScore(Favorites favorite, int score) {
         //QFavorites_ favorites = new QFavorites_();
-        
+
         //List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(favorite.getAccount().getUsername())).getResultList();
         //List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(favorite.getAccount().getUsername()).and(favorites.film.));
-        
         favorite.setScore(score);
         super.update(favorite);
     }
-    
-    public Favorites findFavoritesMatchingFilmAndAccount(Film film, Account account) {
+
+    /*public Favorites findFavoritesMatchingFilmAndAccount(Film film, Account account) {
         QFavorites_ favorites = new QFavorites_();
         
         List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(account.getUsername()).and(favorites.film.id.eq(film.getId()))).getResultList();
@@ -51,6 +49,82 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         
         return result.get(0);
         
+        
+        
         //hrow new UnsupportedOperationException("Not implemented yet!");
+        
+        return null;
+    }*/
+    public List<Account> getAccountsWhoFavoritedFilm(Film film) {
+        QFavorites_ favorites = new QFavorites_();
+
+        List<Favorites> resultFavorites;
+        resultFavorites = new JPAQuery(entityManager).select(favorites).where(favorites.film.id.like(film.getId())).getResultList();
+        
+        List<Account> result = new ArrayList<>();
+        
+        for (Favorites f : resultFavorites) {
+            result.add(f.getAccount());
+        }
+
+        return result;
+    }
+
+    public List<Film> getFilmsThatAccountFavorited(Account acc) {
+        QFavorites_ favorites = new QFavorites_();
+
+        List<Favorites> resultFavorites;
+        resultFavorites = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername())).getResultList();
+
+        List<Film> result = new ArrayList<>();
+        
+        for (Favorites f : resultFavorites) {
+            result.add(f.getFilm());
+        }
+        
+        return result;
+    }
+
+    public Favorites getFavourite(Account acc, Film film) {
+        
+        if (acc == null) {
+            System.out.println("ERROR, FavoritesDAO getFavorite: Account can not be null!");
+            return null;
+        }
+        
+        if (film == null) {
+            System.out.println("ERROR, FavoritesDAO getFavorite: Film can not be null!");
+            return null;
+        }
+        
+        QFavorites_ favorites = new QFavorites_();
+
+        List<Favorites> result;
+        //TODO denna ger nullpointer
+        result = new JPAQuery
+        (entityManager).
+                select
+        (favorites).
+                where
+        (favorites.
+                account.
+                username.
+                eq
+        (acc.
+                getUsername()).
+                and
+        (favorites.
+                film.
+                id.
+                eq
+        (film.
+                getId()
+        ))).
+                getResultList();
+        if(result.isEmpty()){
+            return null;
+        } else {
+            return result.get(0);
+        }
     }
 }

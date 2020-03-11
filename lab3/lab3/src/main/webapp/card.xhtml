@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+    <h:head>
+        <link rel="stylesheet" href="main.css"/>
+    </h:head>
+
+    <h:body>
+        <link rel="stylesheet" href="main.css"/>
+
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <p:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(filmCard)}" height="100%" width="100%"/>
+                </div>
+                <div class="card-back" style="height: 100%;">
+                    <h:outputText value="#{filmCard.title}"/>
+                    <br />
+                    <h:outputText value="#{filmCard.releaseYear}"/>
+                    <br />
+                    <h:outputText value="#{filmCard.type}"/>
+                    <br />
+                    <h:form id="form">
+                        <ui:fragment id="addFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasNotFavorited(film)}">
+                            <p:commandButton update="form" class="addButton" value="Add Film" action="#{favoritesControllerBean.addFavorite(film)}"/>
+                        </ui:fragment>
+                         <ui:fragment id="removeFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasFavorited(film)}">
+                            <p:commandButton update="form watchdata" style="background-color: #4c4c4c" class="addButton" value="Remove Film" action="#{favoritesControllerBean.removeFavorite(film)}"/> 
+                            <!--TODO uppdatera datagriden om i favorites-->
+                        </ui:fragment>
+                        <ui:fragment id="addLogin" rendered="#{!accountViewBean.loggedIn}">
+                            <div>
+                                <p:button class="addButton" value="Log in to add film" outcome="/login.xhtml"/>
+                            </div>
+                        </ui:fragment>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>

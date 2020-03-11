@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head>
+        <title>Profile page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <link rel="stylesheet" type="text/css" href="flexbox.css"/>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+
+    </h:head>
+    <body>
+        <ui:include src="navbar.xhtml"></ui:include>
+        <div>
+
+            <style type="text/css" src="profile.css"/>
+
+            <h1>Profile Page</h1>
+            <hr/>
+            <div>
+                <h:form id="form" >
+                    <p:tab  rendered="#{!accountBackingBean.inUpdate}" titleStyleClass="center">
+                        <p:panel id="data" header="Personal Details">
+                            <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:panelGrid columns="2" style="width:50%;margin:20px 20px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+
+                                    <h:outputText value="Username:" />
+                                    <h:outputText value="#{accountViewBean.loggedInUser}" />
+
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{accountBackingBean.email}" />
+
+                                    <h:outputText value="Firstname:" />
+                                    <h:outputText value="#{accountBackingBean.firstName}" />
+
+                                    <h:outputText value="Lastname:" />
+                                    <h:outputText value="#{accountBackingBean.lastName}" />
+                                </p:panelGrid>
+
+                                <p:graphicImage value="https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png" width="150px" height="150px" />
+
+                            </p:panelGrid>
+                            <p:commandButton value="Update" update="form" action="#{accountBackingBean.setInUpdate(true)}"></p:commandButton>
+
+                        </p:panel>
+                    </p:tab>
+
+                    <!--                Update tab                  -->
+                    <p:tab id="profile" title="Profile" rendered="#{accountBackingBean.inUpdate}">
+                        <p:panel header="Update user">
+                            <p:messages />
+                            <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:panelGrid columns="2" columnClasses="label, value" style="width:50%;margin:20px 20px" layout="grid" styleClass="ui-panelgrid-blank">
+
+                                    <h:outputText value="Email:" />
+                                    <p:inputText value="#{accountBackingBean.email}"  required="false" label="Email"/>
+
+                                    <h:outputText value="Firstname:" />
+                                    <p:inputText value="#{accountBackingBean.firstName}" required="false" label="Firstname"/>
+
+                                    <h:outputText value="Lastname:" />
+                                    <p:inputText value="#{accountBackingBean.lastName}" required="false" label="Lastname"/>
+
+                                </p:panelGrid>
+                                <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="150px" height="150px" onclick="#">
+                                </p:graphicImage>
+
+                            </p:panelGrid>
+                            <p:commandButton value="Cancel" update="form" action="#{accountBackingBean.setInUpdate(false)}"></p:commandButton>
+                            <p:commandButton value="Save" validateClient="true" update="form" action="#{accountControllerBean.updateProfile()}"></p:commandButton>
+                        </p:panel>
+
+                    </p:tab>
+                </h:form>
+            </div>
+        </div>
+    </body>
+</html>

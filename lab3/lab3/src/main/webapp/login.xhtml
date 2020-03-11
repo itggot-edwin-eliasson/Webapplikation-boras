@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="flexbox.css"/>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+    </h:head>
+    <h:body>
+        <div class="bg">
+            <h:form id="loginForm">
+                <h:panelGrid columns='2'>
+                    <p:inputText id="usernameInput" value="#{accountBackingBean.username}" placeholder="Username" validatorMessage="Username can only have letters and numbers">
+                        <f:validateRequired/>
+                        <f:validateRegex pattern="^([a-zA-Z0-9]+(.)?[\s]*)$"/>
+                    </p:inputText>
+                    <p:password id="passwordInput" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password needs to be longer than 6 characters and have at lest one lower and upper case character!">
+                        <f:validateRequired/>
+                        <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,})"/>
+                    </p:password>
+                    <p:commandButton value="Login" update="status valMsg" action="#{accountControllerBean.login()}"/>
+                    <p:commandButton value="Register" update="valMsg" action="#{accountControllerBean.register()}"/>
+                </h:panelGrid>
+                <h:panelGrid id="valMsg">
+                    <h:message for="usernameInput" style="color:red"/>
+                    <h:message for="passwordInput" style="color:red"/>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="status">
+                <ui:fragment rendered="#{accountViewBean.loggedIn}">
+                    <p class="white-text">Successful login as #{accountViewBean.loggedInUser}!</p>
+                </ui:fragment>
+                <ui:fragment rendered="#{!accountViewBean.loggedIn}">
+                    <p class="white-text">Not logged in!</p>
+                </ui:fragment>
+                <h:button value="To search!" outcome="/browse.xhtml"/>
+            </h:form>
+        </div>
+    </h:body>
+</html>

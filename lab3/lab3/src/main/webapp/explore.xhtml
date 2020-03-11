@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="flexbox.css"/>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="navbar.xhtml"></ui:include>
+        <h2>Search other users favourites</h2>
+        <h:form>
+            <p:inputText value="#{favoritesBackingBean.searchedUser}" placeholder="Search"/>
+            <p:commandButton value="Search" update="data" action="#{favoritesBackingBean.favoritesSearchedUser}"/>
+        </h:form>
+        <p:dataGrid id="data" var="film" value="#{favoritesBackingBean.filmsFromSearchedUsersFavorites}" columns="6" layout="grid" rows="12" paginator="true">
+            <ui:include src="card.xhtml">
+                <ui:param name ="filmCard" value="#{film}"/>
+            </ui:include>
+        </p:dataGrid>
+    </h:body>
+</html>
