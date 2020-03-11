@@ -23,7 +23,7 @@ and open the template in the editor.
             <p:commandButton value="Search" update="data" action="#{filmControllerBean.onSearchFilms}"/>
         </h:form>
         <p:outputLabel value="#{filmDAO.test()}"/>
-        <p:outputLabel id="watchdata"/> <!-- This consumes the update-call from card.xhtml which is used 
+        <p:outputLabel id="watchdata"/> <!-- This consumes the update-call   from card.xhtml which is used 
                                         to update the grid when the card is being used in watchlist.xhtml -->
         <p:dataGrid id="data" var="film" value="#{filmControllerBean.getSearchResult()}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
