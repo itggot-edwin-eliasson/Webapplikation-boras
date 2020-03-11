@@ -7,12 +7,16 @@ package view;
 
 import com.edwine.model.AccountViewBean;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import lombok.Data;
+import com.edwine.model.dao.AccountDAO;
+import com.edwine.model.entity.Account;
 
 /**
  *
@@ -34,6 +38,20 @@ public class AccountBackingBean implements Serializable {
     
     @Inject
     private AccountViewBean accViewBean;
+    
+    @EJB
+    private AccountDAO accDAO;
+    
+    @PostConstruct
+    private void init(){
+        if(accViewBean.getLoggedInUser() != null){
+            Account acc = accDAO.getAccountMatchingUsername(accViewBean.getLoggedInUser());
+            this.email = acc.getEmail();
+            this.firstName = acc.getFirstName();
+            this.lastName = acc.getLastName();
+            this.avatarUrl = acc.getAvatarUrl();
+        }
+    }
     
     public void logout() {
         if (accViewBean.isLoggedIn()) {
