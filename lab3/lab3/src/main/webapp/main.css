@@ -8,8 +8,22 @@ and open the template in the editor.
     Author     : edwin
 */
 
+body, html {
+    height: 100%;
+    background-image: url("html-color-codes-color-tutorials-hero-00e10b1f.jpg");
+    height: 100%;
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg {
+    background-color: grey;
+}
+
 .thick-border {
-    border: 5px solid #3399ff;
+    border: 5px solid black;
 }
 
 .round-border {
@@ -72,7 +86,22 @@ and open the template in the editor.
     
 }
 
+.removeButton {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: aquamarine;
+}
 #searchbar {
     display: block;
     text-align: center;
+}
+
+.white-text {
+    color: white;
+}
+
+.transparent {
+    opacity: 0.8;
 }

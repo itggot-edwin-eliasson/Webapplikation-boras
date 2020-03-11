@@ -103,9 +103,32 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         
         QFavorites_ favorites = new QFavorites_();
 
-        Favorites result;
-        result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername()).and(favorites.film.id.eq(film.getId()))).getResultList().get(0);
-
-        return result;
+        List<Favorites> result;
+        //TODO denna ger nullpointer
+        result = new JPAQuery
+        (entityManager).
+                select
+        (favorites).
+                where
+        (favorites.
+                account.
+                username.
+                eq
+        (acc.
+                getUsername()).
+                and
+        (favorites.
+                film.
+                id.
+                eq
+        (film.
+                getId()
+        ))).
+                getResultList();
+        if(result.isEmpty()){
+            return null;
+        } else {
+            return result.get(0);
+        }
     }
 }
