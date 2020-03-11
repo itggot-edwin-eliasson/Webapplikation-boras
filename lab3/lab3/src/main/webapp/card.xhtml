@@ -17,12 +17,12 @@ and open the template in the editor.
     </h:head>
 
     <h:body>
-
+        <link rel="stylesheet" href="main.css"/>
 
         <div class="card">
             <div class="card-inner">
                 <div class="card-front">
-                    <p:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(film)}" height="100%" width="100%"/>
+                    <p:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(filmCard)}" height="100%" width="100%"/>
                 </div>
                 <div class="card-back" style="height: 100%;">
                     <h:outputText value="#{filmCard.title}"/>
@@ -31,15 +31,19 @@ and open the template in the editor.
                     <br />
                     <h:outputText value="#{filmCard.type}"/>
                     <br />
-                    <h:form>
-                    <ui:fragment id="add" rendered="#{accountViewBean.loggedIn}">
-                          <p:commandButton class="addButton" value="Add film" action="#{favoritesControllerBean.addFavorite(film)}"/>
-                    </ui:fragment>
-                    <ui:fragment id="remove" rendered="#{!accountViewBean.loggedIn}">
-                        <div>
-                            <h:button value="Remove film" outcome="/login.xhtml"/>
-                        </div>
-                    </ui:fragment>
+                    <h:form id="form">
+                        <ui:fragment id="addFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasNotFavorited(film)}">
+                            <p:commandButton update="form" class="addButton" value="Add Film" action="#{favoritesControllerBean.addFavorite(film)}"/>
+                        </ui:fragment>
+                         <ui:fragment id="removeFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasFavorited(film)}">
+                            <p:commandButton update="form" style="background-color: #4c4c4c" class="addButton" value="Remove Film" action="#{favoritesControllerBean.removeFavorite(film)}"/> 
+                            <!--TODO uppdatera datagriden om i favorites-->
+                        </ui:fragment>
+                        <ui:fragment id="addLogin" rendered="#{!accountViewBean.loggedIn}">
+                            <div>
+                                <p:button class="addButton" value="Log in to add film" outcome="/login.xhtml"/>
+                            </div>
+                        </ui:fragment>
                     </h:form>
                 </div>
             </div>
