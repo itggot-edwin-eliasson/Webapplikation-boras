@@ -7,29 +7,32 @@ package controller;
 
 import com.edwine.model.entity.Film;
 import java.util.List;
+import javax.inject.Inject;
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import view.FilmBackingBean;
 
 /**
  *
  * @author pontus53
  */
+@RunWith(Arquillian.class)
 public class FilmControllerBeanTest {
     
     public FilmControllerBeanTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
+    @Inject
+    FilmBackingBean filmBackingBean;
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    @Inject
+    FilmControllerBean filmControllerBean;
     
     @Before
     public void setUp() {
@@ -42,36 +45,20 @@ public class FilmControllerBeanTest {
     /**
      * Test of searchFilms method, of class FilmControllerBean.
      */
-    /*@Test
-    public void testSearchFilms_int() {
+    //@Test
+    public void testOnSearchFilms() {
         System.out.println("searchFilms");
-        int maxNumberOfResults = 0;
-        FilmControllerBean instance = new FilmControllerBean();
-        List<Film> expResult = null;
-        List<Film> result = instance.searchFilms(maxNumberOfResults);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
-
-    /**
-     * Test of searchFilms method, of class FilmControllerBean.
-     */
-    /*@Test
-    public void testSearchFilms_0args() {
-        System.out.println("searchFilms");
-        FilmControllerBean instance = new FilmControllerBean();
-        List<Film> expResult = null;
-        List<Film> result = instance.searchFilms();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        int minExpResult = 20;
+        filmControllerBean.getBackingBean().setSearchString("Harry");
+        filmControllerBean.onSearchFilms();
+        List<Film> result = filmControllerBean.getSearchResult();
+        assertTrue(result.size() > minExpResult);
+    }
 
     /**
      * Test of getSearchResult method, of class FilmControllerBean.
      */
-    /*@Test
+    //@Test
     public void testGetSearchResult() {
         System.out.println("getSearchResult");
         FilmControllerBean instance = new FilmControllerBean();
@@ -80,6 +67,11 @@ public class FilmControllerBeanTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
-    }*/
+    }
+    
+    @Test
+    public void testNothing() {
+        assertTrue(true);
+    }
     
 }

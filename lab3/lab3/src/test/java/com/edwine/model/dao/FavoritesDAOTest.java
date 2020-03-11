@@ -87,14 +87,6 @@ public class FavoritesDAOTest {
         
         assertEquals(expResult, result);
     }
-    
-    /**
-     * Test of findUsersMatchingName method, of class FavoritesDAO.
-     */
-    @Test
-    public void testFindUsersMatchingName() throws Exception {
-        Assert.assertTrue(true);
-    }
 
     /**
      * Test of setScore method, of class FavoritesDAO.

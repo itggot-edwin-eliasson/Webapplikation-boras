@@ -32,10 +32,6 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         super(Favorites.class);
     }
 
-    public List<Account> findUsersMatchingName() {
-        throw new UnsupportedOperationException("Not implemented yet!");
-    }
-
     public void setScore(Favorites favorite, int score) {
         //QFavorites_ favorites = new QFavorites_();
 

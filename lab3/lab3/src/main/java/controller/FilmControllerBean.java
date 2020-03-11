@@ -34,12 +34,12 @@ public class FilmControllerBean implements Serializable {
     @EJB
     private FilmDAO filmDAO;
 
-    public List<Film> searchFilms(int maxNumberOfResults) {
+
+    public void onSearchFilms() {
         System.out.println(filmBackingBean.getSearchString());
-        // List<SearchObject> searchResults =
-        // OmdbService.getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
 
         List<SearchObject> searchResults = new ArrayList();
+        int maxNumberOfResults = 30;
 
         for (int i = 1; searchResults.size() < maxNumberOfResults; i++) {
             List<SearchObject> tmpList = new ArrayList();
@@ -67,32 +67,14 @@ public class FilmControllerBean implements Serializable {
         }
 
         System.out.println("Found " + searchResults.size() + " search results!");
-        return mostRecentSearchResults;
-    }
-
-    public void onSearchFilms() {
-        System.out.println(filmBackingBean.getSearchString());
-        List<SearchObject> searchResults = OmdbService
-                .getSearchObjectsFromSearchString(filmBackingBean.getSearchString());
-
-        mostRecentSearchResults = new ArrayList();
-
-        for (SearchObject s : searchResults) {
-            try {
-                Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear(), s.getType(), s.getPoster());
-                mostRecentSearchResults.add(film);
-                filmDAO.create(film);
-            } catch (Exception e) {
-                System.out.println(
-                        "Error when adding ID to database, probably because the movie already exists in the database! "
-                                + e.getMessage());
-            }
-        }
-
-        System.out.println("Found " + searchResults.size() + " search results!");
     }
 
     public List<Film> getSearchResult() {
         return mostRecentSearchResults;
+    }
+    
+    // Only for testing!
+    public FilmBackingBean getBackingBean() {
+        return filmBackingBean;
     }
 }
