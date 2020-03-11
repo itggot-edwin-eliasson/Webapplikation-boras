@@ -2,6 +2,7 @@ package com.edwine.model.entity;
 
 
 import com.edwine.model.dao.AccountDAO;
+import java.util.HashSet;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -40,11 +41,9 @@ public class AccountDAOTest {
 
 	@Before
 	public void init() {
-                //accountDAO.removeAll();
-                //account = new Account("Pedds", "Edwin Eliasson");
-                //accountDAO.create(account);
-                //accountDAO.create(new Account("Benji", "Benjamin Vinnerholt"));
-                //accountDAO.create(new Account("Poppi", "Pontus Backman"));
+                accountDAO.removeAll();
+                accountDAO.create(new Account("abc123", "123", "123", new HashSet<>()));
+                accountDAO.create(new Account("def456", "456", "456", new HashSet<>()));
 	}
         
         @After
@@ -53,12 +52,57 @@ public class AccountDAOTest {
         }
 
 	@Test
-	public void checkThatFindAccountsMatchingUsernameMatchesCorrectly() {
-                /*Account res = accountDAO.findAccountsMatchingUsername("Pedds").get(0);
-                System.out.println(res);
-                Assert.assertEquals(account, res);*/
-                //Assert.assertTrue(true); /* Some better condition */
-                
-                Assert.assertTrue(true);
+	public void checkIfgetAccountMatchingUsernameMatchesCorrectly() {
+                String accountName = "abc123";
+                Account res = accountDAO.getAccountMatchingUsername(accountName);
+                Assert.assertEquals(accountName, res.getUsername());                
 	}
+        
+        @Test
+        public void testUpdateFirstname() {
+            String accountName = "abc123";
+            Account res = accountDAO.getAccountMatchingUsername(accountName);
+            
+            accountDAO.updateFirstname(res, "Pontus");
+            Assert.assertEquals("Pontus", res.getFirstName());
+            
+            accountDAO.updateFirstname(res, "Erik");
+            Assert.assertEquals("Erik", res.getFirstName());
+        }
+        
+        @Test
+        public void testUpdateLastname() {
+            String accountName = "abc123";
+            Account res = accountDAO.getAccountMatchingUsername(accountName);
+            
+            accountDAO.updateLastname(res, "Backman");
+            Assert.assertEquals("Backman", res.getLastName());
+            
+            accountDAO.updateLastname(res, "Karlsson");
+            Assert.assertEquals("Karlsson", res.getLastName());
+        }
+        
+        @Test
+        public void testUpdateEmail() {
+            String accountName = "abc123";
+            Account res = accountDAO.getAccountMatchingUsername(accountName);
+            
+            accountDAO.updateEmail(res, "Pontus@abc.com");
+            Assert.assertEquals("Pontus@abc.com", res.getEmail());
+            
+            accountDAO.updateEmail(res, "Erik@abc.com");
+            Assert.assertEquals("Erik@abc.com", res.getEmail());
+        }
+        
+        @Test
+        public void testUpdateAvatarUrl() {
+            String accountName = "abc123";
+            Account res = accountDAO.getAccountMatchingUsername(accountName);
+            
+            accountDAO.updateAvatarUrl(res, "http://abc.com");
+            Assert.assertEquals("http://abc.com", res.getAvatarUrl());
+            
+            accountDAO.updateAvatarUrl(res, "http://def.se");
+            Assert.assertEquals("http://def.se", res.getAvatarUrl());
+        }
 }
