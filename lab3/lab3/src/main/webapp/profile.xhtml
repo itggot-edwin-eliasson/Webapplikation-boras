@@ -37,7 +37,7 @@ and open the template in the editor.
 
                                     <h:outputText value="Username:" />
                                     <h:outputText value="#{accountViewBean.loggedInUser}" />
-                                    
+
                                     <h:outputText value="Email:" />
                                     <h:outputText value="#{accountBackingBean.email}" />
 
@@ -62,9 +62,9 @@ and open the template in the editor.
                             <p:messages />
                             <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
                                 <p:panelGrid columns="2" columnClasses="label, value" style="width:50%;margin:20px 20px" layout="grid" styleClass="ui-panelgrid-blank">
-                                    
+
                                     <h:outputText value="Email:" />
-                                    <p:inputText value="#{accountBackingBean.email}" required="false" label="Email"/>
+                                    <p:inputText value="#{accountBackingBean.email}"  required="false" label="Email"/>
 
                                     <h:outputText value="Firstname:" />
                                     <p:inputText value="#{accountBackingBean.firstName}" required="false" label="Firstname"/>
@@ -73,10 +73,15 @@ and open the template in the editor.
                                     <p:inputText value="#{accountBackingBean.lastName}" required="false" label="Lastname"/>
 
                                 </p:panelGrid>
-                                <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="100px" height="100px" onclick="#"/>
+                                <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="150px" height="150px" onclick="#">
+                                 <!--   <p:fileUpload fileUploadListener="#{accountControllerBean.uploadImage()}" auto="true" binding="#{upload}" mode="simple"
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                  value="#{personBean.uploadedPicture}"/> -->
+                                </p:graphicImage>
+
                             </p:panelGrid>
                             <p:commandButton value="Cancel" update="form" action="#{accountBackingBean.setInUpdate(false)}"></p:commandButton>
-                            <p:commandButton value="Save" update="form" action="#{accountControllerBean.updateProfile()}"></p:commandButton>
+                            <p:commandButton value="Save" validateClient="true" update="form" action="#{accountControllerBean.updateProfile()}"></p:commandButton>
                         </p:panel>
 
                     </p:tab>
