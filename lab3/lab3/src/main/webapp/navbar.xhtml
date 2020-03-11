@@ -23,6 +23,7 @@ and open the template in the editor.
             <p:menubar>
                 <p:menuitem value="" class="#{view.viewId == '/browse.xhtml' ? 'active' : null}" url="/lab3/browse.xhtml" icon="pi pi-home"/>
                 <p:menuitem value="WatchList" class="#{view.viewId == '/watchlist.xhtml' ? 'active' : null}" url="/lab3/watchlist.xhtml"/>
+                <p:menuitem value="Explore" class="#{view.viewId == '/explore.xhtml' ? 'active' : null}" url="/lab3/explore.xhtml"/>
                 <p:menuitem value="Profile" class="#{view.viewId == '/profile.xhtml' ? 'active' : null}" url="/lab3/profile.xhtml"/>
                 <f:facet name="options">
                 <p:menuitem id="login-status">
@@ -33,7 +34,7 @@ and open the template in the editor.
                     </ui:fragment>
                     <ui:fragment id="login" rendered="#{!accountViewBean.loggedIn}">
                         <div>
-                            <h:button value="LOG IN" outcome="/login.xhtml"/>
+                            <p:button value="LOG IN" outcome="/login.xhtml"/>
                         </div>
                     </ui:fragment>
                 </p:menuitem>
