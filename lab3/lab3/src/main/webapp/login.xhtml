@@ -18,13 +18,19 @@ and open the template in the editor.
     <h:body>
         <h:form id="loginForm">
             <h:panelGrid columns='2'>
-                <p:inputText value="#{accountBackingBean.username}" placeholder="Username"/>
+                <p:inputText id="usernameInput" value="#{accountBackingBean.username}" placeholder="Username" validatorMessage="Username can only have letters and numbers">
+                    <f:validateRequired/>
+                    <f:validateRegex pattern="^([a-zA-Z0-9]+(.)?[\s]*)$"/>
+                </p:inputText>
                 <p:password id="passwordInput" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password needs to be longer than 6 characters and have at lest one lower and upper case character!">
+                    <f:validateRequired/>
                     <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,})"/>
                 </p:password>
-                <p:commandButton value="Login" update="status" action="#{accountControllerBean.login()}"/>
+                <p:commandButton value="Login" update="status loginForm" action="#{accountControllerBean.login()}"/>
                 <p:commandButton value="Register" update="loginForm" action="#{accountControllerBean.register()}"/>
             </h:panelGrid>
+            <h:message for="usernameInput" style="color:red"/>
+            <br/>
             <h:message for="passwordInput" style="color:red"/>
         </h:form>
         <h:form id="status">
@@ -32,7 +38,7 @@ and open the template in the editor.
                 <p>Successful login as #{accountViewBean.loggedInUser}!</p>
             </ui:fragment>
             <ui:fragment rendered="#{!accountViewBean.loggedIn}">
-                <p>Wrong username or password</p>
+                <p>Not logged in!</p>
             </ui:fragment>
             <h:button value="To search!" outcome="/browse.xhtml"/>
         </h:form>
