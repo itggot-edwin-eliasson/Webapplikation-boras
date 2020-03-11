@@ -1,6 +1,9 @@
-package com.edwine.model.entity;
+package com.edwine.model.dao;
 
 import com.edwine.model.dao.FilmDAO;
+import com.edwine.model.entity.Account;
+import com.edwine.model.entity.Favorites;
+import com.edwine.model.entity.Film;
 import com.github.javafaker.Faker;
 import java.util.ArrayList;
 import java.util.List;

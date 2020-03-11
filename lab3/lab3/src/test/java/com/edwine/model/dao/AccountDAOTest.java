@@ -1,7 +1,10 @@
-package com.edwine.model.entity;
+package com.edwine.model.dao;
 
 
 import com.edwine.model.dao.AccountDAO;
+import com.edwine.model.entity.Account;
+import com.edwine.model.entity.Favorites;
+import com.edwine.model.entity.Film;
 import java.util.HashSet;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
