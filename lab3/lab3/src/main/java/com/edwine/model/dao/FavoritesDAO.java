@@ -90,6 +90,17 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
     }
 
     public Favorites getFavourite(Account acc, Film film) {
+        
+        if (acc == null) {
+            System.out.println("ERROR, FavoritesDAO getFavorite: Account can not be null!");
+            return null;
+        }
+        
+        if (film == null) {
+            System.out.println("ERROR, FavoritesDAO getFavorite: Film can not be null!");
+            return null;
+        }
+        
         QFavorites_ favorites = new QFavorites_();
 
         Favorites result;
