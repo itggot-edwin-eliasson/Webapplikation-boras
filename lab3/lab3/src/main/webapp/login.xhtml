@@ -20,22 +20,22 @@ and open the template in the editor.
             <h:form id="loginForm">
                 <h2 class="white-text center">Login</h2>
                 <h:panelGrid class="login" columns='1'>
-                    <p:inputText id="usernameInput" class="input" value="#{accountBackingBean.username}" placeholder="Username" validatorMessage="Username can only have letters and numbers">
+                    <p:inputText id="usernameInput" class="input" value="#{accountBackingBean.username}" placeholder="Username" validatorMessage="Username is empty">
                         <f:validateRequired/>
-                        <f:validateRegex pattern="^([a-zA-Z0-9]+(.)?[\s]*)$"/>
                     </p:inputText>
-                    <p:password id="passwordInput" class="input" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password needs to be longer than 6 characters and have at lest one lower and upper case character!">
+                    <p:password id="passwordInput" class="input" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password is empty">
                         <f:validateRequired/>
-                        <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,})"/>
                     </p:password>
                     <!-- <p:commandButton value="Register" update="valMsg" action="{accountControllerBean.register()}"/> -->
+                    
+                    <br/>
+                    <p:commandButton class="input" value="Login" update="valMsg" action="#{accountControllerBean.onLogin}"/>
+                    <p:button class="input" value="Register" outcome="/register.xhtml"/>
                 </h:panelGrid>
-                <p:commandButton value="Login" update="valMsg" action="#{accountControllerBean.login}"/>
-                <p:button value="Register" outcome="/register.xhtml"/>
+                
 
                 <h:panelGrid id="valMsg">
-                    <p:message for="usernameInput" style="font-weight: bold; width: 100%;"/>
-                    <p:message for="passwordInput" style="font-weight: bold; width: 100%;"/>
+                    <p:messages style="width: 100%;"/>
                 </h:panelGrid>
             </h:form>
         </div>

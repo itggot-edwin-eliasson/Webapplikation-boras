@@ -34,7 +34,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="^([a-zA-Z0-9]+(.)?[\s]*)$"/>
                         </p:inputText>
 
-                        <p:password id="regPasswordInput" class="input" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password needs to be longer than 6 characters and have at lest one lower and upper case character!">
+                        <p:password id="regPasswordInput" class="input" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password needs to be longer than 6 characters and have at lest one lower and upper case character!" feedback="true">
                             <f:validateRequired/>
                             <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,})"/>
                         </p:password>
@@ -45,7 +45,7 @@ and open the template in the editor.
 
                         <p:inputText class="input" value="#{accountBackingBean.lastName}" placeholder="Last name (Optional)" required="false" />
 
-                        <p:commandButton value="Register" class="input" update="valMsg" action="#{accountControllerBean.register()}"/>
+                        <p:commandButton validateClient="true" value="Register" class="input" update="valMsg" action="#{accountControllerBean.onRegister}"/>
 
                         
                         <h:panelGrid id="valMsg">

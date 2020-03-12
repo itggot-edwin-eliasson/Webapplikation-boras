@@ -53,7 +53,7 @@ public class AccountBackingBean implements Serializable {
         }
     }
     
-    public void logout() {
+    public void onLogout() {
         if (accViewBean.isLoggedIn()) {
             accViewBean.setLoggedInUser(null);
             System.out.println("SUCCESS: User logged out!");

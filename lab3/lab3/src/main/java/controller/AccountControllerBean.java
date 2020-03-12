@@ -24,6 +24,8 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -46,13 +48,15 @@ public class AccountControllerBean implements Serializable {
     @Inject
     private AccountBackingBean accBackingBean;
 
-    public String login() throws NoSuchAlgorithmException {
+    public String onLogin() throws NoSuchAlgorithmException {
         String hashedPassword = null;
         
         Account foundAccount = accDAO.getAccountMatchingUsername(accBackingBean.getUsername());
 
         if (foundAccount == null) {
             System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,"Incorrect username or password", "Please enter corret username and password"));
             return null;
         }
         
@@ -67,12 +71,14 @@ public class AccountControllerBean implements Serializable {
             accViewBean.setLoggedInUser(accBackingBean.getUsername());
             return "browse.xhtml";
         } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,"Incorrect username or password", "Please enter corret username and password"));
             System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
             return null;
         }
     }
 
-    public String register() throws NoSuchAlgorithmException {
+    public String onRegister() throws NoSuchAlgorithmException {
 
         byte[] salt = createSalt();
         String hashedPassword = null;
