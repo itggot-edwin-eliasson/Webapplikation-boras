@@ -72,7 +72,7 @@ public class AccountControllerBean implements Serializable {
         }
     }
 
-    public boolean register() throws NoSuchAlgorithmException {
+    public String register() throws NoSuchAlgorithmException {
 
         byte[] salt = createSalt();
         String hashedPassword = null;
@@ -84,7 +84,7 @@ public class AccountControllerBean implements Serializable {
 
         if (hashedPassword == null) {
             System.out.println("PASSWORD COULD NOT BE HASHED, TRY AGAIN!");
-            return false;
+            return null;
         }
 
         String stringSalt = Base64.getEncoder().encodeToString(salt);
@@ -92,9 +92,13 @@ public class AccountControllerBean implements Serializable {
         //Do this to decode the string in password and salt to a byte array
         //byte[] salt2 = Base64.getDecoder().decode(stringSalt);
                 
-        accDAO.create(new Account(accBackingBean.getUsername(), hashedPassword, stringSalt, new HashSet<Favorites>()));
+        Account acc = new Account(accBackingBean.getUsername(), hashedPassword, stringSalt, new HashSet<Favorites>());
+        accDAO.create(acc);
+        
+        accViewBean.setLoggedInUser(accBackingBean.getUsername());
+        updateProfile();
         System.out.println("SUCCESS: Account '" + accBackingBean.getUsername() + "' should have been created!");
-        return true;
+        return "browse.xhtml";
     }
     
     public void logout() {

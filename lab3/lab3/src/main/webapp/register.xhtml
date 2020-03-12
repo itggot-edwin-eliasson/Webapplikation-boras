@@ -23,46 +23,41 @@ and open the template in the editor.
 
             <style type="text/css" src="profile.css"/>
 
-            
+
             <hr/>
             <div class="bg round-border thick-border">
-                <h2>Sign up!</h2>
+                <h2 class="white-text center">Sign up!</h2>
                 <h:form id="form" >
-                        <p:messages />
-                            <p:panelGrid columns="2"  columnClasses="label, value" layout="grid" styleClass=" login">
+                    <p:panelGrid columns="1"  columnClasses="label, value" layout="grid" styleClass="ui-panelgrid-blank ">
+                        
 
-                                <h:outputText value="Username:" />
-                                <p:inputText id="usernameInput" value="#{accountBackingBean.username}" placeholder="Username" validatorMessage="Username can only have letters and numbers">
-                                    <f:validateRequired/>
-                                    <f:validateRegex pattern="^([a-zA-Z0-9]+(.)?[\s]*)$"/>
-                                </p:inputText>
+                        <p:inputText id="regUsernameInput" value="#{accountBackingBean.username}" placeholder="Username" validatorMessage="Username can only have letters and numbers">
+                            <f:validateRequired/>
+                            <f:validateRegex pattern="^([a-zA-Z0-9]+(.)?[\s]*)$"/>
+                        </p:inputText>
 
-                                <h:outputText value="Email:" />
-                                <p:inputText value="#{accountBackingBean.email}"  required="false" label="Email"/>
+                        <p:password id="regPasswordInput" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password needs to be longer than 6 characters and have at lest one lower and upper case character!">
+                            <f:validateRequired/>
+                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,})"/>
+                        </p:password>
 
-                                <h:outputText value="Firstname:" />
-                                <p:inputText value="#{accountBackingBean.firstName}" required="false" label="Firstname"/>
+                        <p:inputText id="emailInput" value="#{accountBackingBean.email}" placeholder="E-mail (Optional)" required="false"/>
 
-                                <h:outputText value="Lastname:" />
-                                <p:inputText value="#{accountBackingBean.lastName}" required="false" label="Lastname"/>
+                        <p:inputText value="#{accountBackingBean.firstName}" placeholder="First name (Optional)" required="false" />
 
-                                <h:outputText value="Password:" />
-                                <p:password id="passwordInput" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password needs to be longer than 6 characters and have at lest one lower and upper case character!">
-                                    <f:validateRequired/>
-                                    <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,})"/>
-                                </p:password>
-                                <p:commandButton value="Login" update="valMsg" action="#{accountControllerBean.login()}"/>
-                                <p:commandButton value="Register" update="valMsg" action="#{accountControllerBean.register()}"/>
+                        <p:inputText value="#{accountBackingBean.lastName}" placeholder="Last name (Optional)" required="false" />
 
-                                <h:panelGrid id="valMsg">
-                                    <h:message for="usernameInput" style="color:red"/>
-                                    <h:message for="passwordInput" style="color:red"/>
-                                </h:panelGrid>
+                        <p:commandButton value="Register" update="valMsg" action="#{accountControllerBean.register()}"/>
+
+                        
+                        <h:panelGrid id="valMsg">
+                            <p:message for="regUsernameInput"  style="font-weight: bold; width: 100%;"/>
+                            <p:message for="regPasswordInput" showDetail="true" showSummary="false" style="font-weight: bold; width: 100%;"/>
+                            <p:message for="emailInput" style="font-weight: bold; width: 100%;"/>
+                        </h:panelGrid>
 
 
-                            </p:panelGrid>
-
-
+                    </p:panelGrid>
                 </h:form>
             </div>
         </div>
