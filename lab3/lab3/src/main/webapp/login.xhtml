@@ -28,10 +28,11 @@ and open the template in the editor.
                         <f:validateRequired/>
                         <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,})"/>
                     </p:password>
-                   
+                    <!-- <p:commandButton value="Register" update="valMsg" action="{accountControllerBean.register()}"/> -->
                 </h:panelGrid>
                 <p:commandButton value="Login" update="status valMsg" action="#{accountControllerBean.onLogin}"/>
-                <p:commandButton value="Register" update="valMsg" action="#{accountControllerBean.onRegister}"/>
+                <p:button value="Register" outcome="/register.xhtml"/>
+
                 <h:panelGrid id="valMsg">
                     <h:message for="usernameInput" style="color:red"/>
                     <h:message for="passwordInput" style="color:red"/>
