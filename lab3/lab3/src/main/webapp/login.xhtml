@@ -30,21 +30,12 @@ and open the template in the editor.
                     </p:password>
                    
                 </h:panelGrid>
-                <p:commandButton value="Login" update="status valMsg" action="#{accountControllerBean.onLogin}"/>
-                <p:commandButton value="Register" update="valMsg" action="#{accountControllerBean.onRegister}"/>
+                <p:commandButton value="Login" update="valMsg" action="#{accountControllerBean.login}"/>
+                <p:commandButton value="Register" update="valMsg" action="#{accountControllerBean.legister}"/>
                 <h:panelGrid id="valMsg">
-                    <h:message for="usernameInput" style="color:red"/>
-                    <h:message for="passwordInput" style="color:red"/>
+                    <p:message for="usernameInput" style="font-weight: bold; width: 100%;"/>
+                    <p:message for="passwordInput" style="font-weight: bold; width: 100%;"/>
                 </h:panelGrid>
-            </h:form>
-            <h:form id="status">
-                <ui:fragment rendered="#{accountViewBean.loggedIn}">
-                    <p class="white-text">Successful login as #{accountViewBean.loggedInUser}!</p>
-                </ui:fragment>
-                <ui:fragment rendered="#{!accountViewBean.loggedIn}">
-                    <p class="white-text">Not logged in!</p>
-                </ui:fragment>
-                <h:button value="To search!" outcome="/browse.xhtml"/>
             </h:form>
         </div>
     </h:body>
