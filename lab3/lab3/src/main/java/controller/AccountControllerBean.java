@@ -46,14 +46,14 @@ public class AccountControllerBean implements Serializable {
     @Inject
     private AccountBackingBean accBackingBean;
 
-    public boolean login() throws NoSuchAlgorithmException {
+    public String login() throws NoSuchAlgorithmException {
         String hashedPassword = null;
         
         Account foundAccount = accDAO.getAccountMatchingUsername(accBackingBean.getUsername());
 
         if (foundAccount == null) {
             System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
-            return false;
+            return null;
         }
         
         try {
@@ -65,10 +65,10 @@ public class AccountControllerBean implements Serializable {
         if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
             System.out.println("LOGIN SUCCESS!");
             accViewBean.setLoggedInUser(accBackingBean.getUsername());
-            return true;
+            return "browse.xhtml";
         } else {
             System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
-            return false;
+            return null;
         }
     }
 

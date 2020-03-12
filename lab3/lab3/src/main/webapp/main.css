@@ -113,8 +113,9 @@ body, html {
 
 .login{
     margin: 20px auto;
+    width: 70%;
 }
 
 .input {
-    
+    width: 100%;
 }
