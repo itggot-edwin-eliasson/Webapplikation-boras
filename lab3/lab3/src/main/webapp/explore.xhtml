@@ -17,6 +17,8 @@ and open the template in the editor.
     <h:body>
         <ui:include src="navbar.xhtml"></ui:include>
         <h2>Search other users favourites</h2>
+        <p:outputLabel id="watchdata"/><!-- This consumes the update-call from card.xhtml which is used 
+                                        to update the grid when the card is being used in watchlist.xhtml -->
         <h:form>
             <p:inputText value="#{favoritesBackingBean.searchedUser}" placeholder="Search"/>
             <p:commandButton value="Search" update="data" action="#{favoritesBackingBean.favoritesSearchedUser}"/>
