@@ -59,7 +59,10 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         QFavorites_ favorites = new QFavorites_();
 
         List<Favorites> resultFavorites;
-        resultFavorites = new JPAQuery(entityManager).select(favorites).where(favorites.film.id.like(film.getId())).getResultList();
+        resultFavorites = new JPAQuery(entityManager)
+                .select(favorites)
+                .where(favorites.film.id.like(film.getId()))
+                .getResultList();
         
         List<Account> result = new ArrayList<>();
         
@@ -74,7 +77,10 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         QFavorites_ favorites = new QFavorites_();
 
         List<Favorites> resultFavorites;
-        resultFavorites = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.eq(acc.getUsername())).getResultList();
+        resultFavorites = new JPAQuery(entityManager)
+                .select(favorites)
+                .where(favorites.account.username.eq(acc.getUsername()))
+                .getResultList();
 
         List<Film> result = new ArrayList<>();
         
@@ -84,6 +90,7 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
         
         return result;
     }
+    
 
     public Favorites getFavourite(Account acc, Film film) {
         
