@@ -29,10 +29,14 @@ public class AccountDAO extends AbstractDAO<Account> {
     }
     
     public Account getAccountMatchingUsername(String name) {
+        String tokenizedString = name.toLowerCase();
         QAccount_ account = new QAccount_();
         
         try {
-        Account result = new JPAQuery(entityManager).select(account).where(account.username.eq(name)).getResultList().get(0);
+        Account result = new JPAQuery(entityManager)
+                .select(account)
+                .where(account.username.like("%" + tokenizedString + "%"))
+                .getResultList().get(0);
         return result;
         //System.out.println(result.toString());
         } catch (ArrayIndexOutOfBoundsException e) {
