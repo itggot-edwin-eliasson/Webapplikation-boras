@@ -13,6 +13,7 @@ import com.edwine.model.AccountViewBean;
 import com.edwine.model.entity.Favorites;
 import com.edwine.model.entity.Film;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -39,6 +40,33 @@ public class FavoritesControllerBean implements Serializable{
     
     @Inject
     private AccountViewBean account;
+    
+    @Inject
+    private FavoritesBackingBean favorite;
+    
+    public void addEntireWatchListFromUser() {
+        if (account.getLoggedInUser() != null) {
+            Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
+
+            if (acc == null) {
+                System.out.println("ERROR: Could not find logged in account!");
+            } else {
+                List<Film> alreadyFavoritedFilms = favDAO.getFilmsThatAccountFavorited(acc);
+                List<Film> userFavoriteFilms = favorite.getFilmsFromSearchedUsersFavorites();
+                for (Film film: userFavoriteFilms) {
+                    if (!alreadyFavoritedFilms.contains(film)) {
+                        favDAO.create(new Favorites(acc, film, 0));
+                        System.out.println("SUCCESS: " + film.getTitle() + " added as favorite for user " + acc.getUsername());
+                    }
+                    else {
+                        System.out.println("The user already has that film as a favorite");
+                    }
+                }
+            }
+        } else {
+            System.out.println("ERROR: No logged in user, can not add favorite!");
+        }
+    }
 
     public void addFavorite(Film film) {
         if (account.getLoggedInUser() != null) {
