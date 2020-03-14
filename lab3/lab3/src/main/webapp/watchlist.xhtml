@@ -16,6 +16,12 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <ui:include src="navbar.xhtml"></ui:include>
+        <br/>
+        <h1 class="mega regular ls-large libre-baskerville uppercase color-emphasis-3">
+            Your <span class="decorative-span regular ls-small">Movies</span> To Watch
+        </h1>
+        <br/>
+        <br/>
         <p:dataGrid id="watchdata" var="film" value="#{favoritesBackingBean.getFavoriteFilms()}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
                 <ui:param name ="filmCard" value="#{film}"/>

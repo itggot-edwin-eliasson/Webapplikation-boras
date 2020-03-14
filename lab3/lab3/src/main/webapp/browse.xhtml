@@ -18,6 +18,12 @@ and open the template in the editor.
 
     <h:body>
         <ui:include src="navbar.xhtml"></ui:include>
+        <br/>
+        <h1 class="mega regular ls-large libre-baskerville uppercase color-emphasis-3">
+            Find <span class="decorative-span regular ls-small">Your</span> Entertainment
+        </h1>
+        <br/>
+        <br/>
         <h:form>
             <p:inputText value="#{filmBackingBean.searchString}" placeholder="Search"/>
             <p:commandButton value="Search" update="data" action="#{filmControllerBean.onSearchFilms}"/>
