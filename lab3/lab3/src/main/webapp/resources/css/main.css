@@ -10,7 +10,7 @@ and open the template in the editor.
 
 body, html {
     height: 100%;
-    background-image: url("html-color-codes-color-tutorials-hero-00e10b1f.jpg");
+    background-image: url("../images/html-color-codes-color-tutorials-hero-00e10b1f.jpg");
     height: 100%;
     
     background-position: center;
@@ -78,7 +78,7 @@ body, html {
 
 /* Style the back side */
 .card-back {
-  background-image: url("cardbg.jpg");
+  background-image: url("../images/cardbg.jpg");
   color: white;
   transform: rotateY(180deg);
 }
