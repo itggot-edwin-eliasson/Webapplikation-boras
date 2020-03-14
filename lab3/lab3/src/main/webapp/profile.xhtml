@@ -31,7 +31,12 @@ and open the template in the editor.
             </h1>
             <hr/>
             <div>
-                <h:form id="form" >
+                <p:tab rendered="#{!accountViewBean.isLoggedIn()}" titleStyleClass="center">
+                    <h2 class="mega regular ls-large libre-baskerville uppercase color-emphasis-3">
+                        Login to view your profile
+                    </h2>
+                </p:tab>
+                <h:form id="form" rendered="#{accountViewBean.isLoggedIn()}">
                     <p:tab  rendered="#{!accountBackingBean.inUpdate}" titleStyleClass="center">
                         <p:panel id="data" header="Personal Details">
                             <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
