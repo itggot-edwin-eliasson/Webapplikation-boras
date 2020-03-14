@@ -46,7 +46,7 @@ public class FavoritesControllerBean implements Serializable{
     
     public void addEntireWatchListFromUser() {
         if (account.getLoggedInUser() != null) {
-            Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
+            Account acc = accDAO.getAccountMatchingUsernameLikeQuery(account.getLoggedInUser());
 
             if (acc == null) {
                 System.out.println("ERROR: Could not find logged in account!");
