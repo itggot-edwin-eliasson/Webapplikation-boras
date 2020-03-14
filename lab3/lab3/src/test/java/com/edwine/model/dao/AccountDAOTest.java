@@ -47,6 +47,8 @@ public class AccountDAOTest {
                 accountDAO.removeAll();
                 accountDAO.create(new Account("abc123", "123", "123", new HashSet<>()));
                 accountDAO.create(new Account("def456", "456", "456", new HashSet<>()));
+                accountDAO.create(new Account("kallekula", "789", "789", new HashSet<>()));
+                
 	}
         
         @After
@@ -63,9 +65,9 @@ public class AccountDAOTest {
         
         @Test
         public void checkIfgetAccountMatchingUsernameWithLikeOperatorMatchesCorrectly() {
-                String searchUserString = "abc";
-                String accountName = "abc123";
-                Account res = accountDAO.getAccountMatchingUsername(searchUserString);
+                String searchUserString = "kalle";
+                String accountName = "kallekula";
+                Account res = accountDAO.getAccountMatchingUsernameLikeQuery(searchUserString);
                 Assert.assertEquals(accountName, res.getUsername());                
 	}
         
