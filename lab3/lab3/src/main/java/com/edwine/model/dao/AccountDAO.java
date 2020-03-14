@@ -52,7 +52,7 @@ public class AccountDAO extends AbstractDAO<Account> {
         try {
         Account result = new JPAQuery(entityManager)
                 .select(account)
-                .where(account.username.like("%"+name+"%"))
+                .where(account.username.like("%"+tokenizedString+"%"))
                 .getResultList().get(0);
         return result;
         //System.out.println(result.toString());
