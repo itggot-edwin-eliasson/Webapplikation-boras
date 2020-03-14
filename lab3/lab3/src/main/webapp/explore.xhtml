@@ -22,7 +22,9 @@ and open the template in the editor.
         <h:form>
             <p:inputText value="#{favoritesBackingBean.searchedUser}" placeholder="Search"/>
             <p:commandButton value="Search" update="data" action="#{favoritesBackingBean.favoritesSearchedUser}"/>
-        </h:form>
+            <p></p>
+            <p:commandButton update="data" value="Add entire watchlist" action="#{favoritesControllerBean.addEntireWatchListFromUser()}"/>
+        </h:form>     
         <p:dataGrid id="data" var="film" value="#{favoritesBackingBean.filmsFromSearchedUsersFavorites}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
                 <ui:param name ="filmCard" value="#{film}"/>

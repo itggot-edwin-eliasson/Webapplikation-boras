@@ -44,7 +44,7 @@ public class FavoritesBackingBean implements Serializable {
     private AccountDAO accDAO;
     
     public void favoritesSearchedUser(){
-        Account acc = accDAO.getAccountMatchingUsername(searchedUser);
+        Account acc = accDAO.getAccountMatchingUsernameLikeQuery(searchedUser);
         
         filmsFromSearchedUsersFavorites = favDAO.getFilmsThatAccountFavorited(acc);
         
