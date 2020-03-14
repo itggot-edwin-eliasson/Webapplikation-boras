@@ -17,6 +17,8 @@ import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.entity.Account;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -35,6 +37,14 @@ public class AccountBackingBean implements Serializable {
     private String lastName;
     private String avatarUrl;
     private Boolean inUpdate = false;
+    
+    private List<String> avatarArray = Arrays.asList(new String[]
+    {
+        "https://cdn0.iconfinder.com/data/icons/shift-avatar/32/Max-512.png",
+        "https://cdn0.iconfinder.com/data/icons/shift-avatar/32/Sofia-512.png",
+        "https://cdn0.iconfinder.com/data/icons/shift-avatar/32/Ms.Jenifer-512.png",
+        "https://cdn0.iconfinder.com/data/icons/shift-avatar/32/Jonathan-512.png"
+    }); 
     
     @Inject
     private AccountViewBean accViewBean;

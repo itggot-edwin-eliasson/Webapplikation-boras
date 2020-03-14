@@ -151,7 +151,7 @@ public class AccountControllerBean implements Serializable {
         accDAO.updateEmail(accDAO.getAccountMatchingUsername(accViewBean.getLoggedInUser()), accBackingBean.getEmail());
     }
     
-    private void updateAvatarUrl() {
+    public void updateAvatarUrl() {
         accDAO.updateAvatarUrl(accDAO.getAccountMatchingUsername(accViewBean.getLoggedInUser()), accBackingBean.getAvatarUrl());
     }
     

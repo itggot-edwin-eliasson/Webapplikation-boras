@@ -26,12 +26,8 @@ and open the template in the editor.
 
             <style type="text/css" src="profile.css"/>
 
-            <br/>
-            <h1 class="mega regular ls-large libre-baskerville uppercase color-emphasis-3">
-                Customize <span class="decorative-span regular ls-small">your</span> profile
-            </h1>
-            <br/>
-            <br/>
+            <h1>Profile Page</h1>
+            <hr/>
             <div>
                 <h:form id="form" >
                     <p:tab  rendered="#{!accountBackingBean.inUpdate}" titleStyleClass="center">
@@ -51,8 +47,7 @@ and open the template in the editor.
                                     <h:outputText value="Lastname:" />
                                     <h:outputText value="#{accountBackingBean.lastName}" />
                                 </p:panelGrid>
-
-                                <p:graphicImage value="https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png" width="150px" height="150px" />
+                                <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="150px" height="150px" />
 
                             </p:panelGrid>
                             <p:commandButton value="Update" update="form" action="#{accountBackingBean.setInUpdate(true)}"></p:commandButton>
@@ -77,8 +72,24 @@ and open the template in the editor.
                                     <p:inputText value="#{accountBackingBean.lastName}" required="false" label="Lastname"/>
 
                                 </p:panelGrid>
-                                <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="150px" height="150px" onclick="#">
-                                </p:graphicImage>
+                                <p:panelGrid  id="avatarSelector" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                                    <p:graphicImage value="#{accountBackingBean.getAvatarWithPlaceholder()}" width="150px" height="150px"></p:graphicImage>
+                                    <div>
+                                        <p:outputLabel for="@next"/>
+                                        <p:selectOneMenu id="selectAvatar" value="#{accountBackingBean.avatarUrl}" style="width:125px" var="a">
+                                            <p:ajax event="change" update="avatarSelector"
+                                                    listener="#{accountControllerBean.updateAvatarUrl()}" />
+                                            <f:selectItems value="#{accountBackingBean.avatarArray}" var="avatar" itemLabel="select avatar" />
+                                            <p:column>
+                                                <h:graphicImage url="#{a}" alt="#{a}" styleClass="ui-theme" width="50px" height="50px"/>
+                                            </p:column>
+                                            <f:facet name="footer">
+                                                <p:separator />
+                                                <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                                            </f:facet>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </p:panelGrid>
 
                             </p:panelGrid>
                             <p:commandButton value="Cancel" update="form" action="#{accountBackingBean.setInUpdate(false)}"></p:commandButton>
