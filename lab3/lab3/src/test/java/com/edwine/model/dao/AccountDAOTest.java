@@ -62,6 +62,14 @@ public class AccountDAOTest {
 	}
         
         @Test
+        public void checkIfgetAccountMatchingUsernameWithLikeOperatorMatchesCorrectly() {
+                String searchUserString = "abc";
+                String accountName = "abc123";
+                Account res = accountDAO.getAccountMatchingUsername(searchUserString);
+                Assert.assertEquals(accountName, res.getUsername());                
+	}
+        
+        @Test
         public void testUpdateFirstname() {
             String accountName = "abc123";
             Account res = accountDAO.getAccountMatchingUsername(accountName);
