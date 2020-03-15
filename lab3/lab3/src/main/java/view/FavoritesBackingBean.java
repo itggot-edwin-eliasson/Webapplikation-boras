@@ -28,6 +28,8 @@ public class FavoritesBackingBean implements Serializable {
     
     private SearchObject film;
     private String searchedUser;
+    private Account searchedUserAccount;
+    private boolean renderValue = false;
     
     private String searchString;
     
@@ -47,7 +49,17 @@ public class FavoritesBackingBean implements Serializable {
         Account acc = accDAO.getAccountMatchingUsernameLikeQuery(searchedUser);
         
         filmsFromSearchedUsersFavorites = favDAO.getFilmsThatAccountFavorited(acc);
+        setRenderValue(true);
         
+    }
+    
+    public void setRenderValue(boolean rendervalue) {
+        this.renderValue = rendervalue;
+    }
+    
+    public void searchStringUser() {
+        Account acc = accDAO.getAccountMatchingUsernameLikeQuery(searchedUser);
+        searchedUserAccount = acc;
     }
     
     public List<Film> getFavoriteFilms(){
