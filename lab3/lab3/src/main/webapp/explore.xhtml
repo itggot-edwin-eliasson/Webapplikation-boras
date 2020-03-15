@@ -26,11 +26,33 @@ and open the template in the editor.
         <br/>
         <h:form>
             <p:inputText value="#{favoritesBackingBean.searchedUser}" placeholder="Search"/>
-            <p:commandButton value="Search" update="data" action="#{favoritesBackingBean.favoritesSearchedUser}"/>
+            <p:commandButton value="Search" update="data dataUser" action="#{favoritesBackingBean.favoritesSearchedUser}">
+                <f:actionListener binding="#{favoritesBackingBean.searchStringUser()}"/>
+            </p:commandButton>
             <line/>
             <line/>
             <p:commandButton update="data" value="Add entire watchlist" action="#{favoritesControllerBean.addEntireWatchListFromUser()}"/>
-        </h:form>     
+        </h:form>
+        
+        <p:panel id="dataUser" header="Profile">
+            <p:panelGrid columns="2"  layout="grid" styleClass="ui-panelgrid-blank">
+                <p:panelGrid columns="2" style="width:50%;margin:20px 20px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+
+                    <h:outputText value="Username:" rendered="#{favoritesBackingBean.renderValue}"/>
+                    <h:outputText value="#{favoritesBackingBean.searchedUserAccount.username}" />
+
+                    <h:outputText value="Email:" rendered="#{favoritesBackingBean.renderValue}"/>
+                    <h:outputText value="#{favoritesBackingBean.searchedUserAccount.email}" />
+
+                    <h:outputText value="Firstname:" rendered="#{favoritesBackingBean.renderValue}"/>
+                    <h:outputText value="#{favoritesBackingBean.searchedUserAccount.firstName}" />
+
+                    <h:outputText value="Lastname:" rendered="#{favoritesBackingBean.renderValue}"/>
+                    <h:outputText value="#{favoritesBackingBean.searchedUserAccount.lastName}" />
+                </p:panelGrid>
+                <p:graphicImage value="#{favoritesBackingBean.searchedUserAccount.avatarUrl}" width="150px" height="150px" rendered="#{favoritesBackingBean.renderValue}"/>
+            </p:panelGrid>
+        </p:panel>
         <p:dataGrid id="data" var="film" value="#{favoritesBackingBean.filmsFromSearchedUsersFavorites}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
                 <ui:param name ="filmCard" value="#{film}"/>
