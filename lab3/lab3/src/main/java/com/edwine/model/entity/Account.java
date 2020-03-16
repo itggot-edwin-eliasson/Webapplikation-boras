@@ -7,6 +7,7 @@ package com.edwine.model.entity;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +33,6 @@ public class Account implements Serializable {
     private String email;
     private String avatarUrl;
     
-    @OneToMany(mappedBy="account")
+    @OneToMany(mappedBy="account", cascade = CascadeType.REMOVE)
     @NonNull private Set<Favorites> favorites;
 }

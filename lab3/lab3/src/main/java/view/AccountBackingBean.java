@@ -13,12 +13,18 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.entity.Account;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import util.PasswordHasher;
 
 /**
  *
@@ -60,6 +66,36 @@ public class AccountBackingBean implements Serializable {
             this.firstName = acc.getFirstName();
             this.lastName = acc.getLastName();
             this.avatarUrl = acc.getAvatarUrl();
+        }
+    }
+    
+    public String onLogin() throws NoSuchAlgorithmException {
+        String hashedPassword = null;
+        
+        Account foundAccount = accDAO.getAccountMatchingUsername(username);
+
+        if (foundAccount == null) {
+            System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,"Incorrect username or password", "Please enter corret username and password"));
+            return null;
+        }
+        
+        try {
+            hashedPassword = PasswordHasher.createHashPassword(password, foundAccount.getSalt());
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(AccountBackingBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
+            System.out.println("LOGIN SUCCESS!");
+            accViewBean.setLoggedInUser(username);
+            return "browse.xhtml";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,"Incorrect username or password", "Please enter corret username and password"));
+            System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
+            return null;
         }
     }
     

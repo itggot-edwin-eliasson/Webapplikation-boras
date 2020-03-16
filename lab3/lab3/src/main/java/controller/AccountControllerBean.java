@@ -32,6 +32,7 @@ import javax.inject.Named;
 import lombok.Data;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
+import util.PasswordHasher;
 import view.AccountBackingBean;
 
 @Data
@@ -48,42 +49,12 @@ public class AccountControllerBean implements Serializable {
     @Inject
     private AccountBackingBean accBackingBean;
 
-    public String onLogin() throws NoSuchAlgorithmException {
-        String hashedPassword = null;
-        
-        Account foundAccount = accDAO.getAccountMatchingUsername(accBackingBean.getUsername());
-
-        if (foundAccount == null) {
-            System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,"Incorrect username or password", "Please enter corret username and password"));
-            return null;
-        }
-        
-        try {
-            hashedPassword = createHash(accBackingBean.getPassword(), Base64.getDecoder().decode(foundAccount.getSalt()));
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(AccountControllerBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
-            System.out.println("LOGIN SUCCESS!");
-            accViewBean.setLoggedInUser(accBackingBean.getUsername());
-            return "browse.xhtml";
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,"Incorrect username or password", "Please enter corret username and password"));
-            System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
-            return null;
-        }
-    }
-
     public String onRegister() throws NoSuchAlgorithmException {
 
-        byte[] salt = createSalt();
+        String salt = PasswordHasher.createSalt();
         String hashedPassword = null;
         try {
-            hashedPassword = createHash(accBackingBean.getPassword(), salt);
+            hashedPassword = PasswordHasher.createHashPassword(accBackingBean.getPassword(), salt);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(AccountControllerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,13 +62,10 @@ public class AccountControllerBean implements Serializable {
         if (hashedPassword == null) {
             System.out.println("PASSWORD COULD NOT BE HASHED, TRY AGAIN!");
             return null;
-        }
-
-        String stringSalt = Base64.getEncoder().encodeToString(salt);
-        
+        }        
         //Do this to decode the string in password and salt to a byte array
         //byte[] salt2 = Base64.getDecoder().decode(stringSalt);
-        Account acc = new Account(accBackingBean.getUsername(), hashedPassword, stringSalt, new HashSet<Favorites>());
+        Account acc = new Account(accBackingBean.getUsername(), hashedPassword, salt, new HashSet<Favorites>());
 
         if(accDAO.getAccountMatchingUsername(accBackingBean.getUsername()) == null){
             accDAO.create(acc);
@@ -113,38 +81,6 @@ public class AccountControllerBean implements Serializable {
         updateProfile();
         System.out.println("SUCCESS: Account '" + accBackingBean.getUsername() + "' should have been created!");
         return "browse.xhtml";
-    }
-    
-    public void onLogout() {
-        if (accViewBean.isLoggedIn()) {
-            accViewBean.setLoggedInUser(null);
-            System.out.println("SUCCESS: User logged out!");
-            //return true;
-        } else {
-            System.out.println("ERROR: No user logged in, can not logout!");
-            //return false;
-        }
-    }
-
-    private String createHash(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
-
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-
-        byte[] hash = factory.generateSecret(spec).getEncoded();
-
-        
-        String stringHash = Base64.getEncoder().encodeToString(hash);
-        //Arrays.toString(hash)
-        return stringHash;
-    }
-
-    private byte[] createSalt() {
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
-        return salt;
     }
     
     private void updateFirstname() {

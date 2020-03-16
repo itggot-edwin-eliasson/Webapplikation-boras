@@ -29,13 +29,13 @@ and open the template in the editor.
                     <!-- <p:commandButton value="Register" update="valMsg" action="{accountControllerBean.register()}"/> -->
                     
                     <br/>
-                    <p:commandButton class="input" value="Login" update="valMsg" action="#{accountControllerBean.onLogin}"/>
+                    <p:commandButton class="input" value="Login" update="valMsg" action="#{accountBackingBean.onLogin}"/>
                     <p:button class="input" value="Register" outcome="/register.xhtml"/>
                 </h:panelGrid>
                 
 
                 <h:panelGrid id="valMsg">
-                    <p:messages style="width: 100%;"/>
+                    <p:messages/>
                 </h:panelGrid>
             </h:form>
         </div>
