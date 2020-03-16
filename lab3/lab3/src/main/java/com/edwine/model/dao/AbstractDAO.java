@@ -7,8 +7,6 @@ package com.edwine.model.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,48 +19,49 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public abstract class AbstractDAO<T> {
-	private final Class<T> entityType;
-	protected abstract EntityManager getEntityManager();
-        
-        //EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("flicktier");//
-        //EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-	public long count() {
-                final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-                final CriteriaQuery cq = builder.createQuery();
-                final Root<T> rt = cq.from(entityType);
+    private final Class<T> entityType;
 
-                cq.select(builder.count(rt));
+    protected abstract EntityManager getEntityManager();
 
-                final Query q = getEntityManager().createQuery(cq);
-                return ((Long) q.getSingleResult());
-        }
+    //EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("flicktier");//
+    //EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+    public long count() {
+        final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        final CriteriaQuery cq = builder.createQuery();
+        final Root<T> rt = cq.from(entityType);
 
-	public void create(T entity) {
-                //em.persist(entity);
-                getEntityManager().persist(entity);
-        }
+        cq.select(builder.count(rt));
 
-        public List<T> findAll() {
-                final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-                cq.select(cq.from(entityType));
-                return getEntityManager().createQuery(cq).getResultList();
-        }
+        final Query q = getEntityManager().createQuery(cq);
+        return ((Long) q.getSingleResult());
+    }
 
-        public void remove(T entity) {
-                getEntityManager().remove(getEntityManager().merge(entity));
+    public void create(T entity) {
+        //em.persist(entity);
+        getEntityManager().persist(entity);
+    }
+
+    public List<T> findAll() {
+        final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityType));
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+
+    public void remove(T entity) {
+        getEntityManager().remove(getEntityManager().merge(entity));
+    }
+
+    public void removeAll() {
+        final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityType));
+        List<T> result = getEntityManager().createQuery(cq).getResultList();
+        for (int i = 0; i < result.size(); i++) {
+            getEntityManager().remove(result.get(i));
         }
-        
-        public void removeAll() {
-                final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-                cq.select(cq.from(entityType));
-                List<T> result = getEntityManager().createQuery(cq).getResultList();
-                for(int i = 0; i < result.size(); i++){
-                    getEntityManager().remove(result.get(i));
-                }
-        }
-        
-        public void update(T entity) {
-                getEntityManager().merge(entity);
-        }
+    }
+
+    public void update(T entity) {
+        getEntityManager().merge(entity);
+    }
 }

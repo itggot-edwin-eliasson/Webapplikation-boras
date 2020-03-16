@@ -14,7 +14,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 public class PasswordHasher {
-    
+
     public static String createHashPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
         byte[] byteSalt = Base64.getDecoder().decode(salt);
@@ -27,15 +27,15 @@ public class PasswordHasher {
         //Arrays.toString(hash)
         return stringHash;
     }
-    
-    public static String createSalt(){
+
+    public static String createSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
 
         String strSalt = Base64.getEncoder().encodeToString(salt);
-        
+
         return strSalt;
     }
-    
+
 }

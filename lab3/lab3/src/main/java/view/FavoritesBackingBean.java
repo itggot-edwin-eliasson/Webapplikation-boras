@@ -25,79 +25,86 @@ import org.omnifaces.cdi.ViewScoped;
 @Named
 @ViewScoped
 public class FavoritesBackingBean implements Serializable {
-    
+
     private SearchObject film;
     private String searchedUser;
     private Account searchedUserAccount;
     private boolean renderValue = false;
-    
+
     private String searchString;
-    
+
     private List<Film> filmsFromSearchedUsersFavorites;
     private List<Favorites> favoritesFromSearchedUsersFavorites;
-    
+
     @Inject
     private AccountViewBean account;
-    
+
     @EJB
     private FavoritesDAO favDAO;
-    
+
     @EJB
     private AccountDAO accDAO;
-    
-    public void favoritesSearchedUser(){
+
+    public void favoritesSearchedUser() {
         Account acc = accDAO.getAccountMatchingUsernameLikeQuery(searchedUser);
-        
+
         filmsFromSearchedUsersFavorites = favDAO.getFilmsThatAccountFavorited(acc);
         setRenderValue(true);
-        
+
     }
-    
+
     public void setRenderValue(boolean rendervalue) {
         this.renderValue = rendervalue;
     }
-    
+
     public void searchStringUser() {
         Account acc = accDAO.getAccountMatchingUsernameLikeQuery(searchedUser);
         searchedUserAccount = acc;
     }
-    
-    public List<Film> getFavoriteFilms(){
+
+    public List<Film> getFavoriteFilms() {
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
-        
-        if(acc != null){
+
+        if (acc != null) {
             return favDAO.getFilmsThatAccountFavorited(acc);
         } else {
             return null;
         }
     }
-    
-    
-    public boolean userLoggedInAndHasNotFavorited(Film film){
+
+    public boolean userLoggedInAndHasNotFavorited(Film film) {
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
-        if (acc == null) return false;
-        if (film == null) return false;
+        if (acc == null) {
+            return false;
+        }
+        if (film == null) {
+            return false;
+        }
         Favorites fav = favDAO.getFavourite(acc, film);
         return fav == null;
     }
-    
-    public boolean userLoggedInAndHasFavorited(Film film){
+
+    public boolean userLoggedInAndHasFavorited(Film film) {
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
-        if (acc == null) return false;
-        if (film == null) return false;
+        if (acc == null) {
+            return false;
+        }
+        if (film == null) {
+            return false;
+        }
         Favorites fav = favDAO.getFavourite(acc, film);
         return fav != null;
     }
+
     public void favoriteFilmsForSearchedUser() {
         favoritesSearchedUser();
         List<Film> films = new ArrayList();
-        
-        for(Favorites f : favoritesFromSearchedUsersFavorites){
+
+        for (Favorites f : favoritesFromSearchedUsersFavorites) {
             films.add(f.getFilm());
         }
-        
+
         filmsFromSearchedUsersFavorites = films;
-        
+
     }
-    
 }

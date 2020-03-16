@@ -63,9 +63,9 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
                 .select(favorites)
                 .where(favorites.film.id.like(film.getId()))
                 .getResultList();
-        
+
         List<Account> result = new ArrayList<>();
-        
+
         for (Favorites f : resultFavorites) {
             result.add(f.getAccount());
         }
@@ -83,52 +83,41 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
                 .getResultList();
 
         List<Film> result = new ArrayList<>();
-        
+
         for (Favorites f : resultFavorites) {
             result.add(f.getFilm());
         }
-        
+
         return result;
     }
-    
 
     public Favorites getFavourite(Account acc, Film film) {
-        
+
         if (acc == null) {
             System.out.println("ERROR, FavoritesDAO getFavorite: Account can not be null!");
             return null;
         }
-        
+
         if (film == null) {
             System.out.println("ERROR, FavoritesDAO getFavorite: Film can not be null!");
             return null;
         }
-        
+
         QFavorites_ favorites = new QFavorites_();
 
         List<Favorites> result;
         //TODO denna ger nullpointer
-        result = new JPAQuery
-        (entityManager).
-                select
-        (favorites).
-                where
-        (favorites.
-                account.
-                username.
-                eq
-        (acc.
-                getUsername()).
-                and
-        (favorites.
-                film.
-                id.
-                eq
-        (film.
-                getId()
-        ))).
+        result = new JPAQuery(entityManager).
+                select(favorites).
+                where(favorites.account.username.
+                        eq(acc.
+                                getUsername()).
+                        and(favorites.film.id.
+                                eq(film.
+                                        getId()
+                                ))).
                 getResultList();
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         } else {
             return result.get(0);

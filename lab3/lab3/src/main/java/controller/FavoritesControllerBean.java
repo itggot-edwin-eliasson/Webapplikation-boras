@@ -18,17 +18,12 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import lombok.Data;
-import omdb.model.SearchObject;
 import view.FavoritesBackingBean;
 
-/**
- *
- * @author edwin
- */
 @Named
 @RequestScoped
-public class FavoritesControllerBean implements Serializable{
+public class FavoritesControllerBean implements Serializable {
+
     @EJB
     private FavoritesDAO favDAO;
 
@@ -37,13 +32,13 @@ public class FavoritesControllerBean implements Serializable{
 
     @EJB
     private FilmDAO filmDAO;
-    
+
     @Inject
     private AccountViewBean account;
-    
+
     @Inject
     private FavoritesBackingBean favorite;
-    
+
     public void addEntireWatchListFromUser() {
         if (account.getLoggedInUser() != null) {
             Account acc = accDAO.getAccountMatchingUsernameLikeQuery(account.getLoggedInUser());
@@ -53,12 +48,11 @@ public class FavoritesControllerBean implements Serializable{
             } else {
                 List<Film> alreadyFavoritedFilms = favDAO.getFilmsThatAccountFavorited(acc);
                 List<Film> userFavoriteFilms = favorite.getFilmsFromSearchedUsersFavorites();
-                for (Film film: userFavoriteFilms) {
+                for (Film film : userFavoriteFilms) {
                     if (!alreadyFavoritedFilms.contains(film)) {
                         favDAO.create(new Favorites(acc, film, 0));
                         System.out.println("SUCCESS: " + film.getTitle() + " added as favorite for user " + acc.getUsername());
-                    }
-                    else {
+                    } else {
                         System.out.println("The user already has that film as a favorite");
                     }
                 }
@@ -84,7 +78,7 @@ public class FavoritesControllerBean implements Serializable{
 
         //System.out.println("Favorites: " + favDAO.getAccountsWhoFavoritedFilm(f).get(0).getAccount());
     }
-    
+
     public void removeFavorite(Film film) {
         if (account.getLoggedInUser() != null) {
             Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());

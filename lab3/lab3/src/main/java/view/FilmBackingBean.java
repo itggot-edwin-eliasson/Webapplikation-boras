@@ -17,34 +17,30 @@ import omdb.OmdbService;
 import omdb.model.FilmObject;
 import omdb.model.SearchObject;
 
-/**
- *
- * @author edwin
- */
 @Data
 @Named
 @ViewScoped
-public class FilmBackingBean implements Serializable{
-    
+public class FilmBackingBean implements Serializable {
+
     private String searchString;
-    
+
     @EJB
     private FilmDAO filmDAO;
-    
-    public List<Film> getAllFilms(){
+
+    public List<Film> getAllFilms() {
         return filmDAO.findAll();
     }
-    
-    public int getAllFilmsSize(){
+
+    public int getAllFilmsSize() {
         return filmDAO.findAll().size();
     }
-    
+
     public FilmObject getFilmObjectFromId(String filmId) {
         FilmObject f = OmdbService.getFilmObjectFromId(filmId);
-        
+
         return f;
     }
-    
+
     public String getPosterWithPlaceholderFromFilm(Film f) {
         if (f.getPoster().equals("N/A")) {
             return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
@@ -52,8 +48,8 @@ public class FilmBackingBean implements Serializable{
             return f.getPoster();
         }
     }
-    
-    public String getPosterWithPlaceholderFromSearchObject(SearchObject s){
+
+    public String getPosterWithPlaceholderFromSearchObject(SearchObject s) {
         if (s.getPoster().equals("N/A")) {
             return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
         } else {

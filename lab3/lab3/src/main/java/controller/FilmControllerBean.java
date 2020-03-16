@@ -18,10 +18,6 @@ import omdb.model.SearchObject;
 import org.omnifaces.cdi.ViewScoped;
 import view.FilmBackingBean;
 
-/**
- *
- * @author edwin
- */
 @Named
 @ViewScoped
 public class FilmControllerBean implements Serializable {
@@ -33,7 +29,6 @@ public class FilmControllerBean implements Serializable {
 
     @EJB
     private FilmDAO filmDAO;
-
 
     public void onSearchFilms() {
         System.out.println(filmBackingBean.getSearchString());
@@ -62,7 +57,7 @@ public class FilmControllerBean implements Serializable {
             } catch (Exception e) {
                 System.out.println(
                         "Error when adding ID to database, probably because the movie already exists in the database! "
-                                + e.getMessage());
+                        + e.getMessage());
             }
         }
 
@@ -72,7 +67,7 @@ public class FilmControllerBean implements Serializable {
     public List<Film> getSearchResult() {
         return mostRecentSearchResults;
     }
-    
+
     // Only for testing!
     public FilmBackingBean getBackingBean() {
         return filmBackingBean;

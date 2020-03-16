@@ -16,10 +16,6 @@ import kong.unirest.Unirest;
 import omdb.model.SearchObject;
 import omdb.model.SearchResult;
 
-/**
- *
- * @author pontus53
- */
 public abstract class OmdbService {
 
     private static final String KEY = "b410e072"; // TODO: need to hide this key
