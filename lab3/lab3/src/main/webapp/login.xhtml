@@ -18,7 +18,7 @@ and open the template in the editor.
     <h:body>
         <div class="bg round-border thick-border">
             <h:form id="loginForm">
-                <h2 class="white-text center">Login</h2>
+                <h2 class="white-text center">Log in</h2>
                 <h:panelGrid class="login" columns='1'>
                     <p:inputText id="usernameInput" class="input" value="#{accountBackingBean.username}" placeholder="Username" validatorMessage="Username is empty">
                         <f:validateRequired/>
@@ -29,7 +29,7 @@ and open the template in the editor.
                     <!-- <p:commandButton value="Register" update="valMsg" action="{accountControllerBean.register()}"/> -->
                     
                     <br/>
-                    <p:commandButton class="input" value="Login" update="valMsg" action="#{accountBackingBean.onLogin}"/>
+                    <p:commandButton class="input" value="Log in" update="valMsg" action="#{accountBackingBean.onLogin}"/>
                     <p:button class="input" value="Register" outcome="/register.xhtml"/>
                 </h:panelGrid>
                 
