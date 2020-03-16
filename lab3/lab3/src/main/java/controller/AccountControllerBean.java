@@ -97,9 +97,17 @@ public class AccountControllerBean implements Serializable {
         
         //Do this to decode the string in password and salt to a byte array
         //byte[] salt2 = Base64.getDecoder().decode(stringSalt);
-                
         Account acc = new Account(accBackingBean.getUsername(), hashedPassword, stringSalt, new HashSet<Favorites>());
-        accDAO.create(acc);
+
+        if(accDAO.getAccountMatchingUsername(accBackingBean.getUsername()) == null){
+            accDAO.create(acc);
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,"Username already taken", "Please enter a new username"));
+            return null;
+        }
+                
+        //Account acc = new Account(accBackingBean.getUsername(), hashedPassword, stringSalt, new HashSet<Favorites>());
         
         accViewBean.setLoggedInUser(accBackingBean.getUsername());
         updateProfile();
