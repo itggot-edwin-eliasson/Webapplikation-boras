@@ -49,3 +49,11 @@ and open the template in the editor.
     border: 3px solid green;
     padding: 10px;
 }
+
+.selectOne {
+    width: 125px;
+}
+
+.outPutText {
+    font-weight: bold;
+}
