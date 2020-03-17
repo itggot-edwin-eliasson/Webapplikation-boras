@@ -20,17 +20,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @IdClass(FavoritesKey.class)
 public class Favorites implements Serializable {
-    //@EmbeddedId
-    //private FavoritesKey favoritesKey;
 
     @Id
     @ManyToOne
-    //@MapsId("account_id")
     private Account account;
 
     @Id
     @ManyToOne
-    //@MapsId("film_id")
     private Film film;
 
     private int score;

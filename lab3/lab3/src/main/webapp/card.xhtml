@@ -37,7 +37,6 @@ and open the template in the editor.
                         </ui:fragment>
                          <ui:fragment id="removeFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasFavorited(film)}">
                             <p:commandButton update="form watchdata" style="background-color: #4c4c4c" class="addButton" value="Remove Film" action="#{favoritesControllerBean.removeFavorite(film)}"/> 
-                            <!--TODO uppdatera datagriden om i favorites-->
                         </ui:fragment>
                         <ui:fragment id="addLogin" rendered="#{!accountViewBean.loggedIn}">
                             <div>

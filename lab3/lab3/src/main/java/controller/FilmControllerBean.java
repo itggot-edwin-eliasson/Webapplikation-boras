@@ -30,6 +30,8 @@ public class FilmControllerBean implements Serializable {
     @EJB
     private FilmDAO filmDAO;
 
+    //Uses omdb service to find movies and create them in db aswell as
+    //adding them to mostrecentsearch list
     public void onSearchFilms() {
         System.out.println(filmBackingBean.getSearchString());
 

@@ -36,24 +36,24 @@ public class FilmBackingBean implements Serializable {
     }
 
     public FilmObject getFilmObjectFromId(String filmId) {
-        FilmObject f = OmdbService.getFilmObjectFromId(filmId);
+        FilmObject filmObject = OmdbService.getFilmObjectFromId(filmId);
 
-        return f;
+        return filmObject;
     }
 
-    public String getPosterWithPlaceholderFromFilm(Film f) {
-        if (f.getPoster().equals("N/A")) {
+    public String getPosterWithPlaceholderFromFilm(Film film) {
+        if (film.getPoster().equals("N/A")) {
             return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
         } else {
-            return f.getPoster();
+            return film.getPoster();
         }
     }
 
-    public String getPosterWithPlaceholderFromSearchObject(SearchObject s) {
-        if (s.getPoster().equals("N/A")) {
+    public String getPosterWithPlaceholderFromSearchObject(SearchObject searchObject) {
+        if (searchObject.getPoster().equals("N/A")) {
             return "https://www.justgotochef.com/content/images/xno_image_found.png.pagespeed.ic.o7sjGbPlVj.png"; // placeholder img
         } else {
-            return s.getPoster();
+            return searchObject.getPoster();
         }
     }
 }

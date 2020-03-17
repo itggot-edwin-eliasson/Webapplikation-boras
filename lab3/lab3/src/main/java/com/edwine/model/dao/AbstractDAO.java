@@ -24,8 +24,7 @@ public abstract class AbstractDAO<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    //EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("flicktier");//
-    //EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+   
     public long count() {
         final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         final CriteriaQuery cq = builder.createQuery();
@@ -38,7 +37,6 @@ public abstract class AbstractDAO<T> {
     }
 
     public void create(T entity) {
-        //em.persist(entity);
         getEntityManager().persist(entity);
     }
 
@@ -56,6 +54,7 @@ public abstract class AbstractDAO<T> {
         final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityType));
         List<T> result = getEntityManager().createQuery(cq).getResultList();
+        
         for (int i = 0; i < result.size(); i++) {
             getEntityManager().remove(result.get(i));
         }

@@ -32,22 +32,24 @@ public class FilmDAO extends AbstractDAO<Film> {
     public List<Film> findFilmsMatchingTitle(String title) {
         QFilm_ film = new QFilm_();
 
-        List<Film> result = new JPAQuery(entityManager).select(film).where(film.title.like(title)).getResultList();
+        List<Film> result = new JPAQuery(entityManager)
+                .select(film)
+                .where(film.title.like(title))
+                .getResultList();
         System.out.println(result.toString());
 
         return result;
-
-        //hrow new UnsupportedOperationException("Not implemented yet!");
     }
 
     public List<Film> findFilmsMatchingId(String id) {
         QFilm_ film = new QFilm_();
 
-        List<Film> result = new JPAQuery(entityManager).select(film).where(film.id.like(id)).getResultList();
+        List<Film> result = new JPAQuery(entityManager)
+                .select(film)
+                .where(film.id.like(id))
+                .getResultList();
         System.out.println(result.toString());
 
         return result;
-
-        //hrow new UnsupportedOperationException("Not implemented yet!");
     }
 }

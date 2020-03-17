@@ -20,6 +20,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import view.FavoritesBackingBean;
 
+/**
+ *
+ * @author hcliffordson
+ */
 @Named
 @RequestScoped
 public class FavoritesControllerBean implements Serializable {
@@ -39,6 +43,8 @@ public class FavoritesControllerBean implements Serializable {
     @Inject
     private FavoritesBackingBean favorite;
 
+    //adds the entire list an other user has favorited to active users favorites
+    //skips if movie is already favorited
     public void addEntireWatchListFromUser() {
         if (account.getLoggedInUser() != null) {
             Account acc = accDAO.getAccountMatchingUsernameLikeQuery(account.getLoggedInUser());
@@ -48,6 +54,7 @@ public class FavoritesControllerBean implements Serializable {
             } else {
                 List<Film> alreadyFavoritedFilms = favDAO.getFilmsThatAccountFavorited(acc);
                 List<Film> userFavoriteFilms = favorite.getFilmsFromSearchedUsersFavorites();
+                
                 for (Film film : userFavoriteFilms) {
                     if (!alreadyFavoritedFilms.contains(film)) {
                         favDAO.create(new Favorites(acc, film, 0));
@@ -75,8 +82,6 @@ public class FavoritesControllerBean implements Serializable {
         } else {
             System.out.println("ERROR: No logged in user, can not add favorite!");
         }
-
-        //System.out.println("Favorites: " + favDAO.getAccountsWhoFavoritedFilm(f).get(0).getAccount());
     }
 
     public void removeFavorite(Film film) {
@@ -93,7 +98,5 @@ public class FavoritesControllerBean implements Serializable {
         } else {
             System.out.println("ERROR: No logged in user, can not remove favorite!");
         }
-
-        //System.out.println("Favorites: " + favDAO.getAccountsWhoFavoritedFilm(f).get(0).getAccount());
     }
 }

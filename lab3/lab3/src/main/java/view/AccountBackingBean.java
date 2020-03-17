@@ -41,7 +41,8 @@ public class AccountBackingBean implements Serializable {
     private String avatarUrl;
     private Boolean inUpdate = false;
 
-    private List<String> avatarArray = Arrays.asList(new String[]{
+    //Used as a small feature to add a avatar to userprofile
+    private List<String> avatarArray = Arrays.asList(new String[] {
         "https://cdn0.iconfinder.com/data/icons/shift-avatar/32/Max-512.png",
         "https://cdn0.iconfinder.com/data/icons/shift-avatar/32/Sofia-512.png",
         "https://cdn0.iconfinder.com/data/icons/shift-avatar/32/Ms.Jenifer-512.png",
@@ -99,10 +100,9 @@ public class AccountBackingBean implements Serializable {
         if (accViewBean.isLoggedIn()) {
             accViewBean.setLoggedInUser(null);
             System.out.println("SUCCESS: User logged out!");
-            //return true;
+    
         } else {
             System.out.println("ERROR: No user logged in, can not logout!");
-            //return false;
         }
     }
 

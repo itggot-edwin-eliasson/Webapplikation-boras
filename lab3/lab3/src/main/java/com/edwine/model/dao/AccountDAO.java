@@ -37,14 +37,15 @@ public class AccountDAO extends AbstractDAO<Account> {
                     .where(account.username.eq(name))
                     .getResultList().get(0);
             return result;
-            //System.out.println(result.toString());
+            
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ERROR: Could not find any account matching the username!");
         }
-
+        
         return null;
     }
 
+    //This query gets a user more insensitive. Used when searching for users
     public Account getAccountMatchingUsernameLikeQuery(String name) {
         String tokenizedString = name.toLowerCase();
         QAccount_ account = new QAccount_();
@@ -55,7 +56,7 @@ public class AccountDAO extends AbstractDAO<Account> {
                     .where(account.username.like("%" + tokenizedString + "%"))
                     .getResultList().get(0);
             return result;
-            //System.out.println(result.toString());
+            
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ERROR: Could not find any account matching the username!");
         }

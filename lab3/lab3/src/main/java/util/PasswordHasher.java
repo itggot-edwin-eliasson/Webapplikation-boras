@@ -24,7 +24,7 @@ public class PasswordHasher {
         byte[] hash = factory.generateSecret(spec).getEncoded();
 
         String stringHash = Base64.getEncoder().encodeToString(hash);
-        //Arrays.toString(hash)
+   
         return stringHash;
     }
 

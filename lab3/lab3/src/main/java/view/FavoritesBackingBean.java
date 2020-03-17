@@ -21,6 +21,10 @@ import java.util.List;
 import javax.inject.Inject;
 import org.omnifaces.cdi.ViewScoped;
 
+/**
+ *
+ * @author hcliffordson
+ */
 @Data
 @Named
 @ViewScoped
@@ -49,14 +53,17 @@ public class FavoritesBackingBean implements Serializable {
         Account acc = accDAO.getAccountMatchingUsernameLikeQuery(searchedUser);
 
         filmsFromSearchedUsersFavorites = favDAO.getFilmsThatAccountFavorited(acc);
+        //render on search
         setRenderValue(true);
 
     }
 
+    //Used to control rendering in explore.xhtml
     public void setRenderValue(boolean rendervalue) {
         this.renderValue = rendervalue;
     }
 
+    //Used to set account when searching for a username
     public void searchStringUser() {
         Account acc = accDAO.getAccountMatchingUsernameLikeQuery(searchedUser);
         searchedUserAccount = acc;
@@ -74,6 +81,7 @@ public class FavoritesBackingBean implements Serializable {
 
     public boolean userLoggedInAndHasNotFavorited(Film film) {
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
+        
         if (acc == null) {
             return false;
         }
@@ -86,6 +94,7 @@ public class FavoritesBackingBean implements Serializable {
 
     public boolean userLoggedInAndHasFavorited(Film film) {
         Account acc = accDAO.getAccountMatchingUsername(account.getLoggedInUser());
+        
         if (acc == null) {
             return false;
         }
@@ -94,17 +103,5 @@ public class FavoritesBackingBean implements Serializable {
         }
         Favorites fav = favDAO.getFavourite(acc, film);
         return fav != null;
-    }
-
-    public void favoriteFilmsForSearchedUser() {
-        favoritesSearchedUser();
-        List<Film> films = new ArrayList();
-
-        for (Favorites f : favoritesFromSearchedUsersFavorites) {
-            films.add(f.getFilm());
-        }
-
-        filmsFromSearchedUsersFavorites = films;
-
     }
 }

@@ -25,9 +25,7 @@ and open the template in the editor.
                     </p:inputText>
                     <p:password id="passwordInput" class="input" value="#{accountBackingBean.password}" placeholder="Password" validatorMessage="Password is empty">
                         <f:validateRequired/>
-                    </p:password>
-                    <!-- <p:commandButton value="Register" update="valMsg" action="{accountControllerBean.register()}"/> -->
-                    
+                    </p:password>                   
                     <br/>
                     <p:commandButton class="input" value="Log in" update="valMsg" action="#{accountBackingBean.onLogin}"/>
                     <p:button class="input" value="Register" outcome="/register.xhtml"/>

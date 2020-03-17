@@ -31,30 +31,15 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
     public FavoritesDAO() {
         super(Favorites.class);
     }
-
+    
+    // This is done to be able to extend the application
+    // There were not enough time for us to fully implement it
+    // But we will probably do it after the course is done because its fun
     public void setScore(Favorites favorite, int score) {
-        //QFavorites_ favorites = new QFavorites_();
-
-        //List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(favorite.getAccount().getUsername())).getResultList();
-        //List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(favorite.getAccount().getUsername()).and(favorites.film.));
         favorite.setScore(score);
         super.update(favorite);
     }
 
-    /*public Favorites findFavoritesMatchingFilmAndAccount(Film film, Account account) {
-        QFavorites_ favorites = new QFavorites_();
-        
-        List<Favorites> result = new JPAQuery(entityManager).select(favorites).where(favorites.account.username.like(account.getUsername()).and(favorites.film.id.eq(film.getId()))).getResultList();
-        System.out.println(result.toString());
-        
-        return result.get(0);
-        
-        
-        
-        //hrow new UnsupportedOperationException("Not implemented yet!");
-        
-        return null;
-    }*/
     public List<Account> getAccountsWhoFavoritedFilm(Film film) {
         QFavorites_ favorites = new QFavorites_();
 
@@ -107,16 +92,14 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
 
         List<Favorites> result;
         //TODO denna ger nullpointer
-        result = new JPAQuery(entityManager).
-                select(favorites).
-                where(favorites.account.username.
-                        eq(acc.
-                                getUsername()).
-                        and(favorites.film.id.
-                                eq(film.
-                                        getId()
-                                ))).
-                getResultList();
+        result = new JPAQuery(entityManager)
+                .select(favorites)
+                .where(
+                        favorites.account.username
+                        .eq(acc.getUsername())
+                        .and(favorites.film.id.eq(film.getId()))
+                ).getResultList();
+        
         if (result.isEmpty()) {
             return null;
         } else {
