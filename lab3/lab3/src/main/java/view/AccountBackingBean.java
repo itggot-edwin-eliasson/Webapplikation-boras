@@ -66,46 +66,6 @@ public class AccountBackingBean implements Serializable {
         }
     }
 
-    public String onLogin() throws NoSuchAlgorithmException {
-        String hashedPassword = null;
-
-        Account foundAccount = accDAO.getAccountMatchingUsername(username);
-
-        if (foundAccount == null) {
-            System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Incorrect username or password", "Please enter corret username and password"));
-            return null;
-        }
-
-        try {
-            hashedPassword = PasswordHasher.createHashPassword(password, foundAccount.getSalt());
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(AccountBackingBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
-            System.out.println("LOGIN SUCCESS!");
-            accViewBean.setLoggedInUser(username);
-            return "browse.xhtml";
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Incorrect username or password", "Please enter corret username and password"));
-            System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
-            return null;
-        }
-    }
-
-    public void onLogout() {
-        if (accViewBean.isLoggedIn()) {
-            accViewBean.setLoggedInUser(null);
-            System.out.println("SUCCESS: User logged out!");
-    
-        } else {
-            System.out.println("ERROR: No user logged in, can not logout!");
-        }
-    }
-
     public String getAvatarWithPlaceholder() {
         if (this.avatarUrl == null) {
             return "https://indol.se/wp-content/uploads/2017/04/profile-placeholder.png";

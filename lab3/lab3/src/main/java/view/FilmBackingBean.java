@@ -24,6 +24,8 @@ public class FilmBackingBean implements Serializable {
 
     private String searchString;
 
+    private List<Film> mostRecentSearchResults = null;
+
     @EJB
     private FilmDAO filmDAO;
 

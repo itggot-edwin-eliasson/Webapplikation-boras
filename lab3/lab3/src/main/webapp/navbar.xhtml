@@ -29,7 +29,7 @@ and open the template in the editor.
                 <p:menuitem id="login-status">
                     <ui:fragment id="logout" rendered="#{accountViewBean.loggedIn}">
                         <div>
-                            <p:commandButton update="@form" value="LOG OUT" action="#{accountBackingBean.onLogout}"/>
+                            <p:commandButton update="@form" value="LOG OUT" action="#{accountControllerBean.onLogout}"/>
                         </div>
                     </ui:fragment>
                     <ui:fragment id="login" rendered="#{!accountViewBean.loggedIn}">

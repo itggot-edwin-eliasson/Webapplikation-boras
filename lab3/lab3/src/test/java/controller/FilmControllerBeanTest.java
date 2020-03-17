@@ -31,7 +31,6 @@ public class FilmControllerBeanTest {
     @Inject
     FilmBackingBean filmBackingBean;
     
-    @Inject
     FilmControllerBean filmControllerBean;
     
     @Before
@@ -51,7 +50,7 @@ public class FilmControllerBeanTest {
         int minExpResult = 20;
         filmControllerBean.getBackingBean().setSearchString("Harry");
         filmControllerBean.onSearchFilms();
-        List<Film> result = filmControllerBean.getSearchResult();
+        List<Film> result = filmControllerBean.getBackingBean().getMostRecentSearchResults();
         assertTrue(result.size() > minExpResult);
     }
 
@@ -63,7 +62,7 @@ public class FilmControllerBeanTest {
         System.out.println("getSearchResult");
         FilmControllerBean instance = new FilmControllerBean();
         List<Film> expResult = null;
-        List<Film> result = instance.getSearchResult();
+        List<Film> result = instance.getBackingBean().getMostRecentSearchResults();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

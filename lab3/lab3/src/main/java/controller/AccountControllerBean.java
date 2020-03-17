@@ -54,7 +54,7 @@ public class AccountControllerBean implements Serializable {
             System.out.println("PASSWORD COULD NOT BE HASHED, TRY AGAIN!");
             return null;
         }
-       
+
         Account acc = new Account(accBackingBean.getUsername(), hashedPassword, salt, new HashSet<Favorites>());
 
         if (accDAO.getAccountMatchingUsername(accBackingBean.getUsername()) == null) {
@@ -69,6 +69,46 @@ public class AccountControllerBean implements Serializable {
         updateProfile();
         System.out.println("SUCCESS: Account '" + accBackingBean.getUsername() + "' have been created!");
         return "browse.xhtml";
+    }
+
+    public String onLogin() throws NoSuchAlgorithmException {
+        String hashedPassword = null;
+
+        Account foundAccount = accDAO.getAccountMatchingUsername(accBackingBean.getUsername());
+
+        if (foundAccount == null) {
+            System.out.println("ERROR AccountBean: foundAccount == null, could not get an account macthing the username!");
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Incorrect username or password", "Please enter corret username and password"));
+            return null;
+        }
+
+        try {
+            hashedPassword = PasswordHasher.createHashPassword(accBackingBean.getPassword(), foundAccount.getSalt());
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(AccountBackingBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (hashedPassword != null && hashedPassword.equals(foundAccount.getPassword())) {
+            System.out.println("LOGIN SUCCESS!");
+            accViewBean.setLoggedInUser(accBackingBean.getUsername());
+            return "browse.xhtml";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Incorrect username or password", "Please enter corret username and password"));
+            System.out.println("LOGIN FAILED, USERNAME OR PASSWORD IS INCORRECT!");
+            return null;
+        }
+    }
+
+    public void onLogout() {
+        if (accViewBean.isLoggedIn()) {
+            accViewBean.setLoggedInUser(null);
+            System.out.println("SUCCESS: User logged out!");
+
+        } else {
+            System.out.println("ERROR: No user logged in, can not logout!");
+        }
     }
 
     private void updateFirstname() {
