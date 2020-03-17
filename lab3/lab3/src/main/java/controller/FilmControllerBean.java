@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import omdb.OmdbService;
@@ -19,10 +20,8 @@ import org.omnifaces.cdi.ViewScoped;
 import view.FilmBackingBean;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class FilmControllerBean implements Serializable {
-
-    private List<Film> mostRecentSearchResults;
 
     @Inject
     private FilmBackingBean filmBackingBean;
@@ -49,12 +48,12 @@ public class FilmControllerBean implements Serializable {
             searchResults.addAll(tmpList);
         }
 
-        mostRecentSearchResults = new ArrayList();
+        filmBackingBean.setMostRecentSearchResults(new ArrayList());
 
         for (SearchObject s : searchResults) {
             try {
                 Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear(), s.getType(), s.getPoster());
-                mostRecentSearchResults.add(film);
+                filmBackingBean.getMostRecentSearchResults().add(film);
                 filmDAO.create(film);
             } catch (Exception e) {
                 System.out.println(
@@ -64,10 +63,6 @@ public class FilmControllerBean implements Serializable {
         }
 
         System.out.println("Found " + searchResults.size() + " search results!");
-    }
-
-    public List<Film> getSearchResult() {
-        return mostRecentSearchResults;
     }
 
     // Only for testing!
