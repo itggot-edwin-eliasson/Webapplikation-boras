@@ -6,7 +6,6 @@
 package omdb;
 
 import java.util.List;
-import omdb.model.FilmObject;
 import omdb.model.SearchObject;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -38,18 +37,6 @@ public class OmdbServiceTest {
     
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of getFilmObjectFromId method, of class OmdbService.
-     */
-    @Test
-    public void testGetFilmObjectFromId() {
-        System.out.println("getFilmObjectFromId");
-        String filmId = "tt7286456";
-        String expResult = "Joker";
-        String result = OmdbService.getFilmObjectFromId(filmId).getTitle();
-        assertEquals(expResult, result);
     }
 
     /**

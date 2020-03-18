@@ -14,7 +14,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
 import omdb.OmdbService;
-import omdb.model.FilmObject;
 import omdb.model.SearchObject;
 
 @Data
@@ -37,11 +36,6 @@ public class FilmBackingBean implements Serializable {
         return filmDAO.findAll().size();
     }
 
-    public FilmObject getFilmObjectFromId(String filmId) {
-        FilmObject filmObject = OmdbService.getFilmObjectFromId(filmId);
-
-        return filmObject;
-    }
 
     public String getPosterWithPlaceholderFromFilm(Film film) {
         if (film.getPoster().equals("N/A")) {

@@ -5,7 +5,6 @@
  */
 package omdb;
 
-import omdb.model.FilmObject;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,22 +19,6 @@ public abstract class OmdbService {
 
     private static final String KEY = "b410e072"; // TODO: need to hide this key
 
-    public static FilmObject getFilmObjectFromId(String filmId) {
-        try {
-            HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
-                    .header("accept", "application/json")
-                    .queryString("apikey", KEY)
-                    .queryString("i", filmId)
-                    .asJson();
-
-            Gson gson = new Gson();
-            return gson.fromJson(response.getBody().toString(), FilmObject.class);
-        } catch (Exception e) {
-            System.out.println("ERROR: Could not query the API! " + e.getMessage());
-        }
-
-        return null;
-    }
 
     // Returns the first page with maximum 10 results and ignores films without posters
     public static List<SearchObject> getSearchObjectsFromSearchString(String searchValue) {
