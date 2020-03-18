@@ -57,18 +57,32 @@ public class AccountDAOTest {
         }
 
 	@Test
-	public void checkIfgetAccountMatchingUsernameMatchesCorrectly() {
+	public void testGetAccountMatchingUsernameMatchesCorrectly() {
                 String accountName = "abc123";
                 Account res = accountDAO.getAccountMatchingUsername(accountName);
                 Assert.assertEquals(accountName, res.getUsername());                
 	}
         
         @Test
-        public void checkIfgetAccountMatchingUsernameWithLikeOperatorMatchesCorrectly() {
+	public void testGetAccountMatchingUsernameReturnsNull() {
+                String accountName = "21345213";
+                Account res = accountDAO.getAccountMatchingUsername(accountName);
+                Assert.assertEquals(null, res);                
+	}
+        
+        @Test
+        public void testgetAccountMatchingUsernameLikeMatchesCorrectly() {
                 String searchUserString = "kalle";
                 String accountName = "kallekula";
                 Account res = accountDAO.getAccountMatchingUsernameLikeQuery(searchUserString);
                 Assert.assertEquals(accountName, res.getUsername());                
+	}
+        
+        @Test
+	public void testGetAccountMatchingUsernameLikeReturnsNull() {
+                String accountName = "21345213";
+                Account res = accountDAO.getAccountMatchingUsernameLikeQuery(accountName);
+                Assert.assertEquals(null, res);
 	}
         
         @Test

@@ -55,6 +55,7 @@ public class FavoritesDAOTest {
 
     Account account1;
     Film film1;
+    Film film2;
     Favorites favorite1;
     
     
@@ -62,10 +63,12 @@ public class FavoritesDAOTest {
     public void init() {
         account1 = new Account("abc123", "123", "123", new HashSet<>());
         film1 = new Film("123", "Batman7", "1998", "Movie", "http://abc.com/img.png");
+        film2 = new Film("1234", "Batman8", "1999", "Movie", "http://abc.com/img.png");
         favorite1 = new Favorites(account1, film1, 0);
         
         accountDAO.create(account1);
         filmDAO.create(film1);
+        filmDAO.create(film2);
         favoritesDAO.create(favorite1);
     }
 
@@ -86,6 +89,39 @@ public class FavoritesDAOTest {
         Favorites result = favoritesDAO.getFavourite(account1, film1);
         
         assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getFavourite method without a valid film, of class FavoritesDAO.
+     */
+    @Test
+    public void testGetFavouriteFilmNull() throws Exception {
+        System.out.println("getFavouriteFilmNull");
+        Favorites result = favoritesDAO.getFavourite(account1, null);
+        
+        assertEquals(null, result);
+    }
+    
+    /**
+     * Test of getFavourite method without a valid account, of class FavoritesDAO.
+     */
+    @Test
+    public void testGetFavouriteAccNull() throws Exception {
+        System.out.println("getFavouriteAccNull");
+        Favorites result = favoritesDAO.getFavourite(null, film1);
+        
+        assertEquals(null, result);
+    }
+    
+    /**
+     * Test of getFavourite method when no favorite is found, of class FavoritesDAO.
+     */
+    @Test
+    public void testGetFavouriteNoFavInDB() throws Exception {
+        System.out.println("testGetFavouriteNoFavInDB");
+        Favorites result = favoritesDAO.getFavourite(account1, film2);
+        
+        assertEquals(null, result);
     }
 
     /**

@@ -34,7 +34,7 @@ public class FavoritesDAO extends AbstractDAO<Favorites> {
     
     // This is done to be able to extend the application
     // There were not enough time for us to fully implement it
-    // But we will probably do it after the course is done because its fun
+    // But we will probably do it after the course is done because its fun :)
     public void setScore(Favorites favorite, int score) {
         favorite.setScore(score);
         super.update(favorite);
