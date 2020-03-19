@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import omdb.OmdbService;
 import omdb.model.SearchObject;
-import org.omnifaces.cdi.ViewScoped;
 import view.FilmBackingBean;
 
 @Named
@@ -41,7 +40,7 @@ public class FilmControllerBean implements Serializable {
             List<SearchObject> tmpList = new ArrayList();
 
             tmpList = OmdbService.getSearchObjectsFromSearchString(filmBackingBean.getSearchString(), i);
-            if (tmpList.size() == 0) {
+            if (tmpList.isEmpty()) {
                 maxNumberOfResults = 0;
             }
 

@@ -13,7 +13,6 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
-import omdb.OmdbService;
 import omdb.model.SearchObject;
 
 @Data

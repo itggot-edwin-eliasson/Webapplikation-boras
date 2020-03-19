@@ -13,8 +13,12 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-public class PasswordHasher {
+public final class PasswordHasherUtils {
 
+    private PasswordHasherUtils(){
+        
+    }
+    
     public static String createHashPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
         byte[] byteSalt = Base64.getDecoder().decode(salt);

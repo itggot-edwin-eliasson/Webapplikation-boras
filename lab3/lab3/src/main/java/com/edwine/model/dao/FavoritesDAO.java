@@ -17,10 +17,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
-/**
- *
- * @author benja
- */
 @Stateless
 public class FavoritesDAO extends AbstractDAO<Favorites> {
 

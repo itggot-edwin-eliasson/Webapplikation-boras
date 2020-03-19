@@ -18,10 +18,6 @@ public class AccountViewBean implements Serializable {
     private String loggedInUser = null;
 
     public boolean isLoggedIn() {
-        if (loggedInUser == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return loggedInUser != null;
     }
 }

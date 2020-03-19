@@ -7,7 +7,6 @@ package controller;
 
 import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.dao.FavoritesDAO;
-import com.edwine.model.dao.FilmDAO;
 import com.edwine.model.entity.Account;
 import com.edwine.model.AccountViewBean;
 import com.edwine.model.entity.Favorites;
@@ -20,10 +19,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import view.FavoritesBackingBean;
 
-/**
- *
- * @author hcliffordson
- */
 @Named
 @RequestScoped
 public class FavoritesControllerBean implements Serializable {
@@ -33,9 +28,6 @@ public class FavoritesControllerBean implements Serializable {
 
     @EJB
     private AccountDAO accDAO;
-
-    @EJB
-    private FilmDAO filmDAO;
 
     @Inject
     private AccountViewBean account;

@@ -16,15 +16,8 @@ import javax.validation.constraints.Email;
 import lombok.Data;
 import com.edwine.model.dao.AccountDAO;
 import com.edwine.model.entity.Account;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import util.PasswordHasher;
 
 @Named
 @Data

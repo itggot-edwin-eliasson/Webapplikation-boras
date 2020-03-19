@@ -13,10 +13,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
-/**
- *
- * @author edwin
- */
 @RequiredArgsConstructor
 public abstract class AbstractDAO<T> {
 
@@ -33,7 +29,7 @@ public abstract class AbstractDAO<T> {
         cq.select(builder.count(rt));
 
         final Query q = getEntityManager().createQuery(cq);
-        return ((Long) q.getSingleResult());
+        return (Long) q.getSingleResult();
     }
 
     public void create(T entity) {
@@ -55,8 +51,8 @@ public abstract class AbstractDAO<T> {
         cq.select(cq.from(entityType));
         List<T> result = getEntityManager().createQuery(cq).getResultList();
         
-        for (int i = 0; i < result.size(); i++) {
-            getEntityManager().remove(result.get(i));
+        for (T r : result){
+            getEntityManager().remove(r);
         }
     }
 

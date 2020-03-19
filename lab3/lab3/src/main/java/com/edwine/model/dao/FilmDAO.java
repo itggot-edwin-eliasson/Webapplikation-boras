@@ -14,10 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
-/**
- *
- * @author edwin
- */
 @Stateless
 public class FilmDAO extends AbstractDAO<Film> {
 

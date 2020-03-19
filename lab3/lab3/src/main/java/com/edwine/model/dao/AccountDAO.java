@@ -13,10 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
-/**
- *
- * @author edwin
- */
 @Stateless
 public class AccountDAO extends AbstractDAO<Account> {
 

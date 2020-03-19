@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import util.PasswordHasher;
+import util.PasswordHasherUtils;
 import view.AccountBackingBean;
 
 @Data
@@ -42,10 +42,10 @@ public class AccountControllerBean implements Serializable {
     //Registers account. Uses hashes and salt for password
     public String onRegister() throws NoSuchAlgorithmException {
 
-        String salt = PasswordHasher.createSalt();
+        String salt = PasswordHasherUtils.createSalt();
         String hashedPassword = null;
         try {
-            hashedPassword = PasswordHasher.createHashPassword(accBackingBean.getPassword(), salt);
+            hashedPassword = PasswordHasherUtils.createHashPassword(accBackingBean.getPassword(), salt);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(AccountControllerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,7 +84,7 @@ public class AccountControllerBean implements Serializable {
         }
 
         try {
-            hashedPassword = PasswordHasher.createHashPassword(accBackingBean.getPassword(), foundAccount.getSalt());
+            hashedPassword = PasswordHasherUtils.createHashPassword(accBackingBean.getPassword(), foundAccount.getSalt());
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(AccountBackingBean.class.getName()).log(Level.SEVERE, null, ex);
         }
