@@ -15,7 +15,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import omdb.OmdbService;
+import omdb.model.FilmObject;
 import omdb.model.SearchObject;
+import org.primefaces.PrimeFaces;
 import view.FilmBackingBean;
 
 @Named
@@ -51,7 +53,9 @@ public class FilmControllerBean implements Serializable {
 
         for (SearchObject s : searchResults) {
             try {
-                Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear(), s.getType(), s.getPoster());
+                FilmObject filmObject  = OmdbService.getFilmObjectFromId(s.getImdbID());
+                double doubleImdbRating = Double.parseDouble(filmObject.getImdbRating());
+                Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear(), s.getType(), s.getPoster(), doubleImdbRating, filmObject.getPlot());
                 filmBackingBean.getMostRecentSearchResults().add(film);
                 filmDAO.create(film);
             } catch (Exception e) {
@@ -63,6 +67,8 @@ public class FilmControllerBean implements Serializable {
 
         System.out.println("Found " + searchResults.size() + " search results!");
     }
+    
+    
 
     // Only for testing!
     public FilmBackingBean getBackingBean() {

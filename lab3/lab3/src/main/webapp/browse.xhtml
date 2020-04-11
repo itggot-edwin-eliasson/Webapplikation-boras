@@ -27,15 +27,31 @@ and open the template in the editor.
         <h:form>
             <p:inputText value="#{filmBackingBean.searchString}" placeholder="Search"/>
             <p:commandButton value="Search" update="data" action="#{filmControllerBean.onSearchFilms}"/>
+            <p:commandButton rendered="#{!(filmBackingBean.mostRecentSearchResults.isEmpty())}" value="Sort on IMDB-rating" update="data" action="#{filmBackingBean.sortFilmsOnRating}" />
         </h:form>
         <p:outputLabel value="#{filmDAO.test()}"/>
         <p:outputLabel id="watchdata"/> <!-- This consumes the update-call from card.xhtml which is used 
                                         to update the grid when the card is being used in watchlist.xhtml -->
+
         <p:dataGrid id="data" var="film" value="#{filmBackingBean.mostRecentSearchResults}" columns="6" layout="grid" rows="12" paginator="true">
             <ui:include src="card.xhtml">
                 <ui:param name ="filmCard" value="#{film}"/>
             </ui:include>
         </p:dataGrid>
+        <h:form id="filmDetailForm">
+            <p:sidebar id="filmDetail" widgetVar="filmDetail" position="left" baseZIndex="10000">
+                <h1>#{filmBackingBean.currentFilm.title}</h1>
+                <br/>
+                <h3>#{filmBackingBean.currentFilm.releaseYear}</h3>
+                <br/>
+                <h3>Imdb: #{filmBackingBean.currentFilm.imdbRating}</h3>
+                <br/>
+                <h4>#{filmBackingBean.currentFilm.type}</h4>
+                <br/>
+                <h:outputText value="#{filmBackingBean.currentFilm.plot}"></h:outputText>
+                <br/>
+                <p:commandButton value="Hide" onclick="PF('filmDetail').hide()"/>
+            </p:sidebar>
+        </h:form>
     </h:body>
-
 </html>

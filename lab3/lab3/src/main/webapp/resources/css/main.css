@@ -18,6 +18,10 @@ body, html {
     background-size: cover;
 }
 
+.detailButton {
+    bottom: 5;
+}
+
 .bg {
     background-color: #323232;
     padding: 20px;

@@ -47,8 +47,8 @@ public class FilmDAOTest {
     @Before
     public void init() {
         filmDAO.removeAll();
-        film1 = new Film("123", "Batman7", "1998", "Movie", "http://abc.com/img.png");
-        film2 = new Film("456", "Batman8", "1999", "Movie", "http://abc.com/img.png");
+        film1 = new Film("123", "Batman7", "1998", "Movie", "http://abc.com/img.png", 5.5, "abc");
+        film2 = new Film("456", "Batman8", "1999", "Movie", "http://abc.com/img.png", 5.5, "abc");
         filmDAO.create(film1);
     }
 

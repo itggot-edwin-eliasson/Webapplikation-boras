@@ -62,8 +62,8 @@ public class FavoritesDAOTest {
     @Before
     public void init() {
         account1 = new Account("abc123", "123", "123", new HashSet<>());
-        film1 = new Film("123", "Batman7", "1998", "Movie", "http://abc.com/img.png");
-        film2 = new Film("1234", "Batman8", "1999", "Movie", "http://abc.com/img.png");
+        film1 = new Film("123", "Batman7", "1998", "Movie", "http://abc.com/img.png", 5.5, "abc");
+        film2 = new Film("1234", "Batman8", "1999", "Movie", "http://abc.com/img.png", 5.5, "abc");
         favorite1 = new Favorites(account1, film1, 0);
         
         accountDAO.create(account1);

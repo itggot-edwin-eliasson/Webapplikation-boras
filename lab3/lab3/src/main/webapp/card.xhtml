@@ -25,17 +25,22 @@ and open the template in the editor.
                     <p:graphicImage url="#{filmBackingBean.getPosterWithPlaceholderFromFilm(filmCard)}" height="100%" width="100%"/>
                 </div>
                 <div class="card-back" style="height: 100%;">
-                    <h:outputText value="#{filmCard.title}"/>
+                    <h:outputText class="card-text-back" value="#{filmCard.title}"/>
                     <br />
                     <h:outputText value="#{filmCard.releaseYear}"/>
                     <br />
                     <h:outputText value="#{filmCard.type}"/>
                     <br />
+                    <h:outputText value="Imdb rating: #{filmCard.imdbRating}"/>
+                    <br />
                     <h:form id="form">
+                        <ui:fragment class="detailButton">
+                            <p:commandButton id="filmDetailButton" value="View Details" action="#{filmBackingBean.onShowFilmDetails(film)}"/>
+                        </ui:fragment>
                         <ui:fragment id="addFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasNotFavorited(film)}">
                             <p:commandButton update="form" class="addButton" value="Add Film" action="#{favoritesControllerBean.addFavorite(film)}"/>
                         </ui:fragment>
-                         <ui:fragment id="removeFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasFavorited(film)}">
+                        <ui:fragment id="removeFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasFavorited(film)}">
                             <p:commandButton update="form watchdata" style="background-color: #4c4c4c" class="addButton" value="Remove Film" action="#{favoritesControllerBean.removeFavorite(film)}"/> 
                         </ui:fragment>
                         <ui:fragment id="addLogin" rendered="#{!accountViewBean.loggedIn}">
@@ -47,5 +52,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+
     </h:body>
 </html>
