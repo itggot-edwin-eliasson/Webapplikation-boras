@@ -11,46 +11,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "Title",
-    "Year",
     "imdbID",
-    "Type",
     "Poster"
 })
 public class SearchObject {
 
-    @JsonProperty("Title")
-    private String Title;
-    @JsonProperty("Year")
-    private String Year;
     @JsonProperty("imdbID")
     private String imdbID;
-    @JsonProperty("Type")
-    private String Type;
     @JsonProperty("Poster")
     private String Poster;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("Title")
-    public String getTitle() {
-        return Title;
-    }
-
-    @JsonProperty("Title")
-    public void setTitle(String title) {
-        this.Title = title;
-    }
-
-    @JsonProperty("Year")
-    public String getYear() {
-        return Year;
-    }
-
-    @JsonProperty("Year")
-    public void setYear(String year) {
-        this.Year = year;
-    }
+   
 
     @JsonProperty("imdbID")
     public String getImdbID() {
@@ -60,16 +33,6 @@ public class SearchObject {
     @JsonProperty("imdbID")
     public void setImdbID(String imdbID) {
         this.imdbID = imdbID;
-    }
-
-    @JsonProperty("Type")
-    public String getType() {
-        return Type;
-    }
-
-    @JsonProperty("Type")
-    public void setType(String type) {
-        this.Type = type;
     }
 
     @JsonProperty("Poster")

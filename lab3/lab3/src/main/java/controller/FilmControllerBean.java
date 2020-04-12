@@ -53,9 +53,9 @@ public class FilmControllerBean implements Serializable {
 
         for (SearchObject s : searchResults) {
             try {
-                FilmObject filmObject  = OmdbService.getFilmObjectFromId(s.getImdbID());
-                double doubleImdbRating = Double.parseDouble(filmObject.getImdbRating());
-                Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear(), s.getType(), s.getPoster(), doubleImdbRating, filmObject.getPlot());
+                FilmObject f  = OmdbService.getFilmObjectFromId(s.getImdbID());
+                double doubleImdbRating = Double.parseDouble(f.getImdbRating());
+                Film film = new Film(s.getImdbID(), f.getTitle(), f.getYear(), f.getType(), f.getPoster(), doubleImdbRating, f.getPlot());
                 filmBackingBean.getMostRecentSearchResults().add(film);
                 filmDAO.create(film);
             } catch (Exception e) {

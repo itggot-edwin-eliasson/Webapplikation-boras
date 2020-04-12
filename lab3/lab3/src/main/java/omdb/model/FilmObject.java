@@ -25,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "Year",
     "Poster",
     "imdbRating",
-    "imdbID",
     "Type",
     "Plot"
 })
@@ -39,8 +38,6 @@ public class FilmObject {
     private String Poster;
     @JsonProperty("imdbRating")
     private String imdbRating;
-    @JsonProperty("imdbID")
-    private String imdbID;
     @JsonProperty("Type")
     private String Type;
     @JsonProperty("Plot")
@@ -86,16 +83,6 @@ public class FilmObject {
     @JsonProperty("imdbRating")
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
-    }
-
-    @JsonProperty("imdbID")
-    public String getImdbID() {
-        return imdbID;
-    }
-
-    @JsonProperty("imdbID")
-    public void setImdbID(String imdbID) {
-        this.imdbID = imdbID;
     }
 
     @JsonProperty("Type")
