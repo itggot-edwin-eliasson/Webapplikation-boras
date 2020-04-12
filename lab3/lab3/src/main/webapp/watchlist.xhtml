@@ -27,5 +27,20 @@ and open the template in the editor.
                 <ui:param name ="filmCard" value="#{film}"/>
             </ui:include>
         </p:dataGrid>
+        <h:form id="filmDetailForm">
+            <p:sidebar id="filmDetail" widgetVar="filmDetail" position="left" baseZIndex="10000">
+                <h1>#{filmBackingBean.currentFilm.title}</h1>
+                <br/>
+                <h3>#{filmBackingBean.currentFilm.releaseYear}</h3>
+                <br/>
+                <h3>Imdb: #{filmBackingBean.currentFilm.imdbRating}</h3>
+                <br/>
+                <h4>#{filmBackingBean.currentFilm.type}</h4>
+                <br/>
+                <h:outputText value="#{filmBackingBean.currentFilm.plot}"></h:outputText>
+                <br/>
+                <p:commandButton value="Hide" onclick="PF('filmDetail').hide()"/>
+            </p:sidebar>
+        </h:form>
     </h:body>
 </html>
