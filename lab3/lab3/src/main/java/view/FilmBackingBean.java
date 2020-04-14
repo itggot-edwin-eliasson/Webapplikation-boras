@@ -27,7 +27,6 @@ import org.primefaces.PrimeFaces;
 
 @Data
 @Named
-@ManagedBean
 @ViewScoped
 public class FilmBackingBean implements Serializable {
 
