@@ -20,5 +20,8 @@ public class Film implements Serializable {
     private String releaseYear;
     private String type;
     private String poster;
+    private String imdbRating;
+    private String metascore;
+    
 
 }

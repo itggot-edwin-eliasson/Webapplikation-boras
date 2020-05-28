@@ -13,31 +13,27 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "Title",
     "Year",
-    "imdbID",
-    "Type",
     "Poster",
-    "Runtime",
-    //"Ratings",
-    "imdbRating"
-})
-public class SearchObject {
+    "Metascore",
+    "imdbRating",
+    "imdbID",
+    "Type",})
+public class FilmObject {
 
     @JsonProperty("Title")
     private String Title;
     @JsonProperty("Year")
     private String Year;
+    @JsonProperty("Poster")
+    private String Poster;
+    @JsonProperty("Metascore")
+    private String Metascore;
+    @JsonProperty("imdbRating")
+    private String imdbRating;
     @JsonProperty("imdbID")
     private String imdbID;
     @JsonProperty("Type")
     private String Type;
-    @JsonProperty("Poster")
-    private String Poster;
-    @JsonProperty("Runtime")
-    private String Runtime;
-    @JsonProperty("imdbRating")
-    private String imdbRating;
-    // @JsonProperty("Ratings")
-    // private String[] Ratings;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -61,6 +57,36 @@ public class SearchObject {
         this.Year = year;
     }
 
+    @JsonProperty("Poster")
+    public String getPoster() {
+        return Poster;
+    }
+
+    @JsonProperty("Poster")
+    public void setPoster(String poster) {
+        this.Poster = poster;
+    }
+
+    @JsonProperty("Metascore")
+    public String getMetascore() {
+        return Metascore;
+    }
+
+    @JsonProperty("Metascore")
+    public void setMetascore(String metascore) {
+        this.Metascore = metascore;
+    }
+
+    @JsonProperty("imdbRating")
+    public String getImdbRating() {
+        return imdbRating;
+    }
+
+    @JsonProperty("imdbRating")
+    public void setImdbRating(String imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
     @JsonProperty("imdbID")
     public String getImdbID() {
         return imdbID;
@@ -79,26 +105,6 @@ public class SearchObject {
     @JsonProperty("Type")
     public void setType(String type) {
         this.Type = type;
-    }
-
-    @JsonProperty("Poster")
-    public String getPoster() {
-        return Poster;
-    }
-
-    @JsonProperty("Poster")
-    public void setPoster(String poster) {
-        this.Poster = poster;
-    }
-
-    @JsonProperty("imdbRating")
-    public String getImdbRating() {
-        return imdbRating;
-    }
-
-    @JsonProperty("imdbRating")
-    public void setImdbRating(String imdbRating) {
-        this.imdbRating = imdbRating;
     }
 
     @JsonAnyGetter

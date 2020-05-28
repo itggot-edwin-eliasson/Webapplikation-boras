@@ -27,9 +27,16 @@ and open the template in the editor.
                 <div class="card-back" style="height: 100%;">
                     <h:outputText value="#{filmCard.title}"/>
                     <br />
-                    <h:outputText value="#{filmCard.releaseYear}"/>
                     <br />
-                    <h:outputText value="#{filmCard.type}"/>
+                    <h:outputText value="Released: #{filmCard.releaseYear}"/>
+                    <br />
+                    <br />
+                    <h:outputText value="Type: #{filmCard.type}"/>
+                    <br />
+                    <br />
+                    <h:outputText value="IMDb Rating: #{filmCard.imdbRating}"/> 
+                    <br />
+                    <h:outputText value="Metascore: #{filmCard.metascore}"/> 
                     <br />
                     <h:form id="form">
                         <ui:fragment id="addFilm" rendered="#{favoritesBackingBean.userLoggedInAndHasNotFavorited(film)}">

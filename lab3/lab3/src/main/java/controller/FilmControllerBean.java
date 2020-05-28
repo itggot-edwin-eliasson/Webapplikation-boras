@@ -9,12 +9,15 @@ import com.edwine.model.dao.FilmDAO;
 import com.edwine.model.entity.Film;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import omdb.OmdbService;
+import omdb.model.FilmObject;
 import omdb.model.SearchObject;
 import view.FilmBackingBean;
 
@@ -51,7 +54,8 @@ public class FilmControllerBean implements Serializable {
 
         for (SearchObject s : searchResults) {
             try {
-                Film film = new Film(s.getImdbID(), s.getTitle(), s.getYear(), s.getType(), s.getPoster());
+                FilmObject filmObject = OmdbService.getFilmObjectFromId(s.getImdbID());
+                Film film = new Film(filmObject.getImdbID(), filmObject.getTitle(), filmObject.getYear(), filmObject.getType(), filmObject.getPoster(), filmObject.getImdbRating(), filmObject.getMetascore());
                 filmBackingBean.getMostRecentSearchResults().add(film);
                 filmDAO.create(film);
             } catch (Exception e) {
@@ -62,6 +66,19 @@ public class FilmControllerBean implements Serializable {
         }
 
         System.out.println("Found " + searchResults.size() + " search results!");
+        sortFilmsByImdbRating();
+    }
+
+    public void sortFilmsByImdbRating() { //TODO Fixa denna
+        List<Film> sortList = new ArrayList();
+        sortList.addAll(filmBackingBean.getMostRecentSearchResults());
+        Collections.sort(sortList, (Film f1, Film f2) -> {
+            if (f1.getImdbRating() == null ? f2.getImdbRating() == null : f1.getImdbRating().equals(f2.getImdbRating())) {
+                return 0;
+            }
+            return Double.parseDouble(f1.getImdbRating()) < Double.parseDouble(f2.getImdbRating()) ? -1 : 1;
+        });
+        filmBackingBean.setMostRecentSearchResults(sortList);
     }
 
     // Only for testing!

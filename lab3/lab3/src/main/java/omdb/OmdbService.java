@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+import omdb.model.FilmObject;
 import omdb.model.SearchObject;
 import omdb.model.SearchResult;
 
@@ -51,6 +52,7 @@ public abstract class OmdbService {
                     .asJson();
 
             Gson gson = new Gson();
+            String boooody = response.getBody().toString();
             SearchResult searchObject = gson.fromJson(response.getBody().toString(), SearchResult.class);
 
             return searchObject.getSearch().stream().filter(object -> !object.getPoster().equals("N/A")).collect(Collectors.toList());
@@ -59,5 +61,23 @@ public abstract class OmdbService {
         }
 
         return new ArrayList<SearchObject>();
+    }
+    
+    //Returns FilmObject for IMDbID, conatining all attributes of film (IMDb-rating, Metascore etc.)
+    public static FilmObject getFilmObjectFromId(String filmId) {
+        try {
+            HttpResponse<JsonNode> response = Unirest.post("http://www.omdbapi.com/?")
+                    .header("accept", "application/json")
+                    .queryString("apikey", KEY)
+                    .queryString("i", filmId)
+                    .asJson();
+
+            Gson gson = new Gson();
+            return gson.fromJson(response.getBody().toString(), FilmObject.class);
+        } catch (Exception e) {
+            System.out.println("ERROR: Could not query the API! " + e.getMessage());
+        }
+
+        return null;
     }
 }
