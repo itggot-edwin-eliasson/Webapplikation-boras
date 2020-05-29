@@ -27,6 +27,8 @@ and open the template in the editor.
         <h:form>
             <p:inputText value="#{filmBackingBean.searchString}" placeholder="Search"/>
             <p:commandButton value="Search" update="data" action="#{filmControllerBean.onSearchFilms}"/>
+            <p:commandButton value="Sort by IMDb Rating" update="data" action="#{filmControllerBean.sortFilmsByImdbRating}"/>
+            <p:commandButton value="Sort by Metascore" update="data" action="#{filmControllerBean.sortFilmsByMetascore}"/>
         </h:form>
         <p:outputLabel value="#{filmDAO.test()}"/>
         <p:outputLabel id="watchdata"/> <!-- This consumes the update-call from card.xhtml which is used 

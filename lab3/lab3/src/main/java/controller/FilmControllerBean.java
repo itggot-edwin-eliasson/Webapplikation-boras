@@ -66,18 +66,47 @@ public class FilmControllerBean implements Serializable {
         }
 
         System.out.println("Found " + searchResults.size() + " search results!");
-        sortFilmsByImdbRating();
     }
 
     public void sortFilmsByImdbRating() { //TODO Fixa denna
         List<Film> sortList = new ArrayList();
+        List<Film> noRatingList = new ArrayList(); 
         sortList.addAll(filmBackingBean.getMostRecentSearchResults());
+        for(Film f : sortList) {
+            if(f.getImdbRating().equals("N/A"))
+                noRatingList.add(f);
+        }
+        sortList.removeAll(noRatingList);
+        
         Collections.sort(sortList, (Film f1, Film f2) -> {
-            if (f1.getImdbRating() == null ? f2.getImdbRating() == null : f1.getImdbRating().equals(f2.getImdbRating())) {
-                return 0;
-            }
-            return Double.parseDouble(f1.getImdbRating()) < Double.parseDouble(f2.getImdbRating()) ? -1 : 1;
-        });
+                            if (f1.getImdbRating() == null ? f2.getImdbRating() == null : f1.getImdbRating().equals(f2.getImdbRating())) {
+                                return 0;
+                            }
+
+                            return Double.parseDouble(f1.getImdbRating()) < Double.parseDouble(f2.getImdbRating()) ? 1 : -1;
+                        });
+        sortList.addAll(noRatingList);
+        filmBackingBean.setMostRecentSearchResults(sortList);
+    }
+    
+        public void sortFilmsByMetascore() { //TODO Fixa denna
+        List<Film> sortList = new ArrayList();
+        List<Film> noRatingList = new ArrayList(); 
+        sortList.addAll(filmBackingBean.getMostRecentSearchResults());
+        for(Film f : sortList) {
+            if(f.getMetascore().equals("N/A"))
+                noRatingList.add(f);
+        }
+        sortList.removeAll(noRatingList);
+        
+        Collections.sort(sortList, (Film f1, Film f2) -> {
+                            if (f1.getMetascore() == null ? f2.getMetascore() == null : f1.getMetascore().equals(f2.getMetascore())) {
+                                return 0;
+                            }
+
+                            return Double.parseDouble(f1.getMetascore()) < Double.parseDouble(f2.getMetascore()) ? 1 : -1;
+                        });
+        sortList.addAll(noRatingList);
         filmBackingBean.setMostRecentSearchResults(sortList);
     }
 
